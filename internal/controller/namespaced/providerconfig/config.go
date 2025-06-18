@@ -17,11 +17,32 @@ import (
 // Setup adds a controller that reconciles ProviderConfigs by accounting for
 // their current usage.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
+	if err := setupClusterProviderConfig(mgr, o); err != nil {
+		return err
+	}
 	name := providerconfig.ControllerName(v1beta1.ProviderConfigGroupKind)
 
 	of := resource.ProviderConfigKinds{
 		Config:    v1beta1.ProviderConfigGroupVersionKind,
 		UsageList: v1beta1.ProviderConfigUsageListGroupVersionKind,
+	}
+
+	return ctrl.NewControllerManagedBy(mgr).
+		Named(name).
+		WithOptions(o.ForControllerRuntime()).
+		For(&v1beta1.ProviderConfig{}).
+		Watches(&v1beta1.ProviderConfigUsage{}, &resource.EnqueueRequestForProviderConfig{}).
+		Complete(providerconfig.NewReconciler(mgr, of,
+			providerconfig.WithLogger(o.Logger.WithValues("controller", name)),
+			providerconfig.WithRecorder(event.NewAPIRecorder(mgr.GetEventRecorderFor(name)))))
+}
+
+func setupClusterProviderConfig(mgr ctrl.Manager, o controller.Options) error {
+	name := providerconfig.ControllerName(v1beta1.ClusterProviderConfigGroupKind)
+
+	of := resource.ProviderConfigKinds{
+		Config:    v1beta1.ClusterProviderConfigGroupVersionKind,
+		UsageList: v1beta1.ClusterProviderConfigUsageListGroupVersionKind,
 	}
 
 	return ctrl.NewControllerManagedBy(mgr).
