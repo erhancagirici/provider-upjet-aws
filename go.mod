@@ -4,13 +4,7 @@
 
 module github.com/upbound/provider-aws
 
-go 1.23.8
-
-replace github.com/crossplane/upjet => ../../crossplane/upjet
-
-replace github.com/crossplane/crossplane-runtime => ../../crossplane/crossplane-runtime
-
-replace github.com/crossplane/crossplane-tools => ../../crossplane/crossplane-tools
+go 1.23.6
 
 require (
 	dario.cat/mergo v1.0.1
@@ -24,7 +18,7 @@ require (
 	github.com/aws/smithy-go v1.22.1
 	github.com/crossplane/crossplane-runtime v1.21.0-rc.0.0.20250609201944-2b288ff362cb
 	github.com/crossplane/crossplane-tools v0.0.0-20250603090330-889cfb100517
-	github.com/crossplane/upjet v1.5.1
+	github.com/crossplane/upjet v1.9.1-0.20250605111955-4410cba501c1
 	github.com/go-ini/ini v1.46.0
 	github.com/google/go-cmp v0.7.0
 	github.com/hashicorp/aws-sdk-go-base/v2 v2.0.0-beta.59
@@ -50,6 +44,7 @@ require (
 	github.com/YakDriver/go-version v0.1.0 // indirect
 	github.com/YakDriver/regexache v0.24.0 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
+	github.com/alecthomas/kingpin/v2 v2.4.0 // indirect
 	github.com/alecthomas/template v0.0.0-20190718012654-fb15b899a751 // indirect
 	github.com/alecthomas/units v0.0.0-20240927000941-0f3dac36c52b // indirect
 	github.com/antchfx/htmlquery v1.2.4 // indirect
