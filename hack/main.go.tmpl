@@ -274,7 +274,8 @@ func main() {
 	}
 
 	if *enableChangeLogs {
-		o.Features.Enable(feature.EnableAlphaChangeLogs)
+		clusterOptions.Features.Enable(feature.EnableAlphaChangeLogs)
+		namespacedOptions.Features.Enable(feature.EnableAlphaChangeLogs)
 		logr.Info("Alpha feature enabled", "flag", feature.EnableAlphaChangeLogs)
 
 		conn, err := grpc.NewClient("unix://"+*changelogsSocketPath, grpc.WithTransportCredentials(insecure.NewCredentials()))
@@ -285,7 +286,8 @@ func main() {
 				changelogsv1alpha1.NewChangeLogServiceClient(conn),
 				managed.WithProviderVersion(fmt.Sprintf("provider-upjet-aws:%s", version.Version))),
 		}
-		o.ChangeLogOptions = &clo
+		clusterOptions.ChangeLogOptions = &clo
+		namespacedOptions.ChangeLogOptions = &clo
 	}
 
 	kingpin.FatalIfError(conversion.RegisterConversions(clusterOptions.Provider, namespacedOptions.Provider, mgr.GetScheme()), "Cannot initialize the webhook conversion registry")
