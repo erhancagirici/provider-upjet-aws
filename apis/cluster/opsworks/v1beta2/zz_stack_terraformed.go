@@ -21,7 +21,7 @@ func (mg *Stack) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Stack
 func (tr *Stack) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"custom_cookbooks_source[*].password": "customCookbooksSource[*].passwordSecretRef", "custom_cookbooks_source[*].ssh_key": "customCookbooksSource[*].sshKeySecretRef"}
+	return map[string]string{"custom_cookbooks_source[*].password": "customCookbooksSource.passwordSecretRef", "custom_cookbooks_source[*].ssh_key": "customCookbooksSource.sshKeySecretRef"}
 }
 
 // GetObservation of this Stack
