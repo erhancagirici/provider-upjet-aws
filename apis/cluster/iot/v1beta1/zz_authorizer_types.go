@@ -16,7 +16,7 @@ import (
 type AuthorizerInitParameters struct {
 
 	// The ARN of the authorizer's Lambda function.
-	// +crossplane:generate:reference:type=github.com/upbound/provider-aws/apis/lambda/v1beta2.Function
+	// +crossplane:generate:reference:type=github.com/upbound/provider-aws/apis/cluster/lambda/v1beta2.Function
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("arn",true)
 	AuthorizerFunctionArn *string `json:"authorizerFunctionArn,omitempty" tf:"authorizer_function_arn,omitempty"`
 
@@ -81,7 +81,7 @@ type AuthorizerObservation struct {
 type AuthorizerParameters struct {
 
 	// The ARN of the authorizer's Lambda function.
-	// +crossplane:generate:reference:type=github.com/upbound/provider-aws/apis/lambda/v1beta2.Function
+	// +crossplane:generate:reference:type=github.com/upbound/provider-aws/apis/cluster/lambda/v1beta2.Function
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("arn",true)
 	// +kubebuilder:validation:Optional
 	AuthorizerFunctionArn *string `json:"authorizerFunctionArn,omitempty" tf:"authorizer_function_arn,omitempty"`

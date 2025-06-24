@@ -38,12 +38,12 @@ import (
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	"sigs.k8s.io/controller-runtime/pkg/webhook"
 
-	"github.com/upbound/provider-aws/apis"
-	"github.com/upbound/provider-aws/apis/v1alpha1"
-	"github.com/upbound/provider-aws/config"
+	"github.com/upbound/provider-aws/apis/cluster"
+	"github.com/upbound/provider-aws/apis/cluster/v1alpha1"
+	"github.com/upbound/provider-aws/config/cluster"
 	resolverapis "github.com/upbound/provider-aws/internal/apis"
 	"github.com/upbound/provider-aws/internal/clients"
-	"github.com/upbound/provider-aws/internal/controller"
+	"github.com/upbound/provider-aws/internal/controller/cluster"
 	"github.com/upbound/provider-aws/internal/features"
 	"github.com/upbound/provider-aws/internal/version"
 )

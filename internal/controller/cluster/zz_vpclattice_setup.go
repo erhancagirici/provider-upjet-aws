@@ -9,7 +9,7 @@ import (
 
 	"github.com/crossplane/upjet/pkg/controller"
 
-	service "github.com/upbound/provider-aws/internal/controller/vpclattice/service"
+	service "github.com/upbound/provider-aws/internal/controller/cluster/vpclattice/service"
 )
 
 // Setup_vpclattice creates all controllers with the supplied logger and adds them to

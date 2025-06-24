@@ -51,7 +51,7 @@ type DomainConfigurationInitParameters struct {
 	DomainName *string `json:"domainName,omitempty" tf:"domain_name,omitempty"`
 
 	// The ARNs of the certificates that IoT passes to the device during the TLS handshake. Currently you can specify only one certificate ARN. This value is not required for Amazon Web Services-managed domains. When using a custom domain_name, the cert must include it.
-	// +crossplane:generate:reference:type=github.com/upbound/provider-aws/apis/acm/v1beta2.Certificate
+	// +crossplane:generate:reference:type=github.com/upbound/provider-aws/apis/cluster/acm/v1beta2.Certificate
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("arn",true)
 	// +listType=set
 	ServerCertificateArns []*string `json:"serverCertificateArns,omitempty" tf:"server_certificate_arns,omitempty"`
@@ -139,7 +139,7 @@ type DomainConfigurationParameters struct {
 	Region *string `json:"region" tf:"-"`
 
 	// The ARNs of the certificates that IoT passes to the device during the TLS handshake. Currently you can specify only one certificate ARN. This value is not required for Amazon Web Services-managed domains. When using a custom domain_name, the cert must include it.
-	// +crossplane:generate:reference:type=github.com/upbound/provider-aws/apis/acm/v1beta2.Certificate
+	// +crossplane:generate:reference:type=github.com/upbound/provider-aws/apis/cluster/acm/v1beta2.Certificate
 	// +crossplane:generate:reference:extractor=github.com/crossplane/upjet/pkg/resource.ExtractParamPath("arn",true)
 	// +kubebuilder:validation:Optional
 	// +listType=set
