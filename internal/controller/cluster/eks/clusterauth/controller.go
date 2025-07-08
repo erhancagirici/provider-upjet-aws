@@ -12,7 +12,6 @@ import (
 	"github.com/aws/aws-sdk-go-v2/service/eks"
 	"github.com/aws/aws-sdk-go-v2/service/sts"
 	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
-	"github.com/crossplane/crossplane-runtime/pkg/connection"
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/meta"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/managed"
@@ -26,9 +25,7 @@ import (
 	ujresource "github.com/crossplane/upjet/pkg/resource"
 
 	"github.com/upbound/provider-aws/apis/cluster/eks/v1beta1"
-	"github.com/upbound/provider-aws/apis/cluster/v1alpha1"
 	"github.com/upbound/provider-aws/internal/clients"
-	"github.com/upbound/provider-aws/internal/features"
 )
 
 const (
@@ -45,9 +42,6 @@ func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
 	name := managed.ControllerName(v1beta1.ClusterAuth_GroupKind)
 
 	cps := []managed.ConnectionPublisher{managed.NewAPISecretPublisher(mgr.GetClient(), mgr.GetScheme())}
-	if o.Features.Enabled(features.EnableAlphaExternalSecretStores) {
-		cps = append(cps, connection.NewDetailsManager(mgr.GetClient(), v1alpha1.StoreConfigGroupVersionKind))
-	}
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
