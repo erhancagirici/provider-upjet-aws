@@ -24,6 +24,7 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 
 	of := resource.ProviderConfigKinds{
 		Config:    v1beta1.ProviderConfigGroupVersionKind,
+		Usage:     v1beta1.ProviderConfigUsageGroupVersionKind,
 		UsageList: v1beta1.ProviderConfigUsageListGroupVersionKind,
 	}
 
@@ -42,13 +43,14 @@ func setupClusterProviderConfig(mgr ctrl.Manager, o controller.Options) error {
 
 	of := resource.ProviderConfigKinds{
 		Config:    v1beta1.ClusterProviderConfigGroupVersionKind,
-		UsageList: v1beta1.ClusterProviderConfigUsageListGroupVersionKind,
+		Usage:     v1beta1.ProviderConfigUsageGroupVersionKind,
+		UsageList: v1beta1.ProviderConfigUsageListGroupVersionKind,
 	}
 
 	return ctrl.NewControllerManagedBy(mgr).
 		Named(name).
 		WithOptions(o.ForControllerRuntime()).
-		For(&v1beta1.ProviderConfig{}).
+		For(&v1beta1.ClusterProviderConfig{}).
 		Watches(&v1beta1.ProviderConfigUsage{}, &resource.EnqueueRequestForProviderConfig{}).
 		Complete(providerconfig.NewReconciler(mgr, of,
 			providerconfig.WithLogger(o.Logger.WithValues("controller", name)),
