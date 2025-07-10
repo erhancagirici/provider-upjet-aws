@@ -21,7 +21,7 @@ func (mg *Domain) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Domain
 func (tr *Domain) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"advanced_security_options[*].master_user_options[*].master_user_password": "advancedSecurityOptions[*].masterUserOptions[*].masterUserPasswordSecretRef"}
+	return map[string]string{"advanced_security_options[*].master_user_options[*].master_user_password": "advancedSecurityOptions.masterUserOptions.masterUserPasswordSecretRef"}
 }
 
 // GetObservation of this Domain
@@ -84,7 +84,7 @@ func (tr *Domain) GetInitParameters() (map[string]any, error) {
 func (tr *Domain) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 	if !shouldMergeInitProvider {
 		return params, nil
@@ -92,7 +92,7 @@ func (tr *Domain) GetMergedParameters(shouldMergeInitProvider bool) (map[string]
 
 	initParams, err := tr.GetInitParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get init parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	// Note(lsviben): mergo.WithSliceDeepCopy is needed to merge the
@@ -104,7 +104,7 @@ func (tr *Domain) GetMergedParameters(shouldMergeInitProvider bool) (map[string]
 		c.Overwrite = false
 	})
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	return params, nil

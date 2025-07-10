@@ -35,6 +35,7 @@ func (mg *HealthCheck) ResolveReferences( // ResolveReferences of this HealthChe
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.ChildHealthchecks),
 			Extract:       resource.ExtractResourceID(),
+			Namespace:     mg.GetNamespace(),
 			References:    mg.Spec.ForProvider.ChildHealthchecksRefs,
 			Selector:      mg.Spec.ForProvider.ChildHealthchecksSelector,
 			To:            reference.To{List: l, Managed: m},
@@ -54,6 +55,7 @@ func (mg *HealthCheck) ResolveReferences( // ResolveReferences of this HealthChe
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.CloudwatchAlarmName),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.CloudwatchAlarmNameRef,
 			Selector:     mg.Spec.ForProvider.CloudwatchAlarmNameSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -73,6 +75,7 @@ func (mg *HealthCheck) ResolveReferences( // ResolveReferences of this HealthChe
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 			CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.ChildHealthchecks),
 			Extract:       resource.ExtractResourceID(),
+			Namespace:     mg.GetNamespace(),
 			References:    mg.Spec.InitProvider.ChildHealthchecksRefs,
 			Selector:      mg.Spec.InitProvider.ChildHealthchecksSelector,
 			To:            reference.To{List: l, Managed: m},
@@ -92,6 +95,7 @@ func (mg *HealthCheck) ResolveReferences( // ResolveReferences of this HealthChe
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.CloudwatchAlarmName),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.CloudwatchAlarmNameRef,
 			Selector:     mg.Spec.InitProvider.CloudwatchAlarmNameSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -123,6 +127,7 @@ func (mg *HostedZoneDNSSEC) ResolveReferences(ctx context.Context, c client.Read
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.HostedZoneID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.HostedZoneIDRef,
 			Selector:     mg.Spec.ForProvider.HostedZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -142,6 +147,7 @@ func (mg *HostedZoneDNSSEC) ResolveReferences(ctx context.Context, c client.Read
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.HostedZoneID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.HostedZoneIDRef,
 			Selector:     mg.Spec.InitProvider.HostedZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -173,6 +179,7 @@ func (mg *QueryLog) ResolveReferences(ctx context.Context, c client.Reader) erro
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.CloudwatchLogGroupArn),
 			Extract:      resource.ExtractParamPath("arn", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.CloudwatchLogGroupArnRef,
 			Selector:     mg.Spec.ForProvider.CloudwatchLogGroupArnSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -192,6 +199,7 @@ func (mg *QueryLog) ResolveReferences(ctx context.Context, c client.Reader) erro
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ZoneID),
 			Extract:      resource.ExtractParamPath("zone_id", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ZoneIDRef,
 			Selector:     mg.Spec.ForProvider.ZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -211,6 +219,7 @@ func (mg *QueryLog) ResolveReferences(ctx context.Context, c client.Reader) erro
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.CloudwatchLogGroupArn),
 			Extract:      resource.ExtractParamPath("arn", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.CloudwatchLogGroupArnRef,
 			Selector:     mg.Spec.InitProvider.CloudwatchLogGroupArnSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -230,6 +239,7 @@ func (mg *QueryLog) ResolveReferences(ctx context.Context, c client.Reader) erro
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ZoneID),
 			Extract:      resource.ExtractParamPath("zone_id", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ZoneIDRef,
 			Selector:     mg.Spec.InitProvider.ZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -262,6 +272,7 @@ func (mg *Record) ResolveReferences(ctx context.Context, c client.Reader) error 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.HealthCheckID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.HealthCheckIDRef,
 			Selector:     mg.Spec.ForProvider.HealthCheckIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -281,6 +292,7 @@ func (mg *Record) ResolveReferences(ctx context.Context, c client.Reader) error 
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 			CurrentValues: reference.FromPtrValues(mg.Spec.ForProvider.Records),
 			Extract:       resource.ExtractParamPath("public_ip", true),
+			Namespace:     mg.GetNamespace(),
 			References:    mg.Spec.ForProvider.RecordsRefs,
 			Selector:      mg.Spec.ForProvider.RecordsSelector,
 			To:            reference.To{List: l, Managed: m},
@@ -300,6 +312,7 @@ func (mg *Record) ResolveReferences(ctx context.Context, c client.Reader) error 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ZoneID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ZoneIDRef,
 			Selector:     mg.Spec.ForProvider.ZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -319,6 +332,7 @@ func (mg *Record) ResolveReferences(ctx context.Context, c client.Reader) error 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.HealthCheckID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.HealthCheckIDRef,
 			Selector:     mg.Spec.InitProvider.HealthCheckIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -338,6 +352,7 @@ func (mg *Record) ResolveReferences(ctx context.Context, c client.Reader) error 
 		mrsp, err = r.ResolveMultiple(ctx, reference.MultiResolutionRequest{
 			CurrentValues: reference.FromPtrValues(mg.Spec.InitProvider.Records),
 			Extract:       resource.ExtractParamPath("public_ip", true),
+			Namespace:     mg.GetNamespace(),
 			References:    mg.Spec.InitProvider.RecordsRefs,
 			Selector:      mg.Spec.InitProvider.RecordsSelector,
 			To:            reference.To{List: l, Managed: m},
@@ -357,6 +372,7 @@ func (mg *Record) ResolveReferences(ctx context.Context, c client.Reader) error 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ZoneID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ZoneIDRef,
 			Selector:     mg.Spec.InitProvider.ZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -388,6 +404,7 @@ func (mg *ResolverConfig) ResolveReferences(ctx context.Context, c client.Reader
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ResourceID),
 			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ResourceIDRef,
 			Selector:     mg.Spec.ForProvider.ResourceIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -407,6 +424,7 @@ func (mg *ResolverConfig) ResolveReferences(ctx context.Context, c client.Reader
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ResourceID),
 			Extract:      resource.ExtractResourceID(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ResourceIDRef,
 			Selector:     mg.Spec.InitProvider.ResourceIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -438,6 +456,7 @@ func (mg *TrafficPolicyInstance) ResolveReferences(ctx context.Context, c client
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.HostedZoneID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.HostedZoneIDRef,
 			Selector:     mg.Spec.ForProvider.HostedZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -457,6 +476,7 @@ func (mg *TrafficPolicyInstance) ResolveReferences(ctx context.Context, c client
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.TrafficPolicyID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.TrafficPolicyIDRef,
 			Selector:     mg.Spec.ForProvider.TrafficPolicyIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -476,6 +496,7 @@ func (mg *TrafficPolicyInstance) ResolveReferences(ctx context.Context, c client
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.HostedZoneID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.HostedZoneIDRef,
 			Selector:     mg.Spec.InitProvider.HostedZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -495,6 +516,7 @@ func (mg *TrafficPolicyInstance) ResolveReferences(ctx context.Context, c client
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.TrafficPolicyID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.TrafficPolicyIDRef,
 			Selector:     mg.Spec.InitProvider.TrafficPolicyIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -526,6 +548,7 @@ func (mg *VPCAssociationAuthorization) ResolveReferences(ctx context.Context, c 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.VPCIDRef,
 			Selector:     mg.Spec.ForProvider.VPCIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -545,6 +568,7 @@ func (mg *VPCAssociationAuthorization) ResolveReferences(ctx context.Context, c 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ZoneID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ZoneIDRef,
 			Selector:     mg.Spec.ForProvider.ZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -564,6 +588,7 @@ func (mg *VPCAssociationAuthorization) ResolveReferences(ctx context.Context, c 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.VPCIDRef,
 			Selector:     mg.Spec.InitProvider.VPCIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -583,6 +608,7 @@ func (mg *VPCAssociationAuthorization) ResolveReferences(ctx context.Context, c 
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ZoneID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ZoneIDRef,
 			Selector:     mg.Spec.InitProvider.ZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -614,6 +640,7 @@ func (mg *Zone) ResolveReferences(ctx context.Context, c client.Reader) error {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.DelegationSetID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.DelegationSetIDRef,
 			Selector:     mg.Spec.ForProvider.DelegationSetIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -634,6 +661,7 @@ func (mg *Zone) ResolveReferences(ctx context.Context, c client.Reader) error {
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 				CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPC[i3].VPCID),
 				Extract:      resource.ExtractResourceID(),
+				Namespace:    mg.GetNamespace(),
 				Reference:    mg.Spec.ForProvider.VPC[i3].VPCIDRef,
 				Selector:     mg.Spec.ForProvider.VPC[i3].VPCIDSelector,
 				To:           reference.To{List: l, Managed: m},
@@ -654,6 +682,7 @@ func (mg *Zone) ResolveReferences(ctx context.Context, c client.Reader) error {
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.DelegationSetID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.DelegationSetIDRef,
 			Selector:     mg.Spec.InitProvider.DelegationSetIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -674,6 +703,7 @@ func (mg *Zone) ResolveReferences(ctx context.Context, c client.Reader) error {
 			rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 				CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPC[i3].VPCID),
 				Extract:      resource.ExtractResourceID(),
+				Namespace:    mg.GetNamespace(),
 				Reference:    mg.Spec.InitProvider.VPC[i3].VPCIDRef,
 				Selector:     mg.Spec.InitProvider.VPC[i3].VPCIDSelector,
 				To:           reference.To{List: l, Managed: m},
@@ -707,6 +737,7 @@ func (mg *ZoneAssociation) ResolveReferences(ctx context.Context, c client.Reade
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.VPCID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.VPCIDRef,
 			Selector:     mg.Spec.ForProvider.VPCIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -726,6 +757,7 @@ func (mg *ZoneAssociation) ResolveReferences(ctx context.Context, c client.Reade
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.ZoneID),
 			Extract:      resource.ExtractParamPath("zone_id", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.ForProvider.ZoneIDRef,
 			Selector:     mg.Spec.ForProvider.ZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -745,6 +777,7 @@ func (mg *ZoneAssociation) ResolveReferences(ctx context.Context, c client.Reade
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.VPCID),
 			Extract:      reference.ExternalName(),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.VPCIDRef,
 			Selector:     mg.Spec.InitProvider.VPCIDSelector,
 			To:           reference.To{List: l, Managed: m},
@@ -764,6 +797,7 @@ func (mg *ZoneAssociation) ResolveReferences(ctx context.Context, c client.Reade
 		rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 			CurrentValue: reference.FromPtrValue(mg.Spec.InitProvider.ZoneID),
 			Extract:      resource.ExtractParamPath("zone_id", true),
+			Namespace:    mg.GetNamespace(),
 			Reference:    mg.Spec.InitProvider.ZoneIDRef,
 			Selector:     mg.Spec.InitProvider.ZoneIDSelector,
 			To:           reference.To{List: l, Managed: m},

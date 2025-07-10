@@ -21,7 +21,7 @@ func (mg *OntapStorageVirtualMachine) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this OntapStorageVirtualMachine
 func (tr *OntapStorageVirtualMachine) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"active_directory_configuration[*].self_managed_active_directory_configuration[*].password": "activeDirectoryConfiguration[*].selfManagedActiveDirectoryConfiguration[*].passwordSecretRef", "svm_admin_password": "svmAdminPasswordSecretRef"}
+	return map[string]string{"active_directory_configuration[*].self_managed_active_directory_configuration[*].password": "activeDirectoryConfiguration.selfManagedActiveDirectoryConfiguration.passwordSecretRef", "svm_admin_password": "svmAdminPasswordSecretRef"}
 }
 
 // GetObservation of this OntapStorageVirtualMachine
@@ -84,7 +84,7 @@ func (tr *OntapStorageVirtualMachine) GetInitParameters() (map[string]any, error
 func (tr *OntapStorageVirtualMachine) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 	if !shouldMergeInitProvider {
 		return params, nil
@@ -92,7 +92,7 @@ func (tr *OntapStorageVirtualMachine) GetMergedParameters(shouldMergeInitProvide
 
 	initParams, err := tr.GetInitParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get init parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	// Note(lsviben): mergo.WithSliceDeepCopy is needed to merge the
@@ -104,7 +104,7 @@ func (tr *OntapStorageVirtualMachine) GetMergedParameters(shouldMergeInitProvide
 		c.Overwrite = false
 	})
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	return params, nil

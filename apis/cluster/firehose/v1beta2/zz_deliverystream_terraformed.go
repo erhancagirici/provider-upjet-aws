@@ -21,7 +21,7 @@ func (mg *DeliveryStream) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this DeliveryStream
 func (tr *DeliveryStream) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"http_endpoint_configuration[*].access_key": "httpEndpointConfiguration[*].accessKeySecretRef", "redshift_configuration[*].password": "redshiftConfiguration[*].passwordSecretRef", "snowflake_configuration[*].key_passphrase": "snowflakeConfiguration[*].keyPassphraseSecretRef", "snowflake_configuration[*].private_key": "snowflakeConfiguration[*].privateKeySecretRef", "splunk_configuration[*].hec_token": "splunkConfiguration[*].hecTokenSecretRef"}
+	return map[string]string{"http_endpoint_configuration[*].access_key": "httpEndpointConfiguration.accessKeySecretRef", "redshift_configuration[*].password": "redshiftConfiguration.passwordSecretRef", "snowflake_configuration[*].key_passphrase": "snowflakeConfiguration.keyPassphraseSecretRef", "snowflake_configuration[*].private_key": "snowflakeConfiguration.privateKeySecretRef", "splunk_configuration[*].hec_token": "splunkConfiguration.hecTokenSecretRef"}
 }
 
 // GetObservation of this DeliveryStream
@@ -84,7 +84,7 @@ func (tr *DeliveryStream) GetInitParameters() (map[string]any, error) {
 func (tr *DeliveryStream) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 	if !shouldMergeInitProvider {
 		return params, nil
@@ -92,7 +92,7 @@ func (tr *DeliveryStream) GetMergedParameters(shouldMergeInitProvider bool) (map
 
 	initParams, err := tr.GetInitParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get init parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	// Note(lsviben): mergo.WithSliceDeepCopy is needed to merge the
@@ -104,7 +104,7 @@ func (tr *DeliveryStream) GetMergedParameters(shouldMergeInitProvider bool) (map
 		c.Overwrite = false
 	})
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	return params, nil

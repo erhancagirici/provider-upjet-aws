@@ -21,7 +21,7 @@ func (mg *Connection) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Connection
 func (tr *Connection) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"auth_parameters[*].api_key[*].value": "authParameters[*].apiKey[*].valueSecretRef", "auth_parameters[*].basic[*].password": "authParameters[*].basic[*].passwordSecretRef", "auth_parameters[*].invocation_http_parameters[*].body[*].value": "authParameters[*].invocationHttpParameters[*].body[*].valueSecretRef", "auth_parameters[*].invocation_http_parameters[*].header[*].value": "authParameters[*].invocationHttpParameters[*].header[*].valueSecretRef", "auth_parameters[*].invocation_http_parameters[*].query_string[*].value": "authParameters[*].invocationHttpParameters[*].queryString[*].valueSecretRef", "auth_parameters[*].oauth[*].client_parameters[*].client_secret": "authParameters[*].oauth[*].clientParameters[*].clientSecretSecretRef", "auth_parameters[*].oauth[*].oauth_http_parameters[*].body[*].value": "authParameters[*].oauth[*].oauthHttpParameters[*].body[*].valueSecretRef", "auth_parameters[*].oauth[*].oauth_http_parameters[*].header[*].value": "authParameters[*].oauth[*].oauthHttpParameters[*].header[*].valueSecretRef", "auth_parameters[*].oauth[*].oauth_http_parameters[*].query_string[*].value": "authParameters[*].oauth[*].oauthHttpParameters[*].queryString[*].valueSecretRef"}
+	return map[string]string{"auth_parameters[*].api_key[*].value": "authParameters.apiKey.valueSecretRef", "auth_parameters[*].basic[*].password": "authParameters.basic.passwordSecretRef", "auth_parameters[*].invocation_http_parameters[*].body[*].value": "authParameters.invocationHttpParameters.body[*].valueSecretRef", "auth_parameters[*].invocation_http_parameters[*].header[*].value": "authParameters.invocationHttpParameters.header[*].valueSecretRef", "auth_parameters[*].invocation_http_parameters[*].query_string[*].value": "authParameters.invocationHttpParameters.queryString[*].valueSecretRef", "auth_parameters[*].oauth[*].client_parameters[*].client_secret": "authParameters.oauth.clientParameters.clientSecretSecretRef", "auth_parameters[*].oauth[*].oauth_http_parameters[*].body[*].value": "authParameters.oauth.oauthHttpParameters.body[*].valueSecretRef", "auth_parameters[*].oauth[*].oauth_http_parameters[*].header[*].value": "authParameters.oauth.oauthHttpParameters.header[*].valueSecretRef", "auth_parameters[*].oauth[*].oauth_http_parameters[*].query_string[*].value": "authParameters.oauth.oauthHttpParameters.queryString[*].valueSecretRef"}
 }
 
 // GetObservation of this Connection
@@ -84,7 +84,7 @@ func (tr *Connection) GetInitParameters() (map[string]any, error) {
 func (tr *Connection) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 	if !shouldMergeInitProvider {
 		return params, nil
@@ -92,7 +92,7 @@ func (tr *Connection) GetMergedParameters(shouldMergeInitProvider bool) (map[str
 
 	initParams, err := tr.GetInitParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get init parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	// Note(lsviben): mergo.WithSliceDeepCopy is needed to merge the
@@ -104,7 +104,7 @@ func (tr *Connection) GetMergedParameters(shouldMergeInitProvider bool) (map[str
 		c.Overwrite = false
 	})
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	return params, nil

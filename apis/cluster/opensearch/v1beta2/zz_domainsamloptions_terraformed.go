@@ -21,7 +21,7 @@ func (mg *DomainSAMLOptions) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this DomainSAMLOptions
 func (tr *DomainSAMLOptions) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"saml_options[*].master_user_name": "samlOptions[*].masterUserNameSecretRef"}
+	return map[string]string{"saml_options[*].master_user_name": "samlOptions.masterUserNameSecretRef"}
 }
 
 // GetObservation of this DomainSAMLOptions
@@ -84,7 +84,7 @@ func (tr *DomainSAMLOptions) GetInitParameters() (map[string]any, error) {
 func (tr *DomainSAMLOptions) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 	if !shouldMergeInitProvider {
 		return params, nil
@@ -92,7 +92,7 @@ func (tr *DomainSAMLOptions) GetMergedParameters(shouldMergeInitProvider bool) (
 
 	initParams, err := tr.GetInitParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get init parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	// Note(lsviben): mergo.WithSliceDeepCopy is needed to merge the
@@ -104,7 +104,7 @@ func (tr *DomainSAMLOptions) GetMergedParameters(shouldMergeInitProvider bool) (
 		c.Overwrite = false
 	})
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	return params, nil

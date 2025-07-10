@@ -21,7 +21,7 @@ func (mg *Endpoint) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this Endpoint
 func (tr *Endpoint) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"kafka_settings[*].sasl_password": "kafkaSettings[*].saslPasswordSecretRef", "kafka_settings[*].ssl_client_key_password": "kafkaSettings[*].sslClientKeyPasswordSecretRef", "password": "passwordSecretRef", "redis_settings[*].auth_password": "redisSettings[*].authPasswordSecretRef"}
+	return map[string]string{"kafka_settings[*].sasl_password": "kafkaSettings.saslPasswordSecretRef", "kafka_settings[*].ssl_client_key_password": "kafkaSettings.sslClientKeyPasswordSecretRef", "password": "passwordSecretRef", "redis_settings[*].auth_password": "redisSettings.authPasswordSecretRef"}
 }
 
 // GetObservation of this Endpoint
@@ -84,7 +84,7 @@ func (tr *Endpoint) GetInitParameters() (map[string]any, error) {
 func (tr *Endpoint) GetMergedParameters(shouldMergeInitProvider bool) (map[string]any, error) {
 	params, err := tr.GetParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 	if !shouldMergeInitProvider {
 		return params, nil
@@ -92,7 +92,7 @@ func (tr *Endpoint) GetMergedParameters(shouldMergeInitProvider bool) (map[strin
 
 	initParams, err := tr.GetInitParameters()
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot get init parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot get init parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	// Note(lsviben): mergo.WithSliceDeepCopy is needed to merge the
@@ -104,7 +104,7 @@ func (tr *Endpoint) GetMergedParameters(shouldMergeInitProvider bool) (map[strin
 		c.Overwrite = false
 	})
 	if err != nil {
-		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource '%q'", tr.GetName())
+		return nil, errors.Wrapf(err, "cannot merge spec.initProvider and spec.forProvider parameters for resource \"%s/%s\"", tr.GetNamespace(), tr.GetName())
 	}
 
 	return params, nil
