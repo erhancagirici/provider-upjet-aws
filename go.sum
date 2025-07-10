@@ -588,6 +588,12 @@ github.com/emicklei/go-restful/v3 v3.12.1 h1:PJMDIM/ak7btuL8Ex0iYET9hxM3CI2sjZtz
 github.com/emicklei/go-restful/v3 v3.12.1/go.mod h1:6n3XBCmQQb25CM2LCACGz8ukIrRry+4bhvbpWn3mrbc=
 github.com/emirpasic/gods v1.18.1 h1:FXtiHYKDGKCW2KzwZKx0iC0PQmdlorYgdFG9jPXJ1Bc=
 github.com/emirpasic/gods v1.18.1/go.mod h1:8tpGGwCnJ5H4r6BWwaV6OrWmMoPhUl5jm/FMNAnJvWQ=
+github.com/erhancagirici/crossplane-runtime v0.0.0-20250709142654-998b18a399d2 h1:NSvl23lmw4bwbZM8ur/qpD+dcBITfIbHsOA/CI6jH6Y=
+github.com/erhancagirici/crossplane-runtime v0.0.0-20250709142654-998b18a399d2/go.mod h1:Q2RWQocAsv/2/QF6dYxFyW2XKf9zixqlAG02Fujndag=
+github.com/erhancagirici/crossplane-tools v0.0.0-20250708081606-c62c0d527ca1 h1:g1zhfrTW6S3pGHkGUYy7km6TNbVqcH0iCBrRF7xY6Vk=
+github.com/erhancagirici/crossplane-tools v0.0.0-20250708081606-c62c0d527ca1/go.mod h1:8etxwmP4cZwJDwen4+PQlnc1tggltAhEfyyigmdHulQ=
+github.com/erhancagirici/upjet v0.0.0-20250709142839-5347b06d57b2 h1:Fn+w7IX/vOJKbcFKQxzf9gspwW/pfrgkGPeWeLbScvw=
+github.com/erhancagirici/upjet v0.0.0-20250709142839-5347b06d57b2/go.mod h1:nd1lpK6tijmuuF2fDKyIf2CNribsyJKx12I1OoiF2Ss=
 github.com/evanphx/json-patch v5.9.11+incompatible h1:ixHHqfcGvxhWkniF1tWxBHA0yb4Z+d1UQi45df52xW8=
 github.com/evanphx/json-patch v5.9.11+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
 github.com/evanphx/json-patch/v5 v5.9.0 h1:kcBlZQbplgElYIlo/n1hJbls2z/1awpXxpRi0/FOJfg=

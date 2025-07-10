@@ -9,9 +9,9 @@ go 1.24.0
 toolchain go1.24.5
 
 replace (
-	github.com/crossplane/crossplane-runtime => ../../crossplane/crossplane-runtime
-	github.com/crossplane/crossplane-tools => ../../crossplane/crossplane-tools
-	github.com/crossplane/upjet => ../../crossplane/upjet
+	github.com/crossplane/crossplane-runtime => github.com/erhancagirici/crossplane-runtime v0.0.0-20250709142654-998b18a399d2
+	github.com/crossplane/crossplane-tools => github.com/erhancagirici/crossplane-tools v0.0.0-20250708081606-c62c0d527ca1
+	github.com/crossplane/upjet => github.com/erhancagirici/upjet v0.0.0-20250709142839-5347b06d57b2
 )
 
 require (
