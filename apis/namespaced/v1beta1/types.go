@@ -6,6 +6,7 @@ package v1beta1
 
 import (
 	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
+	xpv2 "github.com/crossplane/crossplane-runtime/apis/common/v2"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -308,7 +309,7 @@ type ProviderConfigUsage struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	xpv1.ProviderConfigUsage `json:",inline"`
+	xpv2.TypedProviderConfigUsage `json:",inline"`
 }
 
 // +kubebuilder:object:root=true
