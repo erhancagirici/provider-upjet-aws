@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: CC0-1.0
 
-package cluster
+package config
 
 import (
 	"context"
