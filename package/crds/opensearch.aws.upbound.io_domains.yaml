@@ -2352,6 +2352,29 @@ spec:
                             type: object
                         type: object
                     type: object
+                  aimlOptions:
+                    description: Configuration block for parameters required to enable
+                      all machine learning features. Detailed below.
+                    properties:
+                      naturalLanguageQueryGenerationOptions:
+                        description: Configuration block for parameters required for
+                          natural language query generation on the specified domain.
+                        properties:
+                          desiredState:
+                            description: The desired state of the natural language
+                              query generation feature. Valid values are ENABLED and
+                              DISABLED.
+                            type: string
+                        type: object
+                      s3VectorsEngine:
+                        description: Configuration block for parameters required to
+                          enable S3 vectors engine features on the specified domain.
+                        properties:
+                          enabled:
+                            description: Enables S3 vectors engine features.
+                            type: boolean
+                        type: object
+                    type: object
                   autoTuneOptions:
                     description: Configuration block for the Auto-Tune options of
                       the domain. Detailed below.
@@ -2660,6 +2683,21 @@ spec:
                   engineVersion:
                     description: while Elasticsearch has elasticsearch_version
                     type: string
+                  identityCenterOptions:
+                    description: Configuration block for enabling and managing IAM
+                      Identity Center integration within a domain. Detailed below.
+                    properties:
+                      enabledApiAccess:
+                        description: is set to true.
+                        type: boolean
+                      identityCenterInstanceArn:
+                        description: ARN of the domain.
+                        type: string
+                      rolesKey:
+                        type: string
+                      subjectKey:
+                        type: string
+                    type: object
                   ipAddressType:
                     description: The IP address type for the endpoint. Valid values
                       are ipv4 and dualstack.
@@ -3081,6 +3119,29 @@ spec:
                             type: object
                         type: object
                     type: object
+                  aimlOptions:
+                    description: Configuration block for parameters required to enable
+                      all machine learning features. Detailed below.
+                    properties:
+                      naturalLanguageQueryGenerationOptions:
+                        description: Configuration block for parameters required for
+                          natural language query generation on the specified domain.
+                        properties:
+                          desiredState:
+                            description: The desired state of the natural language
+                              query generation feature. Valid values are ENABLED and
+                              DISABLED.
+                            type: string
+                        type: object
+                      s3VectorsEngine:
+                        description: Configuration block for parameters required to
+                          enable S3 vectors engine features on the specified domain.
+                        properties:
+                          enabled:
+                            description: Enables S3 vectors engine features.
+                            type: boolean
+                        type: object
+                    type: object
                   autoTuneOptions:
                     description: Configuration block for the Auto-Tune options of
                       the domain. Detailed below.
@@ -3389,6 +3450,21 @@ spec:
                   engineVersion:
                     description: while Elasticsearch has elasticsearch_version
                     type: string
+                  identityCenterOptions:
+                    description: Configuration block for enabling and managing IAM
+                      Identity Center integration within a domain. Detailed below.
+                    properties:
+                      enabledApiAccess:
+                        description: is set to true.
+                        type: boolean
+                      identityCenterInstanceArn:
+                        description: ARN of the domain.
+                        type: string
+                      rolesKey:
+                        type: string
+                      subjectKey:
+                        type: string
+                    type: object
                   ipAddressType:
                     description: The IP address type for the endpoint. Valid values
                       are ipv4 and dualstack.
@@ -3869,6 +3945,29 @@ spec:
                             type: string
                         type: object
                     type: object
+                  aimlOptions:
+                    description: Configuration block for parameters required to enable
+                      all machine learning features. Detailed below.
+                    properties:
+                      naturalLanguageQueryGenerationOptions:
+                        description: Configuration block for parameters required for
+                          natural language query generation on the specified domain.
+                        properties:
+                          desiredState:
+                            description: The desired state of the natural language
+                              query generation feature. Valid values are ENABLED and
+                              DISABLED.
+                            type: string
+                        type: object
+                      s3VectorsEngine:
+                        description: Configuration block for parameters required to
+                          enable S3 vectors engine features on the specified domain.
+                        properties:
+                          enabled:
+                            description: Enables S3 vectors engine features.
+                            type: boolean
+                        type: object
+                    type: object
                   arn:
                     description: ARN of the domain.
                     type: string
@@ -4131,6 +4230,21 @@ spec:
                     type: string
                   id:
                     type: string
+                  identityCenterOptions:
+                    description: Configuration block for enabling and managing IAM
+                      Identity Center integration within a domain. Detailed below.
+                    properties:
+                      enabledApiAccess:
+                        description: is set to true.
+                        type: boolean
+                      identityCenterInstanceArn:
+                        description: ARN of the domain.
+                        type: string
+                      rolesKey:
+                        type: string
+                      subjectKey:
+                        type: string
+                    type: object
                   ipAddressType:
                     description: The IP address type for the endpoint. Valid values
                       are ipv4 and dualstack.

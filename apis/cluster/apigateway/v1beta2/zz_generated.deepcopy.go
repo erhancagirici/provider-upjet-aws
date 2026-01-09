@@ -1258,6 +1258,21 @@ func (in *IntegrationInitParameters) DeepCopyInto(out *IntegrationInitParameters
 		*out = new(string)
 		**out = **in
 	}
+	if in.IntegrationTarget != nil {
+		in, out := &in.IntegrationTarget, &out.IntegrationTarget
+		*out = new(string)
+		**out = **in
+	}
+	if in.IntegrationTargetRef != nil {
+		in, out := &in.IntegrationTargetRef, &out.IntegrationTargetRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IntegrationTargetSelector != nil {
+		in, out := &in.IntegrationTargetSelector, &out.IntegrationTargetSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PassthroughBehavior != nil {
 		in, out := &in.PassthroughBehavior, &out.PassthroughBehavior
 		*out = new(string)
@@ -1309,6 +1324,11 @@ func (in *IntegrationInitParameters) DeepCopyInto(out *IntegrationInitParameters
 		in, out := &in.ResourceIDSelector, &out.ResourceIDSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.ResponseTransferMode != nil {
+		in, out := &in.ResponseTransferMode, &out.ResponseTransferMode
+		*out = new(string)
+		**out = **in
 	}
 	if in.RestAPIID != nil {
 		in, out := &in.RestAPIID, &out.RestAPIID
@@ -1453,6 +1473,11 @@ func (in *IntegrationObservation) DeepCopyInto(out *IntegrationObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.IntegrationTarget != nil {
+		in, out := &in.IntegrationTarget, &out.IntegrationTarget
+		*out = new(string)
+		**out = **in
+	}
 	if in.PassthroughBehavior != nil {
 		in, out := &in.PassthroughBehavior, &out.PassthroughBehavior
 		*out = new(string)
@@ -1497,6 +1522,11 @@ func (in *IntegrationObservation) DeepCopyInto(out *IntegrationObservation) {
 	}
 	if in.ResourceID != nil {
 		in, out := &in.ResourceID, &out.ResourceID
+		*out = new(string)
+		**out = **in
+	}
+	if in.ResponseTransferMode != nil {
+		in, out := &in.ResponseTransferMode, &out.ResponseTransferMode
 		*out = new(string)
 		**out = **in
 	}
@@ -1606,6 +1636,21 @@ func (in *IntegrationParameters) DeepCopyInto(out *IntegrationParameters) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.IntegrationTarget != nil {
+		in, out := &in.IntegrationTarget, &out.IntegrationTarget
+		*out = new(string)
+		**out = **in
+	}
+	if in.IntegrationTargetRef != nil {
+		in, out := &in.IntegrationTargetRef, &out.IntegrationTargetRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IntegrationTargetSelector != nil {
+		in, out := &in.IntegrationTargetSelector, &out.IntegrationTargetSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.PassthroughBehavior != nil {
 		in, out := &in.PassthroughBehavior, &out.PassthroughBehavior
 		*out = new(string)
@@ -1662,6 +1707,11 @@ func (in *IntegrationParameters) DeepCopyInto(out *IntegrationParameters) {
 		in, out := &in.ResourceIDSelector, &out.ResourceIDSelector
 		*out = new(v1.Selector)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.ResponseTransferMode != nil {
+		in, out := &in.ResponseTransferMode, &out.ResponseTransferMode
+		*out = new(string)
+		**out = **in
 	}
 	if in.RestAPIID != nil {
 		in, out := &in.RestAPIID, &out.RestAPIID

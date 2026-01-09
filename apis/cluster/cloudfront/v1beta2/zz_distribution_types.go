@@ -91,6 +91,9 @@ type CustomOriginConfigInitParameters struct {
 	// HTTPS port the custom origin listens on.
 	HTTPSPort *float64 `json:"httpsPort,omitempty" tf:"https_port,omitempty"`
 
+	// IP protocol CloudFront uses when connecting to your origin. Valid values: ipv4, ipv6, dualstack.
+	IPAddressType *string `json:"ipAddressType,omitempty" tf:"ip_address_type,omitempty"`
+
 	// The Custom KeepAlive timeout, in seconds. By default, AWS enforces an upper limit of 60. But you can request an increase. Defaults to 5.
 	OriginKeepaliveTimeout *float64 `json:"originKeepaliveTimeout,omitempty" tf:"origin_keepalive_timeout,omitempty"`
 
@@ -112,6 +115,9 @@ type CustomOriginConfigObservation struct {
 
 	// HTTPS port the custom origin listens on.
 	HTTPSPort *float64 `json:"httpsPort,omitempty" tf:"https_port,omitempty"`
+
+	// IP protocol CloudFront uses when connecting to your origin. Valid values: ipv4, ipv6, dualstack.
+	IPAddressType *string `json:"ipAddressType,omitempty" tf:"ip_address_type,omitempty"`
 
 	// The Custom KeepAlive timeout, in seconds. By default, AWS enforces an upper limit of 60. But you can request an increase. Defaults to 5.
 	OriginKeepaliveTimeout *float64 `json:"originKeepaliveTimeout,omitempty" tf:"origin_keepalive_timeout,omitempty"`
@@ -136,6 +142,10 @@ type CustomOriginConfigParameters struct {
 	// HTTPS port the custom origin listens on.
 	// +kubebuilder:validation:Optional
 	HTTPSPort *float64 `json:"httpsPort" tf:"https_port,omitempty"`
+
+	// IP protocol CloudFront uses when connecting to your origin. Valid values: ipv4, ipv6, dualstack.
+	// +kubebuilder:validation:Optional
+	IPAddressType *string `json:"ipAddressType,omitempty" tf:"ip_address_type,omitempty"`
 
 	// The Custom KeepAlive timeout, in seconds. By default, AWS enforces an upper limit of 60. But you can request an increase. Defaults to 5.
 	// +kubebuilder:validation:Optional
@@ -500,6 +510,9 @@ type DistributionObservation struct {
 
 	// The logging configuration that controls how logs are written to your distribution (maximum one). AWS provides two versions of access logs for CloudFront: Legacy and v2. This argument configures legacy version standard logs.
 	LoggingConfig *LoggingConfigObservation `json:"loggingConfig,omitempty" tf:"logging_config,omitempty"`
+
+	// Whether V1 logging is enabled for the distribution.
+	LoggingV1Enabled *bool `json:"loggingV1Enabled,omitempty" tf:"logging_v1_enabled,omitempty"`
 
 	// Ordered list of cache behaviors resource for this distribution. List from top to bottom in order of precedence. The topmost cache behavior will have precedence 0.
 	OrderedCacheBehavior []OrderedCacheBehaviorObservation `json:"orderedCacheBehavior,omitempty" tf:"ordered_cache_behavior,omitempty"`
@@ -885,39 +898,39 @@ type LambdaFunctionAssociationParameters struct {
 
 type LoggingConfigInitParameters struct {
 
-	// Amazon S3 bucket to store the access logs in, for example, myawslogbucket.s3.amazonaws.com. The bucket must have correct ACL attached with "FULL_CONTROL" permission for "awslogsdelivery" account (Canonical ID: "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0") for log transfer to work.
+	// Amazon S3 bucket for V1 logging where access logs are stored, for example, myawslogbucket.s3.amazonaws.com. V1 logging is enabled when this argument is specified. The bucket must have correct ACL attached with "FULL_CONTROL" permission for "awslogsdelivery" account (Canonical ID: "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0") for log transfer to work.
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
-	// Whether to include cookies in access logs (default: false).
+	// Whether to include cookies in access logs (default: false). This argument applies to both V1 and V2 logging.
 	IncludeCookies *bool `json:"includeCookies,omitempty" tf:"include_cookies,omitempty"`
 
-	// Prefix to the access log filenames for this distribution, for example, myprefix/.
+	// Prefix added to the access log file names for V1 logging, for example, myprefix/. This argument is effective only when V1 logging is enabled.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 }
 
 type LoggingConfigObservation struct {
 
-	// Amazon S3 bucket to store the access logs in, for example, myawslogbucket.s3.amazonaws.com. The bucket must have correct ACL attached with "FULL_CONTROL" permission for "awslogsdelivery" account (Canonical ID: "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0") for log transfer to work.
+	// Amazon S3 bucket for V1 logging where access logs are stored, for example, myawslogbucket.s3.amazonaws.com. V1 logging is enabled when this argument is specified. The bucket must have correct ACL attached with "FULL_CONTROL" permission for "awslogsdelivery" account (Canonical ID: "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0") for log transfer to work.
 	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
-	// Whether to include cookies in access logs (default: false).
+	// Whether to include cookies in access logs (default: false). This argument applies to both V1 and V2 logging.
 	IncludeCookies *bool `json:"includeCookies,omitempty" tf:"include_cookies,omitempty"`
 
-	// Prefix to the access log filenames for this distribution, for example, myprefix/.
+	// Prefix added to the access log file names for V1 logging, for example, myprefix/. This argument is effective only when V1 logging is enabled.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 }
 
 type LoggingConfigParameters struct {
 
-	// Amazon S3 bucket to store the access logs in, for example, myawslogbucket.s3.amazonaws.com. The bucket must have correct ACL attached with "FULL_CONTROL" permission for "awslogsdelivery" account (Canonical ID: "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0") for log transfer to work.
+	// Amazon S3 bucket for V1 logging where access logs are stored, for example, myawslogbucket.s3.amazonaws.com. V1 logging is enabled when this argument is specified. The bucket must have correct ACL attached with "FULL_CONTROL" permission for "awslogsdelivery" account (Canonical ID: "c4c1ede66af53448b93c283ce9448c4ba468c9432aa01d700d3878632f77d2d0") for log transfer to work.
 	// +kubebuilder:validation:Optional
-	Bucket *string `json:"bucket" tf:"bucket,omitempty"`
+	Bucket *string `json:"bucket,omitempty" tf:"bucket,omitempty"`
 
-	// Whether to include cookies in access logs (default: false).
+	// Whether to include cookies in access logs (default: false). This argument applies to both V1 and V2 logging.
 	// +kubebuilder:validation:Optional
 	IncludeCookies *bool `json:"includeCookies,omitempty" tf:"include_cookies,omitempty"`
 
-	// Prefix to the access log filenames for this distribution, for example, myprefix/.
+	// Prefix added to the access log file names for V1 logging, for example, myprefix/. This argument is effective only when V1 logging is enabled.
 	// +kubebuilder:validation:Optional
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 }

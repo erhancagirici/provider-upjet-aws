@@ -176,6 +176,25 @@ type GlobalSecondaryIndexParameters struct {
 	WriteCapacity *float64 `json:"writeCapacity,omitempty" tf:"write_capacity,omitempty"`
 }
 
+type GlobalTableWitnessInitParameters struct {
+
+	// Name of the AWS Region that serves as a witness for the MRSC global table.
+	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
+}
+
+type GlobalTableWitnessObservation struct {
+
+	// Name of the AWS Region that serves as a witness for the MRSC global table.
+	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
+}
+
+type GlobalTableWitnessParameters struct {
+
+	// Name of the AWS Region that serves as a witness for the MRSC global table.
+	// +kubebuilder:validation:Optional
+	RegionName *string `json:"regionName,omitempty" tf:"region_name,omitempty"`
+}
+
 type ImportTableInitParameters struct {
 
 	// Type of compression to be used on the input coming from the imported table.
@@ -585,6 +604,9 @@ type TableInitParameters struct {
 	// Describe a GSI for the table; subject to the normal limits on the number of GSIs, projected attributes, etc. See below.
 	GlobalSecondaryIndex []GlobalSecondaryIndexInitParameters `json:"globalSecondaryIndex,omitempty" tf:"global_secondary_index,omitempty"`
 
+	// Witness Region in a Multi-Region Strong Consistency deployment. Note This must be used alongside a single replica with consistency_mode set to STRONG. Other combinations will fail to provision. See below.
+	GlobalTableWitness *GlobalTableWitnessInitParameters `json:"globalTableWitness,omitempty" tf:"global_table_witness,omitempty"`
+
 	// Attribute to use as the hash (partition) key. Must also be defined as an attribute. See below.
 	HashKey *string `json:"hashKey,omitempty" tf:"hash_key,omitempty"`
 
@@ -665,6 +687,9 @@ type TableObservation struct {
 
 	// Describe a GSI for the table; subject to the normal limits on the number of GSIs, projected attributes, etc. See below.
 	GlobalSecondaryIndex []GlobalSecondaryIndexObservation `json:"globalSecondaryIndex,omitempty" tf:"global_secondary_index,omitempty"`
+
+	// Witness Region in a Multi-Region Strong Consistency deployment. Note This must be used alongside a single replica with consistency_mode set to STRONG. Other combinations will fail to provision. See below.
+	GlobalTableWitness *GlobalTableWitnessObservation `json:"globalTableWitness,omitempty" tf:"global_table_witness,omitempty"`
 
 	// Attribute to use as the hash (partition) key. Must also be defined as an attribute. See below.
 	HashKey *string `json:"hashKey,omitempty" tf:"hash_key,omitempty"`
@@ -793,6 +818,10 @@ type TableParameters struct {
 	// Describe a GSI for the table; subject to the normal limits on the number of GSIs, projected attributes, etc. See below.
 	// +kubebuilder:validation:Optional
 	GlobalSecondaryIndex []GlobalSecondaryIndexParameters `json:"globalSecondaryIndex,omitempty" tf:"global_secondary_index,omitempty"`
+
+	// Witness Region in a Multi-Region Strong Consistency deployment. Note This must be used alongside a single replica with consistency_mode set to STRONG. Other combinations will fail to provision. See below.
+	// +kubebuilder:validation:Optional
+	GlobalTableWitness *GlobalTableWitnessParameters `json:"globalTableWitness,omitempty" tf:"global_table_witness,omitempty"`
 
 	// Attribute to use as the hash (partition) key. Must also be defined as an attribute. See below.
 	// +kubebuilder:validation:Optional

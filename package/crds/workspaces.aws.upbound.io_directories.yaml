@@ -2101,6 +2101,10 @@ spec:
                     description: Key-value map of resource tags.
                     type: object
                     x-kubernetes-map-type: granular
+                  tenancy:
+                    description: Tenancy of the WorkSpaces directory. Valid values
+                      are DEDICATED or SHARED.
+                    type: string
                   userIdentityType:
                     description: Specifies the user identity type for the WorkSpaces
                       directory. Valid values are CUSTOMER_MANAGED, AWS_DIRECTORY_SERVICE,
@@ -2677,6 +2681,10 @@ spec:
                     description: Key-value map of resource tags.
                     type: object
                     x-kubernetes-map-type: granular
+                  tenancy:
+                    description: Tenancy of the WorkSpaces directory. Valid values
+                      are DEDICATED or SHARED.
+                    type: string
                   userIdentityType:
                     description: Specifies the user identity type for the WorkSpaces
                       directory. Valid values are CUSTOMER_MANAGED, AWS_DIRECTORY_SERVICE,
@@ -3067,6 +3075,10 @@ spec:
                       block.
                     type: object
                     x-kubernetes-map-type: granular
+                  tenancy:
+                    description: Tenancy of the WorkSpaces directory. Valid values
+                      are DEDICATED or SHARED.
+                    type: string
                   userIdentityType:
                     description: Specifies the user identity type for the WorkSpaces
                       directory. Valid values are CUSTOMER_MANAGED, AWS_DIRECTORY_SERVICE,

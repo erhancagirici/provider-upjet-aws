@@ -1592,8 +1592,8 @@ spec:
                       modified outside of this resource.
                     type: boolean
                   volume:
-                    description: Configuration block for volumes that containers in
-                      your task may use. Detailed below.
+                    description: Repeatable configuration block for volumes that containers
+                      in your task may use. Detailed below.
                     items:
                       properties:
                         configureAtLaunch:
@@ -1960,8 +1960,8 @@ spec:
                       modified outside of this resource.
                     type: boolean
                   volume:
-                    description: Configuration block for volumes that containers in
-                      your task may use. Detailed below.
+                    description: Repeatable configuration block for volumes that containers
+                      in your task may use. Detailed below.
                     items:
                       properties:
                         configureAtLaunch:
@@ -2367,8 +2367,8 @@ spec:
                       modified outside of this resource.
                     type: boolean
                   volume:
-                    description: Configuration block for volumes that containers in
-                      your task may use. Detailed below.
+                    description: Repeatable configuration block for volumes that containers
+                      in your task may use. Detailed below.
                     items:
                       properties:
                         configureAtLaunch:

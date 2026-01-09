@@ -393,7 +393,7 @@ type TaskDefinitionInitParameters struct {
 	// Whether should track latest ACTIVE task definition on AWS or the one created with the resource stored in state. Default is false. Useful in the event the task definition is modified outside of this resource.
 	TrackLatest *bool `json:"trackLatest,omitempty" tf:"track_latest,omitempty"`
 
-	// Configuration block for volumes that containers in your task may use. Detailed below.
+	// Repeatable configuration block for volumes that containers in your task may use. Detailed below.
 	Volume []VolumeInitParameters `json:"volume,omitempty" tf:"volume,omitempty"`
 }
 
@@ -474,7 +474,7 @@ type TaskDefinitionObservation struct {
 	// Whether should track latest ACTIVE task definition on AWS or the one created with the resource stored in state. Default is false. Useful in the event the task definition is modified outside of this resource.
 	TrackLatest *bool `json:"trackLatest,omitempty" tf:"track_latest,omitempty"`
 
-	// Configuration block for volumes that containers in your task may use. Detailed below.
+	// Repeatable configuration block for volumes that containers in your task may use. Detailed below.
 	Volume []VolumeObservation `json:"volume,omitempty" tf:"volume,omitempty"`
 }
 
@@ -569,7 +569,7 @@ type TaskDefinitionParameters struct {
 	// +kubebuilder:validation:Optional
 	TrackLatest *bool `json:"trackLatest,omitempty" tf:"track_latest,omitempty"`
 
-	// Configuration block for volumes that containers in your task may use. Detailed below.
+	// Repeatable configuration block for volumes that containers in your task may use. Detailed below.
 	// +kubebuilder:validation:Optional
 	Volume []VolumeParameters `json:"volume,omitempty" tf:"volume,omitempty"`
 }

@@ -104,11 +104,14 @@ type AuthParameters struct {
 
 type ProxyInitParameters struct {
 
-	// Configuration block(s) with authorization mechanisms to connect to the associated instances or clusters. Described below.
+	// Configuration block(s) with authorization mechanisms to connect to the associated instances or clusters. Required when default_auth_scheme is NONE or unspecified. Described below.
 	Auth []AuthInitParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
 	// Whether the proxy includes detailed information about SQL statements in its logs. This information helps you to debug issues involving SQL behavior or the performance and scalability of the proxy connections. The debug information includes the text of SQL statements that you submit through the proxy. Thus, only enable this setting when needed for debugging, and only when you have security measures in place to safeguard any sensitive information that appears in the logs.
 	DebugLogging *bool `json:"debugLogging,omitempty" tf:"debug_logging,omitempty"`
+
+	// Default authentication scheme that the proxy uses for client connections to the proxy and connections from the proxy to the underlying database. Valid values are NONE and IAM_AUTH. Defaults to NONE.
+	DefaultAuthScheme *string `json:"defaultAuthScheme,omitempty" tf:"default_auth_scheme,omitempty"`
 
 	// The kinds of databases that the proxy can connect to. This value determines which database network protocol the proxy recognizes when it interprets network traffic to and from the database. For Aurora MySQL, RDS for MariaDB, and RDS for MySQL databases, specify MYSQL. For Aurora PostgreSQL and RDS for PostgreSQL databases, specify POSTGRESQL. For RDS for Microsoft SQL Server, specify SQLSERVER. Valid values are MYSQL, POSTGRESQL, and SQLSERVER.
 	EngineFamily *string `json:"engineFamily,omitempty" tf:"engine_family,omitempty"`
@@ -171,11 +174,14 @@ type ProxyObservation struct {
 	// The Amazon Resource Name (ARN) for the proxy.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// Configuration block(s) with authorization mechanisms to connect to the associated instances or clusters. Described below.
+	// Configuration block(s) with authorization mechanisms to connect to the associated instances or clusters. Required when default_auth_scheme is NONE or unspecified. Described below.
 	Auth []AuthObservation `json:"auth,omitempty" tf:"auth,omitempty"`
 
 	// Whether the proxy includes detailed information about SQL statements in its logs. This information helps you to debug issues involving SQL behavior or the performance and scalability of the proxy connections. The debug information includes the text of SQL statements that you submit through the proxy. Thus, only enable this setting when needed for debugging, and only when you have security measures in place to safeguard any sensitive information that appears in the logs.
 	DebugLogging *bool `json:"debugLogging,omitempty" tf:"debug_logging,omitempty"`
+
+	// Default authentication scheme that the proxy uses for client connections to the proxy and connections from the proxy to the underlying database. Valid values are NONE and IAM_AUTH. Defaults to NONE.
+	DefaultAuthScheme *string `json:"defaultAuthScheme,omitempty" tf:"default_auth_scheme,omitempty"`
 
 	// The endpoint that you can use to connect to the proxy. You include the endpoint value in the connection string for a database client application.
 	Endpoint *string `json:"endpoint,omitempty" tf:"endpoint,omitempty"`
@@ -218,13 +224,17 @@ type ProxyObservation struct {
 
 type ProxyParameters struct {
 
-	// Configuration block(s) with authorization mechanisms to connect to the associated instances or clusters. Described below.
+	// Configuration block(s) with authorization mechanisms to connect to the associated instances or clusters. Required when default_auth_scheme is NONE or unspecified. Described below.
 	// +kubebuilder:validation:Optional
 	Auth []AuthParameters `json:"auth,omitempty" tf:"auth,omitempty"`
 
 	// Whether the proxy includes detailed information about SQL statements in its logs. This information helps you to debug issues involving SQL behavior or the performance and scalability of the proxy connections. The debug information includes the text of SQL statements that you submit through the proxy. Thus, only enable this setting when needed for debugging, and only when you have security measures in place to safeguard any sensitive information that appears in the logs.
 	// +kubebuilder:validation:Optional
 	DebugLogging *bool `json:"debugLogging,omitempty" tf:"debug_logging,omitempty"`
+
+	// Default authentication scheme that the proxy uses for client connections to the proxy and connections from the proxy to the underlying database. Valid values are NONE and IAM_AUTH. Defaults to NONE.
+	// +kubebuilder:validation:Optional
+	DefaultAuthScheme *string `json:"defaultAuthScheme,omitempty" tf:"default_auth_scheme,omitempty"`
 
 	// The kinds of databases that the proxy can connect to. This value determines which database network protocol the proxy recognizes when it interprets network traffic to and from the database. For Aurora MySQL, RDS for MariaDB, and RDS for MySQL databases, specify MYSQL. For Aurora PostgreSQL and RDS for PostgreSQL databases, specify POSTGRESQL. For RDS for Microsoft SQL Server, specify SQLSERVER. Valid values are MYSQL, POSTGRESQL, and SQLSERVER.
 	// +kubebuilder:validation:Optional
@@ -330,7 +340,6 @@ type ProxyStatus struct {
 type Proxy struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.auth) || (has(self.initProvider) && has(self.initProvider.auth))",message="spec.forProvider.auth is a required parameter"
 	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.engineFamily) || (has(self.initProvider) && has(self.initProvider.engineFamily))",message="spec.forProvider.engineFamily is a required parameter"
 	Spec   ProxySpec   `json:"spec"`
 	Status ProxyStatus `json:"status,omitempty"`

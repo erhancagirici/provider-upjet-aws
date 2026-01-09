@@ -216,6 +216,9 @@ type LBTargetGroupInitParameters struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
+	// Port on which the target control agent and application load balancer exchange management traffic for the target optimizer feature. Only applicable for Application Load Balancer target groups when target_type is instance or ip.
+	TargetControlPort *float64 `json:"targetControlPort,omitempty" tf:"target_control_port,omitempty"`
+
 	// Target failover block. Only applicable for Gateway Load Balancer target groups. See target_failover for more information.
 	TargetFailover []TargetFailoverInitParameters `json:"targetFailover,omitempty" tf:"target_failover,omitempty"`
 
@@ -321,6 +324,9 @@ type LBTargetGroupObservation struct {
 	// +mapType=granular
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 
+	// Port on which the target control agent and application load balancer exchange management traffic for the target optimizer feature. Only applicable for Application Load Balancer target groups when target_type is instance or ip.
+	TargetControlPort *float64 `json:"targetControlPort,omitempty" tf:"target_control_port,omitempty"`
+
 	// Target failover block. Only applicable for Gateway Load Balancer target groups. See target_failover for more information.
 	TargetFailover []TargetFailoverObservation `json:"targetFailover,omitempty" tf:"target_failover,omitempty"`
 
@@ -417,6 +423,10 @@ type LBTargetGroupParameters struct {
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
+
+	// Port on which the target control agent and application load balancer exchange management traffic for the target optimizer feature. Only applicable for Application Load Balancer target groups when target_type is instance or ip.
+	// +kubebuilder:validation:Optional
+	TargetControlPort *float64 `json:"targetControlPort,omitempty" tf:"target_control_port,omitempty"`
 
 	// Target failover block. Only applicable for Gateway Load Balancer target groups. See target_failover for more information.
 	// +kubebuilder:validation:Optional

@@ -34,7 +34,7 @@ spec:
     name: v1beta1
     schema:
       openAPIV3Schema:
-        description: Subnet is the Schema for the Subnets API. Provides an VPC subnet
+        description: Subnet is the Schema for the Subnets API. Provides an VPC Subnet
           resource.
         properties:
           apiVersion:

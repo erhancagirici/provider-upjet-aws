@@ -31,6 +31,9 @@ type ConfigurationInitParameters struct {
 	// Configuration block to set up an IAM Identity Center enabled workgroup. See Identity Center Configuration below.
 	IdentityCenterConfiguration *IdentityCenterConfigurationInitParameters `json:"identityCenterConfiguration,omitempty" tf:"identity_center_configuration,omitempty"`
 
+	// Configuration block for storing results in Athena owned storage. See Managed Query Results Configuration below.
+	ManagedQueryResultsConfiguration *ManagedQueryResultsConfigurationInitParameters `json:"managedQueryResultsConfiguration,omitempty" tf:"managed_query_results_configuration,omitempty"`
+
 	// Boolean whether Amazon CloudWatch metrics are enabled for the workgroup. Defaults to true.
 	PublishCloudwatchMetricsEnabled *bool `json:"publishCloudwatchMetricsEnabled,omitempty" tf:"publish_cloudwatch_metrics_enabled,omitempty"`
 
@@ -57,6 +60,9 @@ type ConfigurationObservation struct {
 
 	// Configuration block to set up an IAM Identity Center enabled workgroup. See Identity Center Configuration below.
 	IdentityCenterConfiguration *IdentityCenterConfigurationObservation `json:"identityCenterConfiguration,omitempty" tf:"identity_center_configuration,omitempty"`
+
+	// Configuration block for storing results in Athena owned storage. See Managed Query Results Configuration below.
+	ManagedQueryResultsConfiguration *ManagedQueryResultsConfigurationObservation `json:"managedQueryResultsConfiguration,omitempty" tf:"managed_query_results_configuration,omitempty"`
 
 	// Boolean whether Amazon CloudWatch metrics are enabled for the workgroup. Defaults to true.
 	PublishCloudwatchMetricsEnabled *bool `json:"publishCloudwatchMetricsEnabled,omitempty" tf:"publish_cloudwatch_metrics_enabled,omitempty"`
@@ -89,6 +95,10 @@ type ConfigurationParameters struct {
 	// Configuration block to set up an IAM Identity Center enabled workgroup. See Identity Center Configuration below.
 	// +kubebuilder:validation:Optional
 	IdentityCenterConfiguration *IdentityCenterConfigurationParameters `json:"identityCenterConfiguration,omitempty" tf:"identity_center_configuration,omitempty"`
+
+	// Configuration block for storing results in Athena owned storage. See Managed Query Results Configuration below.
+	// +kubebuilder:validation:Optional
+	ManagedQueryResultsConfiguration *ManagedQueryResultsConfigurationParameters `json:"managedQueryResultsConfiguration,omitempty" tf:"managed_query_results_configuration,omitempty"`
 
 	// Boolean whether Amazon CloudWatch metrics are enabled for the workgroup. Defaults to true.
 	// +kubebuilder:validation:Optional
@@ -152,6 +162,54 @@ type IdentityCenterConfigurationParameters struct {
 	// The IAM Identity Center instance ARN that the workgroup associates to.
 	// +kubebuilder:validation:Optional
 	IdentityCenterInstanceArn *string `json:"identityCenterInstanceArn,omitempty" tf:"identity_center_instance_arn,omitempty"`
+}
+
+type ManagedQueryResultsConfigurationEncryptionConfigurationInitParameters struct {
+
+	// KMS key ARN for encrypting managed query results.
+	KMSKey *string `json:"kmsKey,omitempty" tf:"kms_key,omitempty"`
+}
+
+type ManagedQueryResultsConfigurationEncryptionConfigurationObservation struct {
+
+	// KMS key ARN for encrypting managed query results.
+	KMSKey *string `json:"kmsKey,omitempty" tf:"kms_key,omitempty"`
+}
+
+type ManagedQueryResultsConfigurationEncryptionConfigurationParameters struct {
+
+	// KMS key ARN for encrypting managed query results.
+	// +kubebuilder:validation:Optional
+	KMSKey *string `json:"kmsKey,omitempty" tf:"kms_key,omitempty"`
+}
+
+type ManagedQueryResultsConfigurationInitParameters struct {
+
+	// If set to true, allows you to store query results in Athena owned storage. If set to false, workgroup member stores query results in the location specified under result_configuration.output_location. The default is false. A workgroup cannot have the result_configuration.output_location set when this is true.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Configuration block with encryption settings. See Encryption Configuration below.
+	EncryptionConfiguration *ManagedQueryResultsConfigurationEncryptionConfigurationInitParameters `json:"encryptionConfiguration,omitempty" tf:"encryption_configuration,omitempty"`
+}
+
+type ManagedQueryResultsConfigurationObservation struct {
+
+	// If set to true, allows you to store query results in Athena owned storage. If set to false, workgroup member stores query results in the location specified under result_configuration.output_location. The default is false. A workgroup cannot have the result_configuration.output_location set when this is true.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Configuration block with encryption settings. See Encryption Configuration below.
+	EncryptionConfiguration *ManagedQueryResultsConfigurationEncryptionConfigurationObservation `json:"encryptionConfiguration,omitempty" tf:"encryption_configuration,omitempty"`
+}
+
+type ManagedQueryResultsConfigurationParameters struct {
+
+	// If set to true, allows you to store query results in Athena owned storage. If set to false, workgroup member stores query results in the location specified under result_configuration.output_location. The default is false. A workgroup cannot have the result_configuration.output_location set when this is true.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// Configuration block with encryption settings. See Encryption Configuration below.
+	// +kubebuilder:validation:Optional
+	EncryptionConfiguration *ManagedQueryResultsConfigurationEncryptionConfigurationParameters `json:"encryptionConfiguration,omitempty" tf:"encryption_configuration,omitempty"`
 }
 
 type ResultConfigurationACLConfigurationInitParameters struct {

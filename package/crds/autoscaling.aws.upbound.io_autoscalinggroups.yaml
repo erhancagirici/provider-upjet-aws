@@ -8100,8 +8100,8 @@ spec:
                               Ignore, and Wait. Default is Ignore.
                             type: string
                           skipMatching:
-                            description: Replace instances that already have your
-                              desired configuration. Defaults to false.
+                            description: Skip replacing instances that already have
+                              your desired configuration. Defaults to false.
                             type: boolean
                           standbyInstances:
                             description: Behavior when encountering instances in the
@@ -9436,8 +9436,8 @@ spec:
                               Ignore, and Wait. Default is Ignore.
                             type: string
                           skipMatching:
-                            description: Replace instances that already have your
-                              desired configuration. Defaults to false.
+                            description: Skip replacing instances that already have
+                              your desired configuration. Defaults to false.
                             type: boolean
                           standbyInstances:
                             description: Behavior when encountering instances in the
@@ -10858,8 +10858,8 @@ spec:
                               Ignore, and Wait. Default is Ignore.
                             type: string
                           skipMatching:
-                            description: Replace instances that already have your
-                              desired configuration. Defaults to false.
+                            description: Skip replacing instances that already have
+                              your desired configuration. Defaults to false.
                             type: boolean
                           standbyInstances:
                             description: Behavior when encountering instances in the

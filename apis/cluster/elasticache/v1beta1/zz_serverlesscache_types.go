@@ -210,7 +210,7 @@ type ServerlessCacheInitParameters struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// The identifier of the UserGroup to be associated with the serverless cache. Available for Redis only. Default is NULL.
+	// The identifier of the UserGroup to be associated with the serverless cache. Available for Redis and Valkey. Default is NULL.
 	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
 }
 
@@ -280,7 +280,7 @@ type ServerlessCacheObservation struct {
 	// +mapType=granular
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 
-	// The identifier of the UserGroup to be associated with the serverless cache. Available for Redis only. Default is NULL.
+	// The identifier of the UserGroup to be associated with the serverless cache. Available for Redis and Valkey. Default is NULL.
 	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
 }
 
@@ -370,7 +370,7 @@ type ServerlessCacheParameters struct {
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`
 
-	// The identifier of the UserGroup to be associated with the serverless cache. Available for Redis only. Default is NULL.
+	// The identifier of the UserGroup to be associated with the serverless cache. Available for Redis and Valkey. Default is NULL.
 	// +kubebuilder:validation:Optional
 	UserGroupID *string `json:"userGroupId,omitempty" tf:"user_group_id,omitempty"`
 }

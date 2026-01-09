@@ -1513,8 +1513,9 @@ spec:
                     x-kubernetes-map-type: granular
                   timeout:
                     description: The job timeout in minutes. The default is 2880 minutes
-                      (48 hours) for glueetl and pythonshell jobs, and null (unlimited)
-                      for gluestreaming jobs.
+                      (48 hours) for glueetl and pythonshell jobs, and 0 (unlimited)
+                      for gluestreaming jobs. Leave this attribute argumnet unconfigured
+                      for glueray jobs.
                     type: number
                   workerType:
                     description: 'The type of predefined worker that is allocated
@@ -1864,8 +1865,9 @@ spec:
                     x-kubernetes-map-type: granular
                   timeout:
                     description: The job timeout in minutes. The default is 2880 minutes
-                      (48 hours) for glueetl and pythonshell jobs, and null (unlimited)
-                      for gluestreaming jobs.
+                      (48 hours) for glueetl and pythonshell jobs, and 0 (unlimited)
+                      for gluestreaming jobs. Leave this attribute argumnet unconfigured
+                      for glueray jobs.
                     type: number
                   workerType:
                     description: 'The type of predefined worker that is allocated
@@ -2146,8 +2148,9 @@ spec:
                     x-kubernetes-map-type: granular
                   timeout:
                     description: The job timeout in minutes. The default is 2880 minutes
-                      (48 hours) for glueetl and pythonshell jobs, and null (unlimited)
-                      for gluestreaming jobs.
+                      (48 hours) for glueetl and pythonshell jobs, and 0 (unlimited)
+                      for gluestreaming jobs. Leave this attribute argumnet unconfigured
+                      for glueray jobs.
                     type: number
                   workerType:
                     description: 'The type of predefined worker that is allocated

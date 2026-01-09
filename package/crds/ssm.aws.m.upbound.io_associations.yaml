@@ -76,6 +76,13 @@ spec:
                       set to the SSM document parameter that will define how your
                       automation will branch out.
                     type: string
+                  calendarNames:
+                    description: One or more Systems Manager Change Calendar names.
+                      The association runs only when the Change Calendar is open.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   complianceSeverity:
                     description: 'The compliance severity for the association. Can
                       be one of the following: UNSPECIFIED, LOW, MEDIUM, HIGH or CRITICAL'
@@ -362,6 +369,13 @@ spec:
                       set to the SSM document parameter that will define how your
                       automation will branch out.
                     type: string
+                  calendarNames:
+                    description: One or more Systems Manager Change Calendar names.
+                      The association runs only when the Change Calendar is open.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   complianceSeverity:
                     description: 'The compliance severity for the association. Can
                       be one of the following: UNSPECIFIED, LOW, MEDIUM, HIGH or CRITICAL'
@@ -697,6 +711,13 @@ spec:
                       set to the SSM document parameter that will define how your
                       automation will branch out.
                     type: string
+                  calendarNames:
+                    description: One or more Systems Manager Change Calendar names.
+                      The association runs only when the Change Calendar is open.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   complianceSeverity:
                     description: 'The compliance severity for the association. Can
                       be one of the following: UNSPECIFIED, LOW, MEDIUM, HIGH or CRITICAL'

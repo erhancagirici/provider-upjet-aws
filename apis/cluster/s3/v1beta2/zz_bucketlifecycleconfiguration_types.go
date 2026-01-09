@@ -181,8 +181,6 @@ type BucketLifecycleConfigurationRuleInitParameters struct {
 
 	// Configuration block used to identify objects that a Lifecycle Rule applies to.
 	// See below.
-	// If not specified, the rule will default to using prefix.
-	// One of filter or prefix should be specified.
 	Filter []RuleFilterInitParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
 	// Unique identifier for the rule. The value cannot be longer than 255 characters.
@@ -197,8 +195,6 @@ type BucketLifecycleConfigurationRuleInitParameters struct {
 	// DEPRECATED Use filter instead.
 	// This has been deprecated by Amazon S3.
 	// Prefix identifying one or more objects to which the rule applies.
-	// Defaults to an empty string ("") if filter is not specified.
-	// One of prefix or filter should be specified.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
 	// Whether the rule is currently being applied. Valid values: Enabled or Disabled.
@@ -218,8 +214,6 @@ type BucketLifecycleConfigurationRuleObservation struct {
 
 	// Configuration block used to identify objects that a Lifecycle Rule applies to.
 	// See below.
-	// If not specified, the rule will default to using prefix.
-	// One of filter or prefix should be specified.
 	Filter []RuleFilterObservation `json:"filter,omitempty" tf:"filter,omitempty"`
 
 	// Unique identifier for the rule. The value cannot be longer than 255 characters.
@@ -234,8 +228,6 @@ type BucketLifecycleConfigurationRuleObservation struct {
 	// DEPRECATED Use filter instead.
 	// This has been deprecated by Amazon S3.
 	// Prefix identifying one or more objects to which the rule applies.
-	// Defaults to an empty string ("") if filter is not specified.
-	// One of prefix or filter should be specified.
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 
 	// Whether the rule is currently being applied. Valid values: Enabled or Disabled.
@@ -257,8 +249,6 @@ type BucketLifecycleConfigurationRuleParameters struct {
 
 	// Configuration block used to identify objects that a Lifecycle Rule applies to.
 	// See below.
-	// If not specified, the rule will default to using prefix.
-	// One of filter or prefix should be specified.
 	// +kubebuilder:validation:Optional
 	Filter []RuleFilterParameters `json:"filter,omitempty" tf:"filter,omitempty"`
 
@@ -277,8 +267,6 @@ type BucketLifecycleConfigurationRuleParameters struct {
 	// DEPRECATED Use filter instead.
 	// This has been deprecated by Amazon S3.
 	// Prefix identifying one or more objects to which the rule applies.
-	// Defaults to an empty string ("") if filter is not specified.
-	// One of prefix or filter should be specified.
 	// +kubebuilder:validation:Optional
 	Prefix *string `json:"prefix,omitempty" tf:"prefix,omitempty"`
 

@@ -14,16 +14,51 @@ import (
 	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
 )
 
+type AccessConfigInitParameters struct {
+
+	// Authentication type Lambda uses to access the schema registry.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// URI of the secret (Secrets Manager secret ARN) used to authenticate with the schema registry.
+	URI *string `json:"uri,omitempty" tf:"uri,omitempty"`
+}
+
+type AccessConfigObservation struct {
+
+	// Authentication type Lambda uses to access the schema registry.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// URI of the secret (Secrets Manager secret ARN) used to authenticate with the schema registry.
+	URI *string `json:"uri,omitempty" tf:"uri,omitempty"`
+}
+
+type AccessConfigParameters struct {
+
+	// Authentication type Lambda uses to access the schema registry.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// URI of the secret (Secrets Manager secret ARN) used to authenticate with the schema registry.
+	// +kubebuilder:validation:Optional
+	URI *string `json:"uri,omitempty" tf:"uri,omitempty"`
+}
+
 type AmazonManagedKafkaEventSourceConfigInitParameters struct {
 
 	// Kafka consumer group ID between 1 and 200 characters for use when creating this event source mapping. If one is not specified, this value will be automatically generated. See AmazonManagedKafkaEventSourceConfig Syntax.
 	ConsumerGroupID *string `json:"consumerGroupId,omitempty" tf:"consumer_group_id,omitempty"`
+
+	// Block for a Kafka schema registry setting. See below.
+	SchemaRegistryConfig *SchemaRegistryConfigInitParameters `json:"schemaRegistryConfig,omitempty" tf:"schema_registry_config,omitempty"`
 }
 
 type AmazonManagedKafkaEventSourceConfigObservation struct {
 
 	// Kafka consumer group ID between 1 and 200 characters for use when creating this event source mapping. If one is not specified, this value will be automatically generated. See AmazonManagedKafkaEventSourceConfig Syntax.
 	ConsumerGroupID *string `json:"consumerGroupId,omitempty" tf:"consumer_group_id,omitempty"`
+
+	// Block for a Kafka schema registry setting. See below.
+	SchemaRegistryConfig *SchemaRegistryConfigObservation `json:"schemaRegistryConfig,omitempty" tf:"schema_registry_config,omitempty"`
 }
 
 type AmazonManagedKafkaEventSourceConfigParameters struct {
@@ -31,6 +66,10 @@ type AmazonManagedKafkaEventSourceConfigParameters struct {
 	// Kafka consumer group ID between 1 and 200 characters for use when creating this event source mapping. If one is not specified, this value will be automatically generated. See AmazonManagedKafkaEventSourceConfig Syntax.
 	// +kubebuilder:validation:Optional
 	ConsumerGroupID *string `json:"consumerGroupId,omitempty" tf:"consumer_group_id,omitempty"`
+
+	// Block for a Kafka schema registry setting. See below.
+	// +kubebuilder:validation:Optional
+	SchemaRegistryConfig *SchemaRegistryConfigParameters `json:"schemaRegistryConfig,omitempty" tf:"schema_registry_config,omitempty"`
 }
 
 type DestinationConfigInitParameters struct {
@@ -600,6 +639,122 @@ type ScalingConfigParameters struct {
 	MaximumConcurrency *float64 `json:"maximumConcurrency,omitempty" tf:"maximum_concurrency,omitempty"`
 }
 
+type SchemaRegistryConfigAccessConfigInitParameters struct {
+
+	// Authentication type Lambda uses to access the schema registry.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// URI of the secret (Secrets Manager secret ARN) used to authenticate with the schema registry.
+	URI *string `json:"uri,omitempty" tf:"uri,omitempty"`
+}
+
+type SchemaRegistryConfigAccessConfigObservation struct {
+
+	// Authentication type Lambda uses to access the schema registry.
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// URI of the secret (Secrets Manager secret ARN) used to authenticate with the schema registry.
+	URI *string `json:"uri,omitempty" tf:"uri,omitempty"`
+}
+
+type SchemaRegistryConfigAccessConfigParameters struct {
+
+	// Authentication type Lambda uses to access the schema registry.
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// URI of the secret (Secrets Manager secret ARN) used to authenticate with the schema registry.
+	// +kubebuilder:validation:Optional
+	URI *string `json:"uri,omitempty" tf:"uri,omitempty"`
+}
+
+type SchemaRegistryConfigInitParameters struct {
+
+	// Configuration block for authentication Lambda uses to access the schema registry.
+	AccessConfig []AccessConfigInitParameters `json:"accessConfig,omitempty" tf:"access_config,omitempty"`
+
+	// Record format that Lambda delivers to the function after schema validation. Valid values: JSON, SOURCE.
+	EventRecordFormat *string `json:"eventRecordFormat,omitempty" tf:"event_record_format,omitempty"`
+
+	// URI of the schema registry. For AWS Glue schema registries, use the ARN of the registry. For Confluent schema registries, use the registry URL.
+	SchemaRegistryURI *string `json:"schemaRegistryUri,omitempty" tf:"schema_registry_uri,omitempty"`
+
+	// Repeatable block that defines schema validation settings. These specify the message attributes that Lambda should validate and filter using the schema registry.
+	SchemaValidationConfig []SchemaValidationConfigInitParameters `json:"schemaValidationConfig,omitempty" tf:"schema_validation_config,omitempty"`
+}
+
+type SchemaRegistryConfigObservation struct {
+
+	// Configuration block for authentication Lambda uses to access the schema registry.
+	AccessConfig []AccessConfigObservation `json:"accessConfig,omitempty" tf:"access_config,omitempty"`
+
+	// Record format that Lambda delivers to the function after schema validation. Valid values: JSON, SOURCE.
+	EventRecordFormat *string `json:"eventRecordFormat,omitempty" tf:"event_record_format,omitempty"`
+
+	// URI of the schema registry. For AWS Glue schema registries, use the ARN of the registry. For Confluent schema registries, use the registry URL.
+	SchemaRegistryURI *string `json:"schemaRegistryUri,omitempty" tf:"schema_registry_uri,omitempty"`
+
+	// Repeatable block that defines schema validation settings. These specify the message attributes that Lambda should validate and filter using the schema registry.
+	SchemaValidationConfig []SchemaValidationConfigObservation `json:"schemaValidationConfig,omitempty" tf:"schema_validation_config,omitempty"`
+}
+
+type SchemaRegistryConfigParameters struct {
+
+	// Configuration block for authentication Lambda uses to access the schema registry.
+	// +kubebuilder:validation:Optional
+	AccessConfig []AccessConfigParameters `json:"accessConfig,omitempty" tf:"access_config,omitempty"`
+
+	// Record format that Lambda delivers to the function after schema validation. Valid values: JSON, SOURCE.
+	// +kubebuilder:validation:Optional
+	EventRecordFormat *string `json:"eventRecordFormat,omitempty" tf:"event_record_format,omitempty"`
+
+	// URI of the schema registry. For AWS Glue schema registries, use the ARN of the registry. For Confluent schema registries, use the registry URL.
+	// +kubebuilder:validation:Optional
+	SchemaRegistryURI *string `json:"schemaRegistryUri,omitempty" tf:"schema_registry_uri,omitempty"`
+
+	// Repeatable block that defines schema validation settings. These specify the message attributes that Lambda should validate and filter using the schema registry.
+	// +kubebuilder:validation:Optional
+	SchemaValidationConfig []SchemaValidationConfigParameters `json:"schemaValidationConfig,omitempty" tf:"schema_validation_config,omitempty"`
+}
+
+type SchemaRegistryConfigSchemaValidationConfigInitParameters struct {
+
+	// Message attribute to validate. Valid values: KEY, VALUE.
+	Attribute *string `json:"attribute,omitempty" tf:"attribute,omitempty"`
+}
+
+type SchemaRegistryConfigSchemaValidationConfigObservation struct {
+
+	// Message attribute to validate. Valid values: KEY, VALUE.
+	Attribute *string `json:"attribute,omitempty" tf:"attribute,omitempty"`
+}
+
+type SchemaRegistryConfigSchemaValidationConfigParameters struct {
+
+	// Message attribute to validate. Valid values: KEY, VALUE.
+	// +kubebuilder:validation:Optional
+	Attribute *string `json:"attribute,omitempty" tf:"attribute,omitempty"`
+}
+
+type SchemaValidationConfigInitParameters struct {
+
+	// Message attribute to validate. Valid values: KEY, VALUE.
+	Attribute *string `json:"attribute,omitempty" tf:"attribute,omitempty"`
+}
+
+type SchemaValidationConfigObservation struct {
+
+	// Message attribute to validate. Valid values: KEY, VALUE.
+	Attribute *string `json:"attribute,omitempty" tf:"attribute,omitempty"`
+}
+
+type SchemaValidationConfigParameters struct {
+
+	// Message attribute to validate. Valid values: KEY, VALUE.
+	// +kubebuilder:validation:Optional
+	Attribute *string `json:"attribute,omitempty" tf:"attribute,omitempty"`
+}
+
 type SelfManagedEventSourceInitParameters struct {
 
 	// Map of endpoints for the self managed source. For Kafka self-managed sources, the key should be KAFKA_BOOTSTRAP_SERVERS and the value should be a string with a comma separated list of broker endpoints.
@@ -626,12 +781,18 @@ type SelfManagedKafkaEventSourceConfigInitParameters struct {
 
 	// Kafka consumer group ID between 1 and 200 characters for use when creating this event source mapping. If one is not specified, this value will be automatically generated. See SelfManagedKafkaEventSourceConfig Syntax.
 	ConsumerGroupID *string `json:"consumerGroupId,omitempty" tf:"consumer_group_id,omitempty"`
+
+	// Block for a Kafka schema registry setting. See below.
+	SchemaRegistryConfig *SelfManagedKafkaEventSourceConfigSchemaRegistryConfigInitParameters `json:"schemaRegistryConfig,omitempty" tf:"schema_registry_config,omitempty"`
 }
 
 type SelfManagedKafkaEventSourceConfigObservation struct {
 
 	// Kafka consumer group ID between 1 and 200 characters for use when creating this event source mapping. If one is not specified, this value will be automatically generated. See SelfManagedKafkaEventSourceConfig Syntax.
 	ConsumerGroupID *string `json:"consumerGroupId,omitempty" tf:"consumer_group_id,omitempty"`
+
+	// Block for a Kafka schema registry setting. See below.
+	SchemaRegistryConfig *SelfManagedKafkaEventSourceConfigSchemaRegistryConfigObservation `json:"schemaRegistryConfig,omitempty" tf:"schema_registry_config,omitempty"`
 }
 
 type SelfManagedKafkaEventSourceConfigParameters struct {
@@ -639,6 +800,59 @@ type SelfManagedKafkaEventSourceConfigParameters struct {
 	// Kafka consumer group ID between 1 and 200 characters for use when creating this event source mapping. If one is not specified, this value will be automatically generated. See SelfManagedKafkaEventSourceConfig Syntax.
 	// +kubebuilder:validation:Optional
 	ConsumerGroupID *string `json:"consumerGroupId,omitempty" tf:"consumer_group_id,omitempty"`
+
+	// Block for a Kafka schema registry setting. See below.
+	// +kubebuilder:validation:Optional
+	SchemaRegistryConfig *SelfManagedKafkaEventSourceConfigSchemaRegistryConfigParameters `json:"schemaRegistryConfig,omitempty" tf:"schema_registry_config,omitempty"`
+}
+
+type SelfManagedKafkaEventSourceConfigSchemaRegistryConfigInitParameters struct {
+
+	// Configuration block for authentication Lambda uses to access the schema registry.
+	AccessConfig []SchemaRegistryConfigAccessConfigInitParameters `json:"accessConfig,omitempty" tf:"access_config,omitempty"`
+
+	// Record format that Lambda delivers to the function after schema validation. Valid values: JSON, SOURCE.
+	EventRecordFormat *string `json:"eventRecordFormat,omitempty" tf:"event_record_format,omitempty"`
+
+	// URI of the schema registry. For AWS Glue schema registries, use the ARN of the registry. For Confluent schema registries, use the registry URL.
+	SchemaRegistryURI *string `json:"schemaRegistryUri,omitempty" tf:"schema_registry_uri,omitempty"`
+
+	// Repeatable block that defines schema validation settings. These specify the message attributes that Lambda should validate and filter using the schema registry.
+	SchemaValidationConfig []SchemaRegistryConfigSchemaValidationConfigInitParameters `json:"schemaValidationConfig,omitempty" tf:"schema_validation_config,omitempty"`
+}
+
+type SelfManagedKafkaEventSourceConfigSchemaRegistryConfigObservation struct {
+
+	// Configuration block for authentication Lambda uses to access the schema registry.
+	AccessConfig []SchemaRegistryConfigAccessConfigObservation `json:"accessConfig,omitempty" tf:"access_config,omitempty"`
+
+	// Record format that Lambda delivers to the function after schema validation. Valid values: JSON, SOURCE.
+	EventRecordFormat *string `json:"eventRecordFormat,omitempty" tf:"event_record_format,omitempty"`
+
+	// URI of the schema registry. For AWS Glue schema registries, use the ARN of the registry. For Confluent schema registries, use the registry URL.
+	SchemaRegistryURI *string `json:"schemaRegistryUri,omitempty" tf:"schema_registry_uri,omitempty"`
+
+	// Repeatable block that defines schema validation settings. These specify the message attributes that Lambda should validate and filter using the schema registry.
+	SchemaValidationConfig []SchemaRegistryConfigSchemaValidationConfigObservation `json:"schemaValidationConfig,omitempty" tf:"schema_validation_config,omitempty"`
+}
+
+type SelfManagedKafkaEventSourceConfigSchemaRegistryConfigParameters struct {
+
+	// Configuration block for authentication Lambda uses to access the schema registry.
+	// +kubebuilder:validation:Optional
+	AccessConfig []SchemaRegistryConfigAccessConfigParameters `json:"accessConfig,omitempty" tf:"access_config,omitempty"`
+
+	// Record format that Lambda delivers to the function after schema validation. Valid values: JSON, SOURCE.
+	// +kubebuilder:validation:Optional
+	EventRecordFormat *string `json:"eventRecordFormat,omitempty" tf:"event_record_format,omitempty"`
+
+	// URI of the schema registry. For AWS Glue schema registries, use the ARN of the registry. For Confluent schema registries, use the registry URL.
+	// +kubebuilder:validation:Optional
+	SchemaRegistryURI *string `json:"schemaRegistryUri,omitempty" tf:"schema_registry_uri,omitempty"`
+
+	// Repeatable block that defines schema validation settings. These specify the message attributes that Lambda should validate and filter using the schema registry.
+	// +kubebuilder:validation:Optional
+	SchemaValidationConfig []SchemaRegistryConfigSchemaValidationConfigParameters `json:"schemaValidationConfig,omitempty" tf:"schema_validation_config,omitempty"`
 }
 
 type SourceAccessConfigurationInitParameters struct {

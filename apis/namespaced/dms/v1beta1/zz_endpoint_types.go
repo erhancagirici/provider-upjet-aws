@@ -87,7 +87,7 @@ type EndpointInitParameters struct {
 	// Type of endpoint. Valid values are source, target.
 	EndpointType *string `json:"endpointType,omitempty" tf:"endpoint_type,omitempty"`
 
-	// Type of engine for the endpoint. Valid values are aurora, aurora-postgresql, aurora-serverless, aurora-postgresql-serverless,azuredb, azure-sql-managed-instance, babelfish, db2, db2-zos, docdb, dynamodb, elasticsearch, kafka, kinesis, mariadb, mongodb, mysql, opensearch, oracle, postgres, redshift,redshift-serverless, s3, sqlserver, neptune ,sybase. Please note that some of engine names are available only for target endpoint type (e.g. redshift).
+	// Type of engine for the endpoint. Valid values are aurora, aurora-postgresql, aurora-serverless, aurora-postgresql-serverless,azuredb, azure-sql-managed-instance, babelfish, db2, db2-zos, docdb, dynamodb, elasticsearch, kafka, kinesis, mariadb, mongodb, mysql, opensearch, oracle, postgres, redshift,redshift-serverless, sqlserver, neptune ,sybase. Please note that some of engine names are available only for target endpoint type (e.g. redshift).
 	EngineName *string `json:"engineName,omitempty" tf:"engine_name,omitempty"`
 
 	// Additional attributes associated with the connection. For available attributes for a source Endpoint, see Sources for data migration. For available attributes for a target Endpoint, see Targets for data migration.
@@ -114,6 +114,9 @@ type EndpointInitParameters struct {
 
 	// Configuration block for MongoDB settings. See below.
 	MongodbSettings *MongodbSettingsInitParameters `json:"mongodbSettings,omitempty" tf:"mongodb_settings,omitempty"`
+
+	// Configuration block for MySQL settings. See below.
+	MySQLSettings *MySQLSettingsInitParameters `json:"mysqlSettings,omitempty" tf:"mysql_settings,omitempty"`
 
 	// Configuration block for Oracle settings. See below.
 	OracleSettings *OracleSettingsInitParameters `json:"oracleSettings,omitempty" tf:"oracle_settings,omitempty"`
@@ -195,7 +198,7 @@ type EndpointObservation struct {
 	// Type of endpoint. Valid values are source, target.
 	EndpointType *string `json:"endpointType,omitempty" tf:"endpoint_type,omitempty"`
 
-	// Type of engine for the endpoint. Valid values are aurora, aurora-postgresql, aurora-serverless, aurora-postgresql-serverless,azuredb, azure-sql-managed-instance, babelfish, db2, db2-zos, docdb, dynamodb, elasticsearch, kafka, kinesis, mariadb, mongodb, mysql, opensearch, oracle, postgres, redshift,redshift-serverless, s3, sqlserver, neptune ,sybase. Please note that some of engine names are available only for target endpoint type (e.g. redshift).
+	// Type of engine for the endpoint. Valid values are aurora, aurora-postgresql, aurora-serverless, aurora-postgresql-serverless,azuredb, azure-sql-managed-instance, babelfish, db2, db2-zos, docdb, dynamodb, elasticsearch, kafka, kinesis, mariadb, mongodb, mysql, opensearch, oracle, postgres, redshift,redshift-serverless, sqlserver, neptune ,sybase. Please note that some of engine names are available only for target endpoint type (e.g. redshift).
 	EngineName *string `json:"engineName,omitempty" tf:"engine_name,omitempty"`
 
 	// Additional attributes associated with the connection. For available attributes for a source Endpoint, see Sources for data migration. For available attributes for a target Endpoint, see Targets for data migration.
@@ -214,6 +217,9 @@ type EndpointObservation struct {
 
 	// Configuration block for MongoDB settings. See below.
 	MongodbSettings *MongodbSettingsObservation `json:"mongodbSettings,omitempty" tf:"mongodb_settings,omitempty"`
+
+	// Configuration block for MySQL settings. See below.
+	MySQLSettings *MySQLSettingsObservation `json:"mysqlSettings,omitempty" tf:"mysql_settings,omitempty"`
 
 	// Configuration block for Oracle settings. See below.
 	OracleSettings *OracleSettingsObservation `json:"oracleSettings,omitempty" tf:"oracle_settings,omitempty"`
@@ -281,7 +287,7 @@ type EndpointParameters struct {
 	// +kubebuilder:validation:Optional
 	EndpointType *string `json:"endpointType,omitempty" tf:"endpoint_type,omitempty"`
 
-	// Type of engine for the endpoint. Valid values are aurora, aurora-postgresql, aurora-serverless, aurora-postgresql-serverless,azuredb, azure-sql-managed-instance, babelfish, db2, db2-zos, docdb, dynamodb, elasticsearch, kafka, kinesis, mariadb, mongodb, mysql, opensearch, oracle, postgres, redshift,redshift-serverless, s3, sqlserver, neptune ,sybase. Please note that some of engine names are available only for target endpoint type (e.g. redshift).
+	// Type of engine for the endpoint. Valid values are aurora, aurora-postgresql, aurora-serverless, aurora-postgresql-serverless,azuredb, azure-sql-managed-instance, babelfish, db2, db2-zos, docdb, dynamodb, elasticsearch, kafka, kinesis, mariadb, mongodb, mysql, opensearch, oracle, postgres, redshift,redshift-serverless, sqlserver, neptune ,sybase. Please note that some of engine names are available only for target endpoint type (e.g. redshift).
 	// +kubebuilder:validation:Optional
 	EngineName *string `json:"engineName,omitempty" tf:"engine_name,omitempty"`
 
@@ -314,6 +320,10 @@ type EndpointParameters struct {
 	// Configuration block for MongoDB settings. See below.
 	// +kubebuilder:validation:Optional
 	MongodbSettings *MongodbSettingsParameters `json:"mongodbSettings,omitempty" tf:"mongodb_settings,omitempty"`
+
+	// Configuration block for MySQL settings. See below.
+	// +kubebuilder:validation:Optional
+	MySQLSettings *MySQLSettingsParameters `json:"mysqlSettings,omitempty" tf:"mysql_settings,omitempty"`
 
 	// Configuration block for Oracle settings. See below.
 	// +kubebuilder:validation:Optional
@@ -768,6 +778,115 @@ type MongodbSettingsParameters struct {
 	NestingLevel *string `json:"nestingLevel,omitempty" tf:"nesting_level,omitempty"`
 }
 
+type MySQLSettingsInitParameters struct {
+
+	// Script to run immediately after AWS DMS connects to the endpoint.
+	AfterConnectScript *string `json:"afterConnectScript,omitempty" tf:"after_connect_script,omitempty"`
+
+	// Authentication method to use. Valid values: password, iam.
+	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
+
+	// Whether to clean and recreate table metadata information on the replication instance when a mismatch occurs.
+	CleanSourceMetadataOnMismatch *bool `json:"cleanSourceMetadataOnMismatch,omitempty" tf:"clean_source_metadata_on_mismatch,omitempty"`
+
+	// Time interval to check the binary log for new changes/events when the database is idle. Default is 5.
+	EventsPollInterval *float64 `json:"eventsPollInterval,omitempty" tf:"events_poll_interval,omitempty"`
+
+	// Client statement timeout (in seconds) for a MySQL source endpoint.
+	ExecuteTimeout *float64 `json:"executeTimeout,omitempty" tf:"execute_timeout,omitempty"`
+
+	// Maximum size (in KB) of any .csv file used to transfer data to a MySQL-compatible database.
+	MaxFileSize *float64 `json:"maxFileSize,omitempty" tf:"max_file_size,omitempty"`
+
+	// Number of threads to use to load the data into the MySQL-compatible target database.
+	ParallelLoadThreads *float64 `json:"parallelLoadThreads,omitempty" tf:"parallel_load_threads,omitempty"`
+
+	// Time zone for the source MySQL database.
+	ServerTimezone *string `json:"serverTimezone,omitempty" tf:"server_timezone,omitempty"`
+
+	// ARN of the IAM role to authenticate when connecting to the endpoint.
+	ServiceAccessRoleArn *string `json:"serviceAccessRoleArn,omitempty" tf:"service_access_role_arn,omitempty"`
+
+	// Where to migrate source tables on the target. Valid values are specific-database and multiple-databases.
+	TargetDBType *string `json:"targetDbType,omitempty" tf:"target_db_type,omitempty"`
+}
+
+type MySQLSettingsObservation struct {
+
+	// Script to run immediately after AWS DMS connects to the endpoint.
+	AfterConnectScript *string `json:"afterConnectScript,omitempty" tf:"after_connect_script,omitempty"`
+
+	// Authentication method to use. Valid values: password, iam.
+	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
+
+	// Whether to clean and recreate table metadata information on the replication instance when a mismatch occurs.
+	CleanSourceMetadataOnMismatch *bool `json:"cleanSourceMetadataOnMismatch,omitempty" tf:"clean_source_metadata_on_mismatch,omitempty"`
+
+	// Time interval to check the binary log for new changes/events when the database is idle. Default is 5.
+	EventsPollInterval *float64 `json:"eventsPollInterval,omitempty" tf:"events_poll_interval,omitempty"`
+
+	// Client statement timeout (in seconds) for a MySQL source endpoint.
+	ExecuteTimeout *float64 `json:"executeTimeout,omitempty" tf:"execute_timeout,omitempty"`
+
+	// Maximum size (in KB) of any .csv file used to transfer data to a MySQL-compatible database.
+	MaxFileSize *float64 `json:"maxFileSize,omitempty" tf:"max_file_size,omitempty"`
+
+	// Number of threads to use to load the data into the MySQL-compatible target database.
+	ParallelLoadThreads *float64 `json:"parallelLoadThreads,omitempty" tf:"parallel_load_threads,omitempty"`
+
+	// Time zone for the source MySQL database.
+	ServerTimezone *string `json:"serverTimezone,omitempty" tf:"server_timezone,omitempty"`
+
+	// ARN of the IAM role to authenticate when connecting to the endpoint.
+	ServiceAccessRoleArn *string `json:"serviceAccessRoleArn,omitempty" tf:"service_access_role_arn,omitempty"`
+
+	// Where to migrate source tables on the target. Valid values are specific-database and multiple-databases.
+	TargetDBType *string `json:"targetDbType,omitempty" tf:"target_db_type,omitempty"`
+}
+
+type MySQLSettingsParameters struct {
+
+	// Script to run immediately after AWS DMS connects to the endpoint.
+	// +kubebuilder:validation:Optional
+	AfterConnectScript *string `json:"afterConnectScript,omitempty" tf:"after_connect_script,omitempty"`
+
+	// Authentication method to use. Valid values: password, iam.
+	// +kubebuilder:validation:Optional
+	AuthenticationMethod *string `json:"authenticationMethod,omitempty" tf:"authentication_method,omitempty"`
+
+	// Whether to clean and recreate table metadata information on the replication instance when a mismatch occurs.
+	// +kubebuilder:validation:Optional
+	CleanSourceMetadataOnMismatch *bool `json:"cleanSourceMetadataOnMismatch,omitempty" tf:"clean_source_metadata_on_mismatch,omitempty"`
+
+	// Time interval to check the binary log for new changes/events when the database is idle. Default is 5.
+	// +kubebuilder:validation:Optional
+	EventsPollInterval *float64 `json:"eventsPollInterval,omitempty" tf:"events_poll_interval,omitempty"`
+
+	// Client statement timeout (in seconds) for a MySQL source endpoint.
+	// +kubebuilder:validation:Optional
+	ExecuteTimeout *float64 `json:"executeTimeout,omitempty" tf:"execute_timeout,omitempty"`
+
+	// Maximum size (in KB) of any .csv file used to transfer data to a MySQL-compatible database.
+	// +kubebuilder:validation:Optional
+	MaxFileSize *float64 `json:"maxFileSize,omitempty" tf:"max_file_size,omitempty"`
+
+	// Number of threads to use to load the data into the MySQL-compatible target database.
+	// +kubebuilder:validation:Optional
+	ParallelLoadThreads *float64 `json:"parallelLoadThreads,omitempty" tf:"parallel_load_threads,omitempty"`
+
+	// Time zone for the source MySQL database.
+	// +kubebuilder:validation:Optional
+	ServerTimezone *string `json:"serverTimezone,omitempty" tf:"server_timezone,omitempty"`
+
+	// ARN of the IAM role to authenticate when connecting to the endpoint.
+	// +kubebuilder:validation:Optional
+	ServiceAccessRoleArn *string `json:"serviceAccessRoleArn,omitempty" tf:"service_access_role_arn,omitempty"`
+
+	// Where to migrate source tables on the target. Valid values are specific-database and multiple-databases.
+	// +kubebuilder:validation:Optional
+	TargetDBType *string `json:"targetDbType,omitempty" tf:"target_db_type,omitempty"`
+}
+
 type OracleSettingsInitParameters struct {
 
 	// Authentication mechanism to access the Oracle source endpoint. Default is password. Valid values are password and kerberos.
@@ -834,7 +953,7 @@ type PostgresSettingsInitParameters struct {
 	// Specifies the maximum size (in KB) of any .csv file used to transfer data to PostgreSQL. Default is 32,768 KB.
 	MaxFileSize *float64 `json:"maxFileSize,omitempty" tf:"max_file_size,omitempty"`
 
-	// Specifies the plugin to use to create a replication slot. Valid values: pglogical, test_decoding.
+	// Specifies the plugin to use to create a replication slot. Valid values: pglogical, test-decoding.
 	PluginName *string `json:"pluginName,omitempty" tf:"plugin_name,omitempty"`
 
 	// Specifies the IAM role to use to authenticate the connection.
@@ -891,7 +1010,7 @@ type PostgresSettingsObservation struct {
 	// Specifies the maximum size (in KB) of any .csv file used to transfer data to PostgreSQL. Default is 32,768 KB.
 	MaxFileSize *float64 `json:"maxFileSize,omitempty" tf:"max_file_size,omitempty"`
 
-	// Specifies the plugin to use to create a replication slot. Valid values: pglogical, test_decoding.
+	// Specifies the plugin to use to create a replication slot. Valid values: pglogical, test-decoding.
 	PluginName *string `json:"pluginName,omitempty" tf:"plugin_name,omitempty"`
 
 	// Specifies the IAM role to use to authenticate the connection.
@@ -963,7 +1082,7 @@ type PostgresSettingsParameters struct {
 	// +kubebuilder:validation:Optional
 	MaxFileSize *float64 `json:"maxFileSize,omitempty" tf:"max_file_size,omitempty"`
 
-	// Specifies the plugin to use to create a replication slot. Valid values: pglogical, test_decoding.
+	// Specifies the plugin to use to create a replication slot. Valid values: pglogical, test-decoding.
 	// +kubebuilder:validation:Optional
 	PluginName *string `json:"pluginName,omitempty" tf:"plugin_name,omitempty"`
 

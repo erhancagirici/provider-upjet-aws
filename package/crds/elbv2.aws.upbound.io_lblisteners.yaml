@@ -2267,6 +2267,43 @@ spec:
                           description: This is an injected field with a default value
                             for being able to merge items of the parent object list.
                           type: string
+                        jwtValidation:
+                          description: Configuration block for creating a JWT validation
+                            action. Required if type is jwt-validation.
+                          properties:
+                            additionalClaim:
+                              description: Repeatable configuration block for additional
+                                claims to validate.
+                              items:
+                                properties:
+                                  format:
+                                    description: Format of the claim value. Valid
+                                      values are single-string, string-array and space-separated-values.
+                                    type: string
+                                  name:
+                                    description: Name of the claim to validate. exp,
+                                      iss, nbf, or iat cannot be specified because
+                                      they are validated by default.
+                                    type: string
+                                  values:
+                                    description: List of expected values of the claim.
+                                    items:
+                                      type: string
+                                    type: array
+                                    x-kubernetes-list-type: set
+                                type: object
+                              type: array
+                            issuer:
+                              description: Issuer of the JWT.
+                              type: string
+                            jwksEndpoint:
+                              description: JSON Web Key Set (JWKS) endpoint. This
+                                endpoint contains JSON Web Keys (JWK) that are used
+                                to validate signatures from the provider. This must
+                                be a full URL, including the HTTPS protocol, the domain,
+                                and the path.
+                              type: string
+                          type: object
                         order:
                           description: Order for the action. The action with the lowest
                             value for order is performed first. Valid values are between
@@ -2389,7 +2426,8 @@ spec:
                           type: object
                         type:
                           description: Type of routing action. Valid values are forward,
-                            redirect, fixed-response, authenticate-cognito and authenticate-oidc.
+                            redirect, fixed-response, authenticate-cognito, authenticate-oidc
+                            and jwt-validation.
                           type: string
                       type: object
                     type: array
@@ -2916,6 +2954,43 @@ spec:
                           description: This is an injected field with a default value
                             for being able to merge items of the parent object list.
                           type: string
+                        jwtValidation:
+                          description: Configuration block for creating a JWT validation
+                            action. Required if type is jwt-validation.
+                          properties:
+                            additionalClaim:
+                              description: Repeatable configuration block for additional
+                                claims to validate.
+                              items:
+                                properties:
+                                  format:
+                                    description: Format of the claim value. Valid
+                                      values are single-string, string-array and space-separated-values.
+                                    type: string
+                                  name:
+                                    description: Name of the claim to validate. exp,
+                                      iss, nbf, or iat cannot be specified because
+                                      they are validated by default.
+                                    type: string
+                                  values:
+                                    description: List of expected values of the claim.
+                                    items:
+                                      type: string
+                                    type: array
+                                    x-kubernetes-list-type: set
+                                type: object
+                              type: array
+                            issuer:
+                              description: Issuer of the JWT.
+                              type: string
+                            jwksEndpoint:
+                              description: JSON Web Key Set (JWKS) endpoint. This
+                                endpoint contains JSON Web Keys (JWK) that are used
+                                to validate signatures from the provider. This must
+                                be a full URL, including the HTTPS protocol, the domain,
+                                and the path.
+                              type: string
+                          type: object
                         order:
                           description: Order for the action. The action with the lowest
                             value for order is performed first. Valid values are between
@@ -3038,7 +3113,8 @@ spec:
                           type: object
                         type:
                           description: Type of routing action. Valid values are forward,
-                            redirect, fixed-response, authenticate-cognito and authenticate-oidc.
+                            redirect, fixed-response, authenticate-cognito, authenticate-oidc
+                            and jwt-validation.
                           type: string
                       type: object
                     type: array
@@ -3549,6 +3625,43 @@ spec:
                           description: This is an injected field with a default value
                             for being able to merge items of the parent object list.
                           type: string
+                        jwtValidation:
+                          description: Configuration block for creating a JWT validation
+                            action. Required if type is jwt-validation.
+                          properties:
+                            additionalClaim:
+                              description: Repeatable configuration block for additional
+                                claims to validate.
+                              items:
+                                properties:
+                                  format:
+                                    description: Format of the claim value. Valid
+                                      values are single-string, string-array and space-separated-values.
+                                    type: string
+                                  name:
+                                    description: Name of the claim to validate. exp,
+                                      iss, nbf, or iat cannot be specified because
+                                      they are validated by default.
+                                    type: string
+                                  values:
+                                    description: List of expected values of the claim.
+                                    items:
+                                      type: string
+                                    type: array
+                                    x-kubernetes-list-type: set
+                                type: object
+                              type: array
+                            issuer:
+                              description: Issuer of the JWT.
+                              type: string
+                            jwksEndpoint:
+                              description: JSON Web Key Set (JWKS) endpoint. This
+                                endpoint contains JSON Web Keys (JWK) that are used
+                                to validate signatures from the provider. This must
+                                be a full URL, including the HTTPS protocol, the domain,
+                                and the path.
+                              type: string
+                          type: object
                         order:
                           description: Order for the action. The action with the lowest
                             value for order is performed first. Valid values are between
@@ -3595,7 +3708,8 @@ spec:
                           type: string
                         type:
                           description: Type of routing action. Valid values are forward,
-                            redirect, fixed-response, authenticate-cognito and authenticate-oidc.
+                            redirect, fixed-response, authenticate-cognito, authenticate-oidc
+                            and jwt-validation.
                           type: string
                       type: object
                     type: array

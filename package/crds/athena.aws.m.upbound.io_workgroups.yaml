@@ -102,6 +102,28 @@ spec:
                               the workgroup associates to.
                             type: string
                         type: object
+                      managedQueryResultsConfiguration:
+                        description: Configuration block for storing results in Athena
+                          owned storage. See Managed Query Results Configuration below.
+                        properties:
+                          enabled:
+                            description: If set to true, allows you to store query
+                              results in Athena owned storage. If set to false, workgroup
+                              member stores query results in the location specified
+                              under result_configuration.output_location. The default
+                              is false. A workgroup cannot have the result_configuration.output_location
+                              set when this is true.
+                            type: boolean
+                          encryptionConfiguration:
+                            description: Configuration block with encryption settings.
+                              See Encryption Configuration below.
+                            properties:
+                              kmsKey:
+                                description: KMS key ARN for encrypting managed query
+                                  results.
+                                type: string
+                            type: object
+                        type: object
                       publishCloudwatchMetricsEnabled:
                         description: Boolean whether Amazon CloudWatch metrics are
                           enabled for the workgroup. Defaults to true.
@@ -324,6 +346,28 @@ spec:
                             description: The IAM Identity Center instance ARN that
                               the workgroup associates to.
                             type: string
+                        type: object
+                      managedQueryResultsConfiguration:
+                        description: Configuration block for storing results in Athena
+                          owned storage. See Managed Query Results Configuration below.
+                        properties:
+                          enabled:
+                            description: If set to true, allows you to store query
+                              results in Athena owned storage. If set to false, workgroup
+                              member stores query results in the location specified
+                              under result_configuration.output_location. The default
+                              is false. A workgroup cannot have the result_configuration.output_location
+                              set when this is true.
+                            type: boolean
+                          encryptionConfiguration:
+                            description: Configuration block with encryption settings.
+                              See Encryption Configuration below.
+                            properties:
+                              kmsKey:
+                                description: KMS key ARN for encrypting managed query
+                                  results.
+                                type: string
+                            type: object
                         type: object
                       publishCloudwatchMetricsEnabled:
                         description: Boolean whether Amazon CloudWatch metrics are
@@ -598,6 +642,28 @@ spec:
                             description: The IAM Identity Center instance ARN that
                               the workgroup associates to.
                             type: string
+                        type: object
+                      managedQueryResultsConfiguration:
+                        description: Configuration block for storing results in Athena
+                          owned storage. See Managed Query Results Configuration below.
+                        properties:
+                          enabled:
+                            description: If set to true, allows you to store query
+                              results in Athena owned storage. If set to false, workgroup
+                              member stores query results in the location specified
+                              under result_configuration.output_location. The default
+                              is false. A workgroup cannot have the result_configuration.output_location
+                              set when this is true.
+                            type: boolean
+                          encryptionConfiguration:
+                            description: Configuration block with encryption settings.
+                              See Encryption Configuration below.
+                            properties:
+                              kmsKey:
+                                description: KMS key ARN for encrypting managed query
+                                  results.
+                                type: string
+                            type: object
                         type: object
                       publishCloudwatchMetricsEnabled:
                         description: Boolean whether Amazon CloudWatch metrics are

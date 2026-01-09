@@ -63,6 +63,35 @@ type AdvancedSecurityOptionsParameters struct {
 	MasterUserOptions *MasterUserOptionsParameters `json:"masterUserOptions,omitempty" tf:"master_user_options,omitempty"`
 }
 
+type AimlOptionsInitParameters struct {
+
+	// Configuration block for parameters required for natural language query generation on the specified domain.
+	NaturalLanguageQueryGenerationOptions *NaturalLanguageQueryGenerationOptionsInitParameters `json:"naturalLanguageQueryGenerationOptions,omitempty" tf:"natural_language_query_generation_options,omitempty"`
+
+	// Configuration block for parameters required to enable S3 vectors engine features on the specified domain.
+	S3VectorsEngine *S3VectorsEngineInitParameters `json:"s3VectorsEngine,omitempty" tf:"s3_vectors_engine,omitempty"`
+}
+
+type AimlOptionsObservation struct {
+
+	// Configuration block for parameters required for natural language query generation on the specified domain.
+	NaturalLanguageQueryGenerationOptions *NaturalLanguageQueryGenerationOptionsObservation `json:"naturalLanguageQueryGenerationOptions,omitempty" tf:"natural_language_query_generation_options,omitempty"`
+
+	// Configuration block for parameters required to enable S3 vectors engine features on the specified domain.
+	S3VectorsEngine *S3VectorsEngineObservation `json:"s3VectorsEngine,omitempty" tf:"s3_vectors_engine,omitempty"`
+}
+
+type AimlOptionsParameters struct {
+
+	// Configuration block for parameters required for natural language query generation on the specified domain.
+	// +kubebuilder:validation:Optional
+	NaturalLanguageQueryGenerationOptions *NaturalLanguageQueryGenerationOptionsParameters `json:"naturalLanguageQueryGenerationOptions,omitempty" tf:"natural_language_query_generation_options,omitempty"`
+
+	// Configuration block for parameters required to enable S3 vectors engine features on the specified domain.
+	// +kubebuilder:validation:Optional
+	S3VectorsEngine *S3VectorsEngineParameters `json:"s3VectorsEngine,omitempty" tf:"s3_vectors_engine,omitempty"`
+}
+
 type AutoTuneOptionsInitParameters struct {
 
 	// Auto-Tune desired state for the domain. Valid values: ENABLED or DISABLED.
@@ -387,6 +416,9 @@ type DomainInitParameters struct {
 	// Configuration block for fine-grained access control. Detailed below.
 	AdvancedSecurityOptions *AdvancedSecurityOptionsInitParameters `json:"advancedSecurityOptions,omitempty" tf:"advanced_security_options,omitempty"`
 
+	// Configuration block for parameters required to enable all machine learning features. Detailed below.
+	AimlOptions *AimlOptionsInitParameters `json:"aimlOptions,omitempty" tf:"aiml_options,omitempty"`
+
 	// Configuration block for the Auto-Tune options of the domain. Detailed below.
 	AutoTuneOptions *AutoTuneOptionsInitParameters `json:"autoTuneOptions,omitempty" tf:"auto_tune_options,omitempty"`
 
@@ -413,6 +445,9 @@ type DomainInitParameters struct {
 
 	// The IP address type for the endpoint. Valid values are ipv4 and dualstack.
 	IPAddressType *string `json:"ipAddressType,omitempty" tf:"ip_address_type,omitempty"`
+
+	// Configuration block for enabling and managing IAM Identity Center integration within a domain. Detailed below.
+	IdentityCenterOptions *IdentityCenterOptionsInitParameters `json:"identityCenterOptions,omitempty" tf:"identity_center_options,omitempty"`
 
 	// Configuration block for publishing slow and application logs to CloudWatch Logs. This block can be declared multiple times, for each log_type, within the same resource. Detailed below.
 	LogPublishingOptions []LogPublishingOptionsInitParameters `json:"logPublishingOptions,omitempty" tf:"log_publishing_options,omitempty"`
@@ -448,6 +483,9 @@ type DomainObservation struct {
 
 	// Configuration block for fine-grained access control. Detailed below.
 	AdvancedSecurityOptions *AdvancedSecurityOptionsObservation `json:"advancedSecurityOptions,omitempty" tf:"advanced_security_options,omitempty"`
+
+	// Configuration block for parameters required to enable all machine learning features. Detailed below.
+	AimlOptions *AimlOptionsObservation `json:"aimlOptions,omitempty" tf:"aiml_options,omitempty"`
 
 	// ARN of the domain.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
@@ -499,6 +537,9 @@ type DomainObservation struct {
 	// The IP address type for the endpoint. Valid values are ipv4 and dualstack.
 	IPAddressType *string `json:"ipAddressType,omitempty" tf:"ip_address_type,omitempty"`
 
+	// Configuration block for enabling and managing IAM Identity Center integration within a domain. Detailed below.
+	IdentityCenterOptions *IdentityCenterOptionsObservation `json:"identityCenterOptions,omitempty" tf:"identity_center_options,omitempty"`
+
 	// Configuration block for publishing slow and application logs to CloudWatch Logs. This block can be declared multiple times, for each log_type, within the same resource. Detailed below.
 	LogPublishingOptions []LogPublishingOptionsObservation `json:"logPublishingOptions,omitempty" tf:"log_publishing_options,omitempty"`
 
@@ -541,6 +582,10 @@ type DomainParameters struct {
 	// +kubebuilder:validation:Optional
 	AdvancedSecurityOptions *AdvancedSecurityOptionsParameters `json:"advancedSecurityOptions,omitempty" tf:"advanced_security_options,omitempty"`
 
+	// Configuration block for parameters required to enable all machine learning features. Detailed below.
+	// +kubebuilder:validation:Optional
+	AimlOptions *AimlOptionsParameters `json:"aimlOptions,omitempty" tf:"aiml_options,omitempty"`
+
 	// Configuration block for the Auto-Tune options of the domain. Detailed below.
 	// +kubebuilder:validation:Optional
 	AutoTuneOptions *AutoTuneOptionsParameters `json:"autoTuneOptions,omitempty" tf:"auto_tune_options,omitempty"`
@@ -576,6 +621,10 @@ type DomainParameters struct {
 	// The IP address type for the endpoint. Valid values are ipv4 and dualstack.
 	// +kubebuilder:validation:Optional
 	IPAddressType *string `json:"ipAddressType,omitempty" tf:"ip_address_type,omitempty"`
+
+	// Configuration block for enabling and managing IAM Identity Center integration within a domain. Detailed below.
+	// +kubebuilder:validation:Optional
+	IdentityCenterOptions *IdentityCenterOptionsParameters `json:"identityCenterOptions,omitempty" tf:"identity_center_options,omitempty"`
 
 	// Configuration block for publishing slow and application logs to CloudWatch Logs. This block can be declared multiple times, for each log_type, within the same resource. Detailed below.
 	// +kubebuilder:validation:Optional
@@ -749,6 +798,49 @@ type EncryptAtRestParameters struct {
 	KMSKeyIDSelector *v1.NamespacedSelector `json:"kmsKeyIdSelector,omitempty" tf:"-"`
 }
 
+type IdentityCenterOptionsInitParameters struct {
+
+	// is set to true.
+	EnabledAPIAccess *bool `json:"enabledApiAccess,omitempty" tf:"enabled_api_access,omitempty"`
+
+	// ARN of the domain.
+	IdentityCenterInstanceArn *string `json:"identityCenterInstanceArn,omitempty" tf:"identity_center_instance_arn,omitempty"`
+
+	RolesKey *string `json:"rolesKey,omitempty" tf:"roles_key,omitempty"`
+
+	SubjectKey *string `json:"subjectKey,omitempty" tf:"subject_key,omitempty"`
+}
+
+type IdentityCenterOptionsObservation struct {
+
+	// is set to true.
+	EnabledAPIAccess *bool `json:"enabledApiAccess,omitempty" tf:"enabled_api_access,omitempty"`
+
+	// ARN of the domain.
+	IdentityCenterInstanceArn *string `json:"identityCenterInstanceArn,omitempty" tf:"identity_center_instance_arn,omitempty"`
+
+	RolesKey *string `json:"rolesKey,omitempty" tf:"roles_key,omitempty"`
+
+	SubjectKey *string `json:"subjectKey,omitempty" tf:"subject_key,omitempty"`
+}
+
+type IdentityCenterOptionsParameters struct {
+
+	// is set to true.
+	// +kubebuilder:validation:Optional
+	EnabledAPIAccess *bool `json:"enabledApiAccess,omitempty" tf:"enabled_api_access,omitempty"`
+
+	// ARN of the domain.
+	// +kubebuilder:validation:Optional
+	IdentityCenterInstanceArn *string `json:"identityCenterInstanceArn,omitempty" tf:"identity_center_instance_arn,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	RolesKey *string `json:"rolesKey,omitempty" tf:"roles_key,omitempty"`
+
+	// +kubebuilder:validation:Optional
+	SubjectKey *string `json:"subjectKey,omitempty" tf:"subject_key,omitempty"`
+}
+
 type LogPublishingOptionsInitParameters struct {
 
 	// ARN of the Cloudwatch log group to which log needs to be published.
@@ -883,6 +975,25 @@ type MasterUserOptionsParameters struct {
 	MasterUserPasswordSecretRef *v1.LocalSecretKeySelector `json:"masterUserPasswordSecretRef,omitempty" tf:"-"`
 }
 
+type NaturalLanguageQueryGenerationOptionsInitParameters struct {
+
+	// The desired state of the natural language query generation feature. Valid values are ENABLED and DISABLED.
+	DesiredState *string `json:"desiredState,omitempty" tf:"desired_state,omitempty"`
+}
+
+type NaturalLanguageQueryGenerationOptionsObservation struct {
+
+	// The desired state of the natural language query generation feature. Valid values are ENABLED and DISABLED.
+	DesiredState *string `json:"desiredState,omitempty" tf:"desired_state,omitempty"`
+}
+
+type NaturalLanguageQueryGenerationOptionsParameters struct {
+
+	// The desired state of the natural language query generation feature. Valid values are ENABLED and DISABLED.
+	// +kubebuilder:validation:Optional
+	DesiredState *string `json:"desiredState,omitempty" tf:"desired_state,omitempty"`
+}
+
 type NodeConfigInitParameters struct {
 
 	// Number of nodes of a particular node type in the cluster.
@@ -1013,6 +1124,25 @@ type OffPeakWindowParameters struct {
 	// 10h window for updates
 	// +kubebuilder:validation:Optional
 	WindowStartTime *WindowStartTimeParameters `json:"windowStartTime,omitempty" tf:"window_start_time,omitempty"`
+}
+
+type S3VectorsEngineInitParameters struct {
+
+	// Enables S3 vectors engine features.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type S3VectorsEngineObservation struct {
+
+	// Enables S3 vectors engine features.
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+}
+
+type S3VectorsEngineParameters struct {
+
+	// Enables S3 vectors engine features.
+	// +kubebuilder:validation:Optional
+	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 }
 
 type SnapshotOptionsInitParameters struct {

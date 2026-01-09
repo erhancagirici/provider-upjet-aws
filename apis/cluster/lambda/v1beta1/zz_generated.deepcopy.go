@@ -4121,6 +4121,11 @@ func (in *InvocationInitParameters) DeepCopyInto(out *InvocationInitParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.TenantID != nil {
+		in, out := &in.TenantID, &out.TenantID
+		*out = new(string)
+		**out = **in
+	}
 	if in.TerraformKey != nil {
 		in, out := &in.TerraformKey, &out.TerraformKey
 		*out = new(string)
@@ -4224,6 +4229,11 @@ func (in *InvocationObservation) DeepCopyInto(out *InvocationObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.TenantID != nil {
+		in, out := &in.TenantID, &out.TenantID
+		*out = new(string)
+		**out = **in
+	}
 	if in.TerraformKey != nil {
 		in, out := &in.TerraformKey, &out.TerraformKey
 		*out = new(string)
@@ -4292,6 +4302,11 @@ func (in *InvocationParameters) DeepCopyInto(out *InvocationParameters) {
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
+		*out = new(string)
+		**out = **in
+	}
+	if in.TenantID != nil {
+		in, out := &in.TenantID, &out.TenantID
 		*out = new(string)
 		**out = **in
 	}

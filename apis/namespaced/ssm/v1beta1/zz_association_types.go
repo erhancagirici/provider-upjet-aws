@@ -25,6 +25,10 @@ type AssociationInitParameters struct {
 	// Specify the target for the association. This target is required for associations that use an Automation document and target resources by using rate controls. This should be set to the SSM document parameter that will define how your automation will branch out.
 	AutomationTargetParameterName *string `json:"automationTargetParameterName,omitempty" tf:"automation_target_parameter_name,omitempty"`
 
+	// One or more Systems Manager Change Calendar names. The association runs only when the Change Calendar is open.
+	// +listType=set
+	CalendarNames []*string `json:"calendarNames,omitempty" tf:"calendar_names,omitempty"`
+
 	// The compliance severity for the association. Can be one of the following: UNSPECIFIED, LOW, MEDIUM, HIGH or CRITICAL
 	ComplianceSeverity *string `json:"complianceSeverity,omitempty" tf:"compliance_severity,omitempty"`
 
@@ -90,6 +94,10 @@ type AssociationObservation struct {
 	// Specify the target for the association. This target is required for associations that use an Automation document and target resources by using rate controls. This should be set to the SSM document parameter that will define how your automation will branch out.
 	AutomationTargetParameterName *string `json:"automationTargetParameterName,omitempty" tf:"automation_target_parameter_name,omitempty"`
 
+	// One or more Systems Manager Change Calendar names. The association runs only when the Change Calendar is open.
+	// +listType=set
+	CalendarNames []*string `json:"calendarNames,omitempty" tf:"calendar_names,omitempty"`
+
 	// The compliance severity for the association. Can be one of the following: UNSPECIFIED, LOW, MEDIUM, HIGH or CRITICAL
 	ComplianceSeverity *string `json:"complianceSeverity,omitempty" tf:"compliance_severity,omitempty"`
 
@@ -152,6 +160,11 @@ type AssociationParameters struct {
 	// Specify the target for the association. This target is required for associations that use an Automation document and target resources by using rate controls. This should be set to the SSM document parameter that will define how your automation will branch out.
 	// +kubebuilder:validation:Optional
 	AutomationTargetParameterName *string `json:"automationTargetParameterName,omitempty" tf:"automation_target_parameter_name,omitempty"`
+
+	// One or more Systems Manager Change Calendar names. The association runs only when the Change Calendar is open.
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	CalendarNames []*string `json:"calendarNames,omitempty" tf:"calendar_names,omitempty"`
 
 	// The compliance severity for the association. Can be one of the following: UNSPECIFIED, LOW, MEDIUM, HIGH or CRITICAL
 	// +kubebuilder:validation:Optional

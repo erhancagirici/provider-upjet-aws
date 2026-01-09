@@ -1665,6 +1665,11 @@ func (in *CustomOriginConfigInitParameters) DeepCopyInto(out *CustomOriginConfig
 		*out = new(float64)
 		**out = **in
 	}
+	if in.IPAddressType != nil {
+		in, out := &in.IPAddressType, &out.IPAddressType
+		*out = new(string)
+		**out = **in
+	}
 	if in.OriginKeepaliveTimeout != nil {
 		in, out := &in.OriginKeepaliveTimeout, &out.OriginKeepaliveTimeout
 		*out = new(float64)
@@ -1716,6 +1721,11 @@ func (in *CustomOriginConfigObservation) DeepCopyInto(out *CustomOriginConfigObs
 		*out = new(float64)
 		**out = **in
 	}
+	if in.IPAddressType != nil {
+		in, out := &in.IPAddressType, &out.IPAddressType
+		*out = new(string)
+		**out = **in
+	}
 	if in.OriginKeepaliveTimeout != nil {
 		in, out := &in.OriginKeepaliveTimeout, &out.OriginKeepaliveTimeout
 		*out = new(float64)
@@ -1765,6 +1775,11 @@ func (in *CustomOriginConfigParameters) DeepCopyInto(out *CustomOriginConfigPara
 	if in.HTTPSPort != nil {
 		in, out := &in.HTTPSPort, &out.HTTPSPort
 		*out = new(float64)
+		**out = **in
+	}
+	if in.IPAddressType != nil {
+		in, out := &in.IPAddressType, &out.IPAddressType
+		*out = new(string)
 		**out = **in
 	}
 	if in.OriginKeepaliveTimeout != nil {
@@ -2548,6 +2563,11 @@ func (in *DistributionObservation) DeepCopyInto(out *DistributionObservation) {
 		in, out := &in.LoggingConfig, &out.LoggingConfig
 		*out = new(LoggingConfigObservation)
 		(*in).DeepCopyInto(*out)
+	}
+	if in.LoggingV1Enabled != nil {
+		in, out := &in.LoggingV1Enabled, &out.LoggingV1Enabled
+		*out = new(bool)
+		**out = **in
 	}
 	if in.OrderedCacheBehavior != nil {
 		in, out := &in.OrderedCacheBehavior, &out.OrderedCacheBehavior

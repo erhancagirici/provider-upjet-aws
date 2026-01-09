@@ -522,6 +522,9 @@ type ClusterObservation struct {
 	// +mapType=granular
 	TagsAll map[string]*string `json:"tagsAll,omitempty" tf:"tags_all,omitempty"`
 
+	// Order in which the clusters are upgraded (first, second, last). See the AWS documentation for details.
+	UpgradeRolloutOrder *string `json:"upgradeRolloutOrder,omitempty" tf:"upgrade_rollout_order,omitempty"`
+
 	// List of VPC security groups to associate with the Cluster
 	// +listType=set
 	VPCSecurityGroupIds []*string `json:"vpcSecurityGroupIds,omitempty" tf:"vpc_security_group_ids,omitempty"`

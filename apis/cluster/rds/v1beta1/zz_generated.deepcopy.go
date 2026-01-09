@@ -9699,6 +9699,11 @@ func (in *ProxyInitParameters) DeepCopyInto(out *ProxyInitParameters) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.DefaultAuthScheme != nil {
+		in, out := &in.DefaultAuthScheme, &out.DefaultAuthScheme
+		*out = new(string)
+		**out = **in
+	}
 	if in.EngineFamily != nil {
 		in, out := &in.EngineFamily, &out.EngineFamily
 		*out = new(string)
@@ -9855,6 +9860,11 @@ func (in *ProxyObservation) DeepCopyInto(out *ProxyObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.DefaultAuthScheme != nil {
+		in, out := &in.DefaultAuthScheme, &out.DefaultAuthScheme
+		*out = new(string)
+		**out = **in
+	}
 	if in.Endpoint != nil {
 		in, out := &in.Endpoint, &out.Endpoint
 		*out = new(string)
@@ -9969,6 +9979,11 @@ func (in *ProxyParameters) DeepCopyInto(out *ProxyParameters) {
 	if in.DebugLogging != nil {
 		in, out := &in.DebugLogging, &out.DebugLogging
 		*out = new(bool)
+		**out = **in
+	}
+	if in.DefaultAuthScheme != nil {
+		in, out := &in.DefaultAuthScheme, &out.DefaultAuthScheme
+		*out = new(string)
 		**out = **in
 	}
 	if in.EngineFamily != nil {

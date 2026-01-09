@@ -1635,6 +1635,49 @@ spec:
                           is not specified, this value will be automatically generated.
                           See AmazonManagedKafkaEventSourceConfig Syntax.
                         type: string
+                      schemaRegistryConfig:
+                        description: Block for a Kafka schema registry setting. See
+                          below.
+                        properties:
+                          accessConfig:
+                            description: Configuration block for authentication Lambda
+                              uses to access the schema registry.
+                            items:
+                              properties:
+                                type:
+                                  description: Authentication type Lambda uses to
+                                    access the schema registry.
+                                  type: string
+                                uri:
+                                  description: URI of the secret (Secrets Manager
+                                    secret ARN) used to authenticate with the schema
+                                    registry.
+                                  type: string
+                              type: object
+                            type: array
+                          eventRecordFormat:
+                            description: 'Record format that Lambda delivers to the
+                              function after schema validation. Valid values: JSON,
+                              SOURCE.'
+                            type: string
+                          schemaRegistryUri:
+                            description: URI of the schema registry. For AWS Glue
+                              schema registries, use the ARN of the registry. For
+                              Confluent schema registries, use the registry URL.
+                            type: string
+                          schemaValidationConfig:
+                            description: Repeatable block that defines schema validation
+                              settings. These specify the message attributes that
+                              Lambda should validate and filter using the schema registry.
+                            items:
+                              properties:
+                                attribute:
+                                  description: 'Message attribute to validate. Valid
+                                    values: KEY, VALUE.'
+                                  type: string
+                              type: object
+                            type: array
+                        type: object
                     type: object
                   batchSize:
                     description: Largest number of records that Lambda will retrieve
@@ -2051,6 +2094,49 @@ spec:
                           is not specified, this value will be automatically generated.
                           See SelfManagedKafkaEventSourceConfig Syntax.
                         type: string
+                      schemaRegistryConfig:
+                        description: Block for a Kafka schema registry setting. See
+                          below.
+                        properties:
+                          accessConfig:
+                            description: Configuration block for authentication Lambda
+                              uses to access the schema registry.
+                            items:
+                              properties:
+                                type:
+                                  description: Authentication type Lambda uses to
+                                    access the schema registry.
+                                  type: string
+                                uri:
+                                  description: URI of the secret (Secrets Manager
+                                    secret ARN) used to authenticate with the schema
+                                    registry.
+                                  type: string
+                              type: object
+                            type: array
+                          eventRecordFormat:
+                            description: 'Record format that Lambda delivers to the
+                              function after schema validation. Valid values: JSON,
+                              SOURCE.'
+                            type: string
+                          schemaRegistryUri:
+                            description: URI of the schema registry. For AWS Glue
+                              schema registries, use the ARN of the registry. For
+                              Confluent schema registries, use the registry URL.
+                            type: string
+                          schemaValidationConfig:
+                            description: Repeatable block that defines schema validation
+                              settings. These specify the message attributes that
+                              Lambda should validate and filter using the schema registry.
+                            items:
+                              properties:
+                                attribute:
+                                  description: 'Message attribute to validate. Valid
+                                    values: KEY, VALUE.'
+                                  type: string
+                              type: object
+                            type: array
+                        type: object
                     type: object
                   sourceAccessConfiguration:
                     description: For Self Managed Kafka sources, the access configuration
@@ -2136,6 +2222,49 @@ spec:
                           is not specified, this value will be automatically generated.
                           See AmazonManagedKafkaEventSourceConfig Syntax.
                         type: string
+                      schemaRegistryConfig:
+                        description: Block for a Kafka schema registry setting. See
+                          below.
+                        properties:
+                          accessConfig:
+                            description: Configuration block for authentication Lambda
+                              uses to access the schema registry.
+                            items:
+                              properties:
+                                type:
+                                  description: Authentication type Lambda uses to
+                                    access the schema registry.
+                                  type: string
+                                uri:
+                                  description: URI of the secret (Secrets Manager
+                                    secret ARN) used to authenticate with the schema
+                                    registry.
+                                  type: string
+                              type: object
+                            type: array
+                          eventRecordFormat:
+                            description: 'Record format that Lambda delivers to the
+                              function after schema validation. Valid values: JSON,
+                              SOURCE.'
+                            type: string
+                          schemaRegistryUri:
+                            description: URI of the schema registry. For AWS Glue
+                              schema registries, use the ARN of the registry. For
+                              Confluent schema registries, use the registry URL.
+                            type: string
+                          schemaValidationConfig:
+                            description: Repeatable block that defines schema validation
+                              settings. These specify the message attributes that
+                              Lambda should validate and filter using the schema registry.
+                            items:
+                              properties:
+                                attribute:
+                                  description: 'Message attribute to validate. Valid
+                                    values: KEY, VALUE.'
+                                  type: string
+                              type: object
+                            type: array
+                        type: object
                     type: object
                   batchSize:
                     description: Largest number of records that Lambda will retrieve
@@ -2547,6 +2676,49 @@ spec:
                           is not specified, this value will be automatically generated.
                           See SelfManagedKafkaEventSourceConfig Syntax.
                         type: string
+                      schemaRegistryConfig:
+                        description: Block for a Kafka schema registry setting. See
+                          below.
+                        properties:
+                          accessConfig:
+                            description: Configuration block for authentication Lambda
+                              uses to access the schema registry.
+                            items:
+                              properties:
+                                type:
+                                  description: Authentication type Lambda uses to
+                                    access the schema registry.
+                                  type: string
+                                uri:
+                                  description: URI of the secret (Secrets Manager
+                                    secret ARN) used to authenticate with the schema
+                                    registry.
+                                  type: string
+                              type: object
+                            type: array
+                          eventRecordFormat:
+                            description: 'Record format that Lambda delivers to the
+                              function after schema validation. Valid values: JSON,
+                              SOURCE.'
+                            type: string
+                          schemaRegistryUri:
+                            description: URI of the schema registry. For AWS Glue
+                              schema registries, use the ARN of the registry. For
+                              Confluent schema registries, use the registry URL.
+                            type: string
+                          schemaValidationConfig:
+                            description: Repeatable block that defines schema validation
+                              settings. These specify the message attributes that
+                              Lambda should validate and filter using the schema registry.
+                            items:
+                              properties:
+                                attribute:
+                                  description: 'Message attribute to validate. Valid
+                                    values: KEY, VALUE.'
+                                  type: string
+                              type: object
+                            type: array
+                        type: object
                     type: object
                   sourceAccessConfiguration:
                     description: For Self Managed Kafka sources, the access configuration
@@ -2708,6 +2880,49 @@ spec:
                           is not specified, this value will be automatically generated.
                           See AmazonManagedKafkaEventSourceConfig Syntax.
                         type: string
+                      schemaRegistryConfig:
+                        description: Block for a Kafka schema registry setting. See
+                          below.
+                        properties:
+                          accessConfig:
+                            description: Configuration block for authentication Lambda
+                              uses to access the schema registry.
+                            items:
+                              properties:
+                                type:
+                                  description: Authentication type Lambda uses to
+                                    access the schema registry.
+                                  type: string
+                                uri:
+                                  description: URI of the secret (Secrets Manager
+                                    secret ARN) used to authenticate with the schema
+                                    registry.
+                                  type: string
+                              type: object
+                            type: array
+                          eventRecordFormat:
+                            description: 'Record format that Lambda delivers to the
+                              function after schema validation. Valid values: JSON,
+                              SOURCE.'
+                            type: string
+                          schemaRegistryUri:
+                            description: URI of the schema registry. For AWS Glue
+                              schema registries, use the ARN of the registry. For
+                              Confluent schema registries, use the registry URL.
+                            type: string
+                          schemaValidationConfig:
+                            description: Repeatable block that defines schema validation
+                              settings. These specify the message attributes that
+                              Lambda should validate and filter using the schema registry.
+                            items:
+                              properties:
+                                attribute:
+                                  description: 'Message attribute to validate. Valid
+                                    values: KEY, VALUE.'
+                                  type: string
+                              type: object
+                            type: array
+                        type: object
                     type: object
                   arn:
                     description: Event source mapping ARN.
@@ -2919,6 +3134,49 @@ spec:
                           is not specified, this value will be automatically generated.
                           See SelfManagedKafkaEventSourceConfig Syntax.
                         type: string
+                      schemaRegistryConfig:
+                        description: Block for a Kafka schema registry setting. See
+                          below.
+                        properties:
+                          accessConfig:
+                            description: Configuration block for authentication Lambda
+                              uses to access the schema registry.
+                            items:
+                              properties:
+                                type:
+                                  description: Authentication type Lambda uses to
+                                    access the schema registry.
+                                  type: string
+                                uri:
+                                  description: URI of the secret (Secrets Manager
+                                    secret ARN) used to authenticate with the schema
+                                    registry.
+                                  type: string
+                              type: object
+                            type: array
+                          eventRecordFormat:
+                            description: 'Record format that Lambda delivers to the
+                              function after schema validation. Valid values: JSON,
+                              SOURCE.'
+                            type: string
+                          schemaRegistryUri:
+                            description: URI of the schema registry. For AWS Glue
+                              schema registries, use the ARN of the registry. For
+                              Confluent schema registries, use the registry URL.
+                            type: string
+                          schemaValidationConfig:
+                            description: Repeatable block that defines schema validation
+                              settings. These specify the message attributes that
+                              Lambda should validate and filter using the schema registry.
+                            items:
+                              properties:
+                                attribute:
+                                  description: 'Message attribute to validate. Valid
+                                    values: KEY, VALUE.'
+                                  type: string
+                              type: object
+                            type: array
+                        type: object
                     type: object
                   sourceAccessConfiguration:
                     description: For Self Managed Kafka sources, the access configuration

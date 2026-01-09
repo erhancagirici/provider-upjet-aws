@@ -418,7 +418,7 @@ spec:
                     x-kubernetes-map-type: granular
                   userGroupId:
                     description: The identifier of the UserGroup to be associated
-                      with the serverless cache. Available for Redis only. Default
+                      with the serverless cache. Available for Redis and Valkey. Default
                       is NULL.
                     type: string
                 required:
@@ -791,7 +791,7 @@ spec:
                     x-kubernetes-map-type: granular
                   userGroupId:
                     description: The identifier of the UserGroup to be associated
-                      with the serverless cache. Available for Redis only. Default
+                      with the serverless cache. Available for Redis and Valkey. Default
                       is NULL.
                     type: string
                 type: object
@@ -1025,7 +1025,7 @@ spec:
                     x-kubernetes-map-type: granular
                   userGroupId:
                     description: The identifier of the UserGroup to be associated
-                      with the serverless cache. Available for Redis only. Default
+                      with the serverless cache. Available for Redis and Valkey. Default
                       is NULL.
                     type: string
                 type: object

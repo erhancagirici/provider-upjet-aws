@@ -1605,6 +1605,17 @@ spec:
                           type: number
                       type: object
                     type: array
+                  globalTableWitness:
+                    description: Witness Region in a Multi-Region Strong Consistency
+                      deployment. Note This must be used alongside a single replica
+                      with consistency_mode set to STRONG. Other combinations will
+                      fail to provision. See below.
+                    properties:
+                      regionName:
+                        description: Name of the AWS Region that serves as a witness
+                          for the MRSC global table.
+                        type: string
+                    type: object
                   hashKey:
                     description: Attribute to use as the hash (partition) key. Must
                       also be defined as an attribute. See below.
@@ -1984,6 +1995,17 @@ spec:
                           type: number
                       type: object
                     type: array
+                  globalTableWitness:
+                    description: Witness Region in a Multi-Region Strong Consistency
+                      deployment. Note This must be used alongside a single replica
+                      with consistency_mode set to STRONG. Other combinations will
+                      fail to provision. See below.
+                    properties:
+                      regionName:
+                        description: Name of the AWS Region that serves as a witness
+                          for the MRSC global table.
+                        type: string
+                    type: object
                   hashKey:
                     description: Attribute to use as the hash (partition) key. Must
                       also be defined as an attribute. See below.
@@ -2437,6 +2459,17 @@ spec:
                           type: number
                       type: object
                     type: array
+                  globalTableWitness:
+                    description: Witness Region in a Multi-Region Strong Consistency
+                      deployment. Note This must be used alongside a single replica
+                      with consistency_mode set to STRONG. Other combinations will
+                      fail to provision. See below.
+                    properties:
+                      regionName:
+                        description: Name of the AWS Region that serves as a witness
+                          for the MRSC global table.
+                        type: string
+                    type: object
                   hashKey:
                     description: Attribute to use as the hash (partition) key. Must
                       also be defined as an attribute. See below.

@@ -191,6 +191,11 @@ func (in *AccountObservation) DeepCopyInto(out *AccountObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.State != nil {
+		in, out := &in.State, &out.State
+		*out = new(string)
+		**out = **in
+	}
 	if in.Status != nil {
 		in, out := &in.Status, &out.Status
 		*out = new(string)
@@ -369,8 +374,23 @@ func (in *AccountsObservation) DeepCopyInto(out *AccountsObservation) {
 		*out = new(string)
 		**out = **in
 	}
+	if in.JoinedMethod != nil {
+		in, out := &in.JoinedMethod, &out.JoinedMethod
+		*out = new(string)
+		**out = **in
+	}
+	if in.JoinedTimestamp != nil {
+		in, out := &in.JoinedTimestamp, &out.JoinedTimestamp
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.State != nil {
+		in, out := &in.State, &out.State
 		*out = new(string)
 		**out = **in
 	}
@@ -668,8 +688,23 @@ func (in *NonMasterAccountsObservation) DeepCopyInto(out *NonMasterAccountsObser
 		*out = new(string)
 		**out = **in
 	}
+	if in.JoinedMethod != nil {
+		in, out := &in.JoinedMethod, &out.JoinedMethod
+		*out = new(string)
+		**out = **in
+	}
+	if in.JoinedTimestamp != nil {
+		in, out := &in.JoinedTimestamp, &out.JoinedTimestamp
+		*out = new(string)
+		**out = **in
+	}
 	if in.Name != nil {
 		in, out := &in.Name, &out.Name
+		*out = new(string)
+		**out = **in
+	}
+	if in.State != nil {
+		in, out := &in.State, &out.State
 		*out = new(string)
 		**out = **in
 	}

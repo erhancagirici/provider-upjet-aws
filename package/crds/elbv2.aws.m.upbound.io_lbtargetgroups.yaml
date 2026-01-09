@@ -232,6 +232,12 @@ spec:
                     description: Key-value map of resource tags.
                     type: object
                     x-kubernetes-map-type: granular
+                  targetControlPort:
+                    description: Port on which the target control agent and application
+                      load balancer exchange management traffic for the target optimizer
+                      feature. Only applicable for Application Load Balancer target
+                      groups when target_type is instance or ip.
+                    type: number
                   targetFailover:
                     description: Target failover block. Only applicable for Gateway
                       Load Balancer target groups. See target_failover for more information.
@@ -590,6 +596,12 @@ spec:
                     description: Key-value map of resource tags.
                     type: object
                     x-kubernetes-map-type: granular
+                  targetControlPort:
+                    description: Port on which the target control agent and application
+                      load balancer exchange management traffic for the target optimizer
+                      feature. Only applicable for Application Load Balancer target
+                      groups when target_type is instance or ip.
+                    type: number
                   targetFailover:
                     description: Target failover block. Only applicable for Gateway
                       Load Balancer target groups. See target_failover for more information.
@@ -1030,6 +1042,12 @@ spec:
                       block.
                     type: object
                     x-kubernetes-map-type: granular
+                  targetControlPort:
+                    description: Port on which the target control agent and application
+                      load balancer exchange management traffic for the target optimizer
+                      feature. Only applicable for Application Load Balancer target
+                      groups when target_type is instance or ip.
+                    type: number
                   targetFailover:
                     description: Target failover block. Only applicable for Gateway
                       Load Balancer target groups. See target_failover for more information.

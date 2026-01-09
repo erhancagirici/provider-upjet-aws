@@ -1688,7 +1688,7 @@ type PreferencesInitParameters struct {
 	// Behavior when encountering instances protected from scale in are found. Available behaviors are Refresh, Ignore, and Wait. Default is Ignore.
 	ScaleInProtectedInstances *string `json:"scaleInProtectedInstances,omitempty" tf:"scale_in_protected_instances,omitempty"`
 
-	// Replace instances that already have your desired configuration. Defaults to false.
+	// Skip replacing instances that already have your desired configuration. Defaults to false.
 	SkipMatching *bool `json:"skipMatching,omitempty" tf:"skip_matching,omitempty"`
 
 	// Behavior when encountering instances in the Standby state in are found. Available behaviors are Terminate, Ignore, and Wait. Default is Ignore.
@@ -1721,7 +1721,7 @@ type PreferencesObservation struct {
 	// Behavior when encountering instances protected from scale in are found. Available behaviors are Refresh, Ignore, and Wait. Default is Ignore.
 	ScaleInProtectedInstances *string `json:"scaleInProtectedInstances,omitempty" tf:"scale_in_protected_instances,omitempty"`
 
-	// Replace instances that already have your desired configuration. Defaults to false.
+	// Skip replacing instances that already have your desired configuration. Defaults to false.
 	SkipMatching *bool `json:"skipMatching,omitempty" tf:"skip_matching,omitempty"`
 
 	// Behavior when encountering instances in the Standby state in are found. Available behaviors are Terminate, Ignore, and Wait. Default is Ignore.
@@ -1762,7 +1762,7 @@ type PreferencesParameters struct {
 	// +kubebuilder:validation:Optional
 	ScaleInProtectedInstances *string `json:"scaleInProtectedInstances,omitempty" tf:"scale_in_protected_instances,omitempty"`
 
-	// Replace instances that already have your desired configuration. Defaults to false.
+	// Skip replacing instances that already have your desired configuration. Defaults to false.
 	// +kubebuilder:validation:Optional
 	SkipMatching *bool `json:"skipMatching,omitempty" tf:"skip_matching,omitempty"`
 

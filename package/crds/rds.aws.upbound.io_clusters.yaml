@@ -6031,6 +6031,10 @@ spec:
                       inherited from the provider default_tags configuration block.
                     type: object
                     x-kubernetes-map-type: granular
+                  upgradeRolloutOrder:
+                    description: Order in which the clusters are upgraded (first,
+                      second, last). See the AWS documentation for details.
+                    type: string
                   vpcSecurityGroupIds:
                     description: List of VPC security groups to associate with the
                       Cluster

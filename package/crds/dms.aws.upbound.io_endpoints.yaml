@@ -2281,7 +2281,7 @@ spec:
                       azure-sql-managed-instance, babelfish, db2, db2-zos, docdb,
                       dynamodb, elasticsearch, kafka, kinesis, mariadb, mongodb, mysql,
                       opensearch, oracle, postgres, redshift,redshift-serverless,
-                      s3, sqlserver, neptune ,sybase. Please note that some of engine
+                      sqlserver, neptune ,sybase. Please note that some of engine
                       names are available only for target endpoint type (e.g. redshift).
                     type: string
                   extraConnectionAttributes:
@@ -2586,6 +2586,50 @@ spec:
                           mode).
                         type: string
                     type: object
+                  mysqlSettings:
+                    description: Configuration block for MySQL settings. See below.
+                    properties:
+                      afterConnectScript:
+                        description: Script to run immediately after AWS DMS connects
+                          to the endpoint.
+                        type: string
+                      authenticationMethod:
+                        description: 'Authentication method to use. Valid values:
+                          password, iam.'
+                        type: string
+                      cleanSourceMetadataOnMismatch:
+                        description: Whether to clean and recreate table metadata
+                          information on the replication instance when a mismatch
+                          occurs.
+                        type: boolean
+                      eventsPollInterval:
+                        description: Time interval to check the binary log for new
+                          changes/events when the database is idle. Default is 5.
+                        type: number
+                      executeTimeout:
+                        description: Client statement timeout (in seconds) for a MySQL
+                          source endpoint.
+                        type: number
+                      maxFileSize:
+                        description: Maximum size (in KB) of any .csv file used to
+                          transfer data to a MySQL-compatible database.
+                        type: number
+                      parallelLoadThreads:
+                        description: Number of threads to use to load the data into
+                          the MySQL-compatible target database.
+                        type: number
+                      serverTimezone:
+                        description: Time zone for the source MySQL database.
+                        type: string
+                      serviceAccessRoleArn:
+                        description: ARN of the IAM role to authenticate when connecting
+                          to the endpoint.
+                        type: string
+                      targetDbType:
+                        description: Where to migrate source tables on the target.
+                          Valid values are specific-database and multiple-databases.
+                        type: string
+                    type: object
                   oracleSettings:
                     description: Configuration block for Oracle settings. See below.
                     properties:
@@ -2691,7 +2735,7 @@ spec:
                         type: number
                       pluginName:
                         description: 'Specifies the plugin to use to create a replication
-                          slot. Valid values: pglogical, test_decoding.'
+                          slot. Valid values: pglogical, test-decoding.'
                         type: string
                       serviceAccessRoleArn:
                         description: Specifies the IAM role to use to authenticate
@@ -3017,7 +3061,7 @@ spec:
                       azure-sql-managed-instance, babelfish, db2, db2-zos, docdb,
                       dynamodb, elasticsearch, kafka, kinesis, mariadb, mongodb, mysql,
                       opensearch, oracle, postgres, redshift,redshift-serverless,
-                      s3, sqlserver, neptune ,sybase. Please note that some of engine
+                      sqlserver, neptune ,sybase. Please note that some of engine
                       names are available only for target endpoint type (e.g. redshift).
                     type: string
                   extraConnectionAttributes:
@@ -3322,6 +3366,50 @@ spec:
                           mode).
                         type: string
                     type: object
+                  mysqlSettings:
+                    description: Configuration block for MySQL settings. See below.
+                    properties:
+                      afterConnectScript:
+                        description: Script to run immediately after AWS DMS connects
+                          to the endpoint.
+                        type: string
+                      authenticationMethod:
+                        description: 'Authentication method to use. Valid values:
+                          password, iam.'
+                        type: string
+                      cleanSourceMetadataOnMismatch:
+                        description: Whether to clean and recreate table metadata
+                          information on the replication instance when a mismatch
+                          occurs.
+                        type: boolean
+                      eventsPollInterval:
+                        description: Time interval to check the binary log for new
+                          changes/events when the database is idle. Default is 5.
+                        type: number
+                      executeTimeout:
+                        description: Client statement timeout (in seconds) for a MySQL
+                          source endpoint.
+                        type: number
+                      maxFileSize:
+                        description: Maximum size (in KB) of any .csv file used to
+                          transfer data to a MySQL-compatible database.
+                        type: number
+                      parallelLoadThreads:
+                        description: Number of threads to use to load the data into
+                          the MySQL-compatible target database.
+                        type: number
+                      serverTimezone:
+                        description: Time zone for the source MySQL database.
+                        type: string
+                      serviceAccessRoleArn:
+                        description: ARN of the IAM role to authenticate when connecting
+                          to the endpoint.
+                        type: string
+                      targetDbType:
+                        description: Where to migrate source tables on the target.
+                          Valid values are specific-database and multiple-databases.
+                        type: string
+                    type: object
                   oracleSettings:
                     description: Configuration block for Oracle settings. See below.
                     properties:
@@ -3427,7 +3515,7 @@ spec:
                         type: number
                       pluginName:
                         description: 'Specifies the plugin to use to create a replication
-                          slot. Valid values: pglogical, test_decoding.'
+                          slot. Valid values: pglogical, test-decoding.'
                         type: string
                       serviceAccessRoleArn:
                         description: Specifies the IAM role to use to authenticate
@@ -3836,7 +3924,7 @@ spec:
                       azure-sql-managed-instance, babelfish, db2, db2-zos, docdb,
                       dynamodb, elasticsearch, kafka, kinesis, mariadb, mongodb, mysql,
                       opensearch, oracle, postgres, redshift,redshift-serverless,
-                      s3, sqlserver, neptune ,sybase. Please note that some of engine
+                      sqlserver, neptune ,sybase. Please note that some of engine
                       names are available only for target endpoint type (e.g. redshift).
                     type: string
                   extraConnectionAttributes:
@@ -4031,6 +4119,50 @@ spec:
                           mode).
                         type: string
                     type: object
+                  mysqlSettings:
+                    description: Configuration block for MySQL settings. See below.
+                    properties:
+                      afterConnectScript:
+                        description: Script to run immediately after AWS DMS connects
+                          to the endpoint.
+                        type: string
+                      authenticationMethod:
+                        description: 'Authentication method to use. Valid values:
+                          password, iam.'
+                        type: string
+                      cleanSourceMetadataOnMismatch:
+                        description: Whether to clean and recreate table metadata
+                          information on the replication instance when a mismatch
+                          occurs.
+                        type: boolean
+                      eventsPollInterval:
+                        description: Time interval to check the binary log for new
+                          changes/events when the database is idle. Default is 5.
+                        type: number
+                      executeTimeout:
+                        description: Client statement timeout (in seconds) for a MySQL
+                          source endpoint.
+                        type: number
+                      maxFileSize:
+                        description: Maximum size (in KB) of any .csv file used to
+                          transfer data to a MySQL-compatible database.
+                        type: number
+                      parallelLoadThreads:
+                        description: Number of threads to use to load the data into
+                          the MySQL-compatible target database.
+                        type: number
+                      serverTimezone:
+                        description: Time zone for the source MySQL database.
+                        type: string
+                      serviceAccessRoleArn:
+                        description: ARN of the IAM role to authenticate when connecting
+                          to the endpoint.
+                        type: string
+                      targetDbType:
+                        description: Where to migrate source tables on the target.
+                          Valid values are specific-database and multiple-databases.
+                        type: string
+                    type: object
                   oracleSettings:
                     description: Configuration block for Oracle settings. See below.
                     properties:
@@ -4119,7 +4251,7 @@ spec:
                         type: number
                       pluginName:
                         description: 'Specifies the plugin to use to create a replication
-                          slot. Valid values: pglogical, test_decoding.'
+                          slot. Valid values: pglogical, test-decoding.'
                         type: string
                       serviceAccessRoleArn:
                         description: Specifies the IAM role to use to authenticate

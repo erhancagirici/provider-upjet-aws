@@ -1043,6 +1043,11 @@ spec:
                           value will recreate the resource.
                         type: boolean
                     type: object
+                  routingPolicyLabel:
+                    description: The routing policy label to apply to the VPC attachment
+                      for traffic routing decisions. Maximum length of 256 characters.
+                      Changing this value will force recreation of the resource.
+                    type: string
                   subnetArns:
                     description: Subnet ARNs of the VPC attachment.
                     items:
@@ -1331,6 +1336,11 @@ spec:
                           value will recreate the resource.
                         type: boolean
                     type: object
+                  routingPolicyLabel:
+                    description: The routing policy label to apply to the VPC attachment
+                      for traffic routing decisions. Maximum length of 256 characters.
+                      Changing this value will force recreation of the resource.
+                    type: string
                   subnetArns:
                     description: Subnet ARNs of the VPC attachment.
                     items:
@@ -1644,6 +1654,11 @@ spec:
                     type: string
                   resourceArn:
                     description: Attachment resource ARN.
+                    type: string
+                  routingPolicyLabel:
+                    description: The routing policy label to apply to the VPC attachment
+                      for traffic routing decisions. Maximum length of 256 characters.
+                      Changing this value will force recreation of the resource.
                     type: string
                   segmentName:
                     description: Name of the segment attachment.
