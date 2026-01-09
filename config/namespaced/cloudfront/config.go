@@ -15,6 +15,12 @@ func Configure(p *config.Provider) { //nolint:gocyclo
 	p.AddResourceConfigurator("aws_cloudfront_distribution", func(r *config.Resource) {
 		r.UseAsync = true
 		delete(r.References, "origin.domain_name")
+		for i, exp := range r.MetaResource.Examples {
+			if exp.Name == "s3_distribution" {
+				r.MetaResource.Examples = append(r.MetaResource.Examples[:i], r.MetaResource.Examples[i+1:]...)
+				break
+			}
+		}
 	})
 
 	// Setting the field as sensitive to be able to pass the content from a k8s secret
