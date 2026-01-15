@@ -123,7 +123,18 @@ func GetProvider(ctx context.Context, fwProvider fwprovider.Provider, sdkProvide
 	}
 
 	pc.ConfigureResources()
-	return pc, bumpVersionsWithEmbeddedLists(pc)
+	if err := config.ExcludeTypeChangesFromIdentity(pc, crdSchemaChanges); err != nil {
+		return nil, errors.Wrap(err, "cannot exclude type changes from identity")
+	}
+
+	if err := bumpVersionsWithEmbeddedLists(pc); err != nil {
+		return nil, errors.Wrap(err, "cannot bump embedded API versions")
+	}
+	if err := config.RegisterAutoConversions(pc, crdSchemaChanges); err != nil {
+		return nil, errors.Wrap(err, "cannot register auto conversions")
+	}
+
+	return pc, nil
 }
 
 func bumpVersionsWithEmbeddedLists(pc *config.Provider) error {
@@ -154,6 +165,7 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) error {
 				config.NewTFSingletonConversion(),
 			}
 		}
+		r.ControllerReconcileVersion = r.Version //nolint:staticcheck // still handling the deprecated behavior
 		pc.Resources[name] = r
 	}
 	return nil
@@ -222,9 +234,10 @@ func configureSingletonListAPIConverters(r *config.Resource) error {
 	// assumes the first element is the identity conversion from
 	// the default resource and removes it because we will register another
 	// identity converter below.
+	excludePaths := append(r.CRDListConversionPaths(), r.AutoConversionRegistrationOptions.IdentityConversionExcludePaths...)
 	r.Conversions = r.Conversions[1:]
 	r.Conversions = append([]conversion.Conversion{
-		conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), r.CRDListConversionPaths()...),
+		conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), excludePaths...),
 		conversion.NewSingletonListConversion(conversion.AllVersions, bumped, conversion.DefaultPathPrefixes(), r.CRDListConversionPaths(), conversion.ToEmbeddedObject, opts...),
 		conversion.NewSingletonListConversion(bumped, conversion.AllVersions, conversion.DefaultPathPrefixes(), r.CRDListConversionPaths(), conversion.ToSingletonList, opts...),
 	}, r.Conversions...)

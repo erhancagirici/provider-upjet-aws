@@ -80,7 +80,13 @@ func GetProviderNamespaced(ctx context.Context, fwProvider fwprovider.Provider, 
 	}
 
 	pc.ConfigureResources()
+	if err := config.ExcludeTypeChangesFromIdentity(pc, crdSchemaChanges); err != nil {
+		return nil, errors.Wrap(err, "cannot exclude type changes from identity")
+	}
 	registerTFSingletonListConversions(pc)
+	if err := config.RegisterAutoConversions(pc, crdSchemaChanges); err != nil {
+		return nil, errors.Wrap(err, "cannot register auto conversions")
+	}
 	return pc, nil
 }
 
@@ -99,6 +105,7 @@ func registerTFSingletonListConversions(pc *config.Provider) {
 			config.NewTFSingletonConversion(),
 		}
 
+		r.ControllerReconcileVersion = r.Version //nolint:staticcheck // still handling the deprecated behavior
 		pc.Resources[name] = r
 	}
 }

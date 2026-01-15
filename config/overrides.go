@@ -195,6 +195,8 @@ func injectFieldRenamingConversionFunctions() config.ResourceOption {
 						conversion.NewFieldRenameConversion(cd.SourceVersion, s, cd.TargetVersion, t),
 						conversion.NewFieldRenameConversion(cd.TargetVersion, t, cd.SourceVersion, s),
 					)
+					// exclude field renaming conversions from auto-registration
+					r.AutoConversionRegistrationOptions.AutoRegisterExcludePaths = append(r.AutoConversionRegistrationOptions.AutoRegisterExcludePaths, s, t)
 				}
 			}
 		}

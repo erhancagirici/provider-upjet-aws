@@ -19,6 +19,9 @@ var (
 
 	//go:embed provider-metadata.yaml
 	providerMetadata []byte
+
+	//go:embed crd-schema-changes.json
+	crdSchemaChanges []byte
 )
 
 var skipList = []string{
