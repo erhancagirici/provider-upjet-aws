@@ -149,6 +149,10 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) error {
 		// nothing to do if no singleton list has been converted to
 		// an embedded object
 		if len(r.CRDListConversionPaths()) == 0 {
+			r.Conversions = r.Conversions[1:]
+			r.Conversions = append([]conversion.Conversion{
+				conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), r.AutoConversionRegistrationOptions.IdentityConversionExcludePaths...),
+			}, r.Conversions...)
 			continue
 		}
 
