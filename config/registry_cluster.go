@@ -134,6 +134,25 @@ func GetProvider(ctx context.Context, fwProvider fwprovider.Provider, sdkProvide
 		return nil, errors.Wrap(err, "cannot register auto conversions")
 	}
 
+	for _, r := range pc.Resources {
+		if r.Version != r.ControllerReconcileVersion {
+			//logr.Info("controller reconcile version and version mismatch", "resource", name, "CRV", r.ControllerReconcileVersion, "version", r.Version)
+			r.ControllerReconcileVersion = r.Version //nolint:staticcheck // still handling the deprecated behavior
+		}
+
+		// debug information
+		conversionSummary := make([]string, 0, len(r.Conversions))
+		for _, conv := range r.Conversions {
+			switch tc := conv.(type) {
+			case conversion.DescribableConversion:
+				conversionSummary = append(conversionSummary, fmt.Sprintf("%s", tc.Description()))
+			default:
+				conversionSummary = append(conversionSummary, fmt.Sprintf("%s", conv))
+			}
+		}
+		logr.Info("registered conversions for", "resource", r.Name, "conversion", strings.Join(conversionSummary, "\n"))
+	}
+
 	return pc, nil
 }
 
@@ -160,16 +179,15 @@ func bumpVersionsWithEmbeddedLists(pc *config.Provider) error {
 			if err := configureSingletonListAPIConverters(r); err != nil {
 				return errors.Wrap(err, "failed to configure singleton list API converters")
 			}
-		} else {
-			// the controller will be reconciling on the CRD API version
-			// with the converted API (with embedded objects in place of
-			// singleton lists), so we need the appropriate Terraform
-			// converter in this case.
-			r.TerraformConversions = []config.TerraformConversion{
-				config.NewTFSingletonConversion(),
-			}
 		}
-		r.ControllerReconcileVersion = r.Version //nolint:staticcheck // still handling the deprecated behavior
+		// the controller will be reconciling on the CRD API version
+		// with the converted API (with embedded objects in place of
+		// singleton lists), so we need the appropriate Terraform
+		// converter in this case.
+		r.TerraformConversions = []config.TerraformConversion{
+			config.NewTFSingletonConversion(),
+		}
+
 		pc.Resources[name] = r
 	}
 	return nil

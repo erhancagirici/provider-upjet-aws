@@ -7,11 +7,15 @@ package config
 import (
 	_ "embed"
 
+	"github.com/crossplane/crossplane-runtime/v2/pkg/logging"
 	conversiontfjson "github.com/crossplane/upjet/v2/pkg/types/conversion/tfjson"
 	tfjson "github.com/hashicorp/terraform-json"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/pkg/errors"
+	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 )
+
+var logr logging.Logger
 
 var (
 	//go:embed schema.json
@@ -100,4 +104,8 @@ func TerraformPluginFrameworkResourceList() []string {
 		i++
 	}
 	return l
+}
+
+func init() {
+	logr = logging.NewLogrLogger(zap.New(zap.UseDevMode(true)).WithName("config-registry"))
 }
