@@ -9,6 +9,7 @@ import (
 	_ "embed"
 
 	"github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/crossplane/upjet/v2/pkg/config/conversion"
 	"github.com/crossplane/upjet/v2/pkg/registry/reference"
 	"github.com/crossplane/upjet/v2/pkg/schema/traverser"
 	fwprovider "github.com/hashicorp/terraform-plugin-framework/provider"
@@ -84,6 +85,7 @@ func GetProviderNamespaced(ctx context.Context, fwProvider fwprovider.Provider, 
 		return nil, errors.Wrap(err, "cannot exclude type changes from identity")
 	}
 	registerTFSingletonListConversions(pc)
+	registerIdentityConversions(pc)
 	if err := config.RegisterAutoConversions(pc, crdSchemaChanges); err != nil {
 		return nil, errors.Wrap(err, "cannot register auto conversions")
 	}
@@ -104,7 +106,17 @@ func registerTFSingletonListConversions(pc *config.Provider) {
 		r.TerraformConversions = []config.TerraformConversion{
 			config.NewTFSingletonConversion(),
 		}
+		pc.Resources[name] = r
+	}
+}
 
+func registerIdentityConversions(pc *config.Provider) {
+	for name, r := range pc.Resources {
+		r := r
+		r.Conversions = r.Conversions[1:]
+		r.Conversions = append([]conversion.Conversion{
+			conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), r.AutoConversionRegistrationOptions.IdentityConversionExcludePaths...),
+		}, r.Conversions...)
 		r.ControllerReconcileVersion = r.Version //nolint:staticcheck // still handling the deprecated behavior
 		pc.Resources[name] = r
 	}
