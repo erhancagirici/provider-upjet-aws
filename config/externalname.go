@@ -48,6 +48,21 @@ var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	// Bedrock Agent can be imported using the agent arn
 	"aws_bedrockagent_agent": identifierFromProviderWithDefaultStub("STUB123456"),
 
+	// bedrockagentcore
+	//
+	//
+	"aws_bedrockagentcore_agent_runtime":               config.FrameworkResourceWithComputedIdentifier("agent_runtime_id", "STUB123456"),
+	"aws_bedrockagentcore_agent_runtime_endpoint":      config.NameAsIdentifier,
+	"aws_bedrockagentcore_api_key_credential_provider": config.NameAsIdentifier, // todo
+	"aws_bedrockagentcore_browser":                     config.FrameworkResourceWithComputedIdentifier("browser_id", "STUB123456"),
+	"aws_bedrockagentcore_code_interpreter":            config.FrameworkResourceWithComputedIdentifier("code_interpreter_id", "STUB123456"),
+	"aws_bedrockagentcore_gateway":                     config.FrameworkResourceWithComputedIdentifier("gateway_id", "STUB123456"),
+	"aws_bedrockagentcore_gateway_target":              config.FrameworkResourceWithComputedIdentifier("target_id", "STUB123456"),
+	"aws_bedrockagentcore_memory":                      identifierFromProviderWithDefaultStub("STUB123456"),
+	"aws_bedrockagentcore_memory_strategy":             config.FrameworkResourceWithComputedIdentifier("memory_strategy_id", "STUB123456"),
+	"aws_bedrockagentcore_token_vault_cmk":             bedrockAgentCoreTokenVaultCMK(),
+	"aws_bedrockagentcore_workload_identity":           config.IdentifierFromProvider,
+
 	// CodeGuru Profiler
 	// Profiling Group can be imported using the the profiling group name
 	"aws_codeguruprofiler_profiling_group": config.NameAsIdentifier,
@@ -3390,6 +3405,25 @@ func dsqlClusterPeering() config.ExternalName {
 			return "", errors.New("identifier field must be a string")
 		}
 		return idStr, nil
+	}
+	return e
+}
+
+func bedrockAgentCoreTokenVaultCMK() config.ExternalName {
+	e := config.IdentifierFromProvider
+	e.GetExternalNameFn = func(tfstate map[string]any) (string, error) {
+		if id, ok := tfstate["token_vault_id"]; ok {
+			idStr := fmt.Sprintf("%v", id)
+			if len(idStr) > 0 {
+				return idStr, nil
+			}
+		}
+		return "", errors.Errorf("cannot find attribute %q in tfstate", "token_vault_id")
+	}
+	e.SetIdentifierArgumentFn = func(base map[string]any, externalName string) {
+		if _, ok := base["token_vault_id"]; !ok {
+			base["token_vault_id"] = externalName
+		}
 	}
 	return e
 }
