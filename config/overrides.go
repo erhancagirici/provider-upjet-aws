@@ -197,6 +197,7 @@ func injectFieldRenamingConversionFunctions() config.ResourceOption {
 					)
 					// exclude field renaming conversions from auto-registration
 					r.AutoConversionRegistrationOptions.AutoRegisterExcludePaths = append(r.AutoConversionRegistrationOptions.AutoRegisterExcludePaths, s, t)
+					r.AutoConversionRegistrationOptions.IdentityConversionExcludePaths = append(r.AutoConversionRegistrationOptions.IdentityConversionExcludePaths, normalizeJSONPath(s), normalizeJSONPath(s))
 				}
 			}
 		}
@@ -252,4 +253,12 @@ func tfStateVlueIsEmpty(ctx context.Context, tfStateValue tftypes.Value, resourc
 		}
 	}
 	return isEmpty, nil
+}
+
+func normalizeJSONPath(s string) string {
+	result := s
+	for _, p := range []string{"spec.forProvider.", "spec.initProvider.", "status.atProvider."} {
+		result = strings.TrimPrefix(result, p)
+	}
+	return result
 }

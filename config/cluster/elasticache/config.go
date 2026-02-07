@@ -111,6 +111,17 @@ func Configure(p *config.Provider) { //nolint:gocyclo
 			" contain one."
 
 		r.Version = "v1beta2"
+		r.AutoConversionRegistrationOptions.AutoRegisterExcludePaths = append(r.AutoConversionRegistrationOptions.AutoRegisterExcludePaths,
+			"spec.forProvider.clusterMode",
+			"spec.initProvider.clusterMode",
+			"status.atProvider.clusterMode",
+			"spec.forProvider.numNodeGroups",
+			"spec.initProvider.numNodeGroups",
+			"status.atProvider.numNodeGroups",
+			"spec.forProvider.replicasPerNodeGroup",
+			"spec.initProvider.replicasPerNodeGroup",
+			"status.atProvider.replicasPerNodeGroup",
+		)
 		r.Conversions = append(r.Conversions,
 			conversion.NewCustomConverter("v1beta1", "v1beta2", func(src, target xpresource.Managed) error {
 				srcTyped := src.(*v1beta1.ReplicationGroup)

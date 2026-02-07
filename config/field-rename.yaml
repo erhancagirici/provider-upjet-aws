@@ -9,10 +9,6 @@
       spec.forProvider.albTargetGroupArn: spec.forProvider.lbTargetGroupArn
       spec.initProvider.albTargetGroupArn: spec.initProvider.lbTargetGroupArn
       status.atProvider.albTargetGroupArn: status.atProvider.lbTargetGroupArn
-    aws_connect_hours_of_operation:
-      status.atProvider.hoursOfOperationArn: status.atProvider.arn
-    aws_connect_queue:
-      status.atProvider.quickConnectIdsAssociated: status.atProvider.quickConnectIds
     aws_db_instance:
       spec.forProvider.name: spec.forProvider.dbName
       spec.initProvider.name: spec.initProvider.dbName
@@ -34,10 +30,6 @@
 - sourceVersion: "v1beta1"
   targetVersion: "v1beta3"
   data:
-    aws_connect_hours_of_operation:
-      status.atProvider.hoursOfOperationArn: status.atProvider.arn
-    aws_connect_queue:
-      status.atProvider.quickConnectIdsAssociated: status.atProvider.quickConnectIds
     aws_db_instance:
       spec.forProvider.name: spec.forProvider.dbName
       spec.initProvider.name: spec.initProvider.dbName

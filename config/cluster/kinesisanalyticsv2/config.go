@@ -6,6 +6,7 @@ package kinesisanalytics2
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/crossplane/upjet/v2/pkg/config/conversion"
 
 	"github.com/upbound/provider-aws/v2/config/cluster/common"
 )
@@ -29,5 +30,13 @@ func Configure(p *config.Provider) { //nolint:gocyclo
 			TerraformName: "aws_kinesis_stream",
 			Extractor:     common.PathTerraformIDExtractor,
 		}
+
+		r.AutoConversionRegistrationOptions.PreSingletonListConversions = append(r.AutoConversionRegistrationOptions.PreSingletonListConversions,
+			conversion.NewNewlyIntroducedFieldConversion("v1beta1", "v1beta2", "spec.forProvider.applicationConfiguration[*].applicationEncryptionConfiguration", conversion.FromAnnotation),
+		)
+		r.Conversions = append(r.Conversions,
+			conversion.NewNewlyIntroducedFieldConversion("v1beta2", "v1beta1", "spec.forProvider.applicationConfiguration[*].applicationEncryptionConfiguration", conversion.ToAnnotation),
+		)
+
 	})
 }

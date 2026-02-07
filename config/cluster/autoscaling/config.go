@@ -39,6 +39,7 @@ func Configure(p *config.Provider) { //nolint:gocyclo
 			conversion.NewCustomConverter("v1beta1", "v1beta2", autoScalingGroupConverterFromv1beta1Tov1beta2),
 			conversion.NewCustomConverter("v1beta2", "v1beta1", autoScalingGroupConverterFromv1beta2Tov1beta1),
 		)
+		r.AutoConversionRegistrationOptions.AutoRegisterExcludePaths = append(r.AutoConversionRegistrationOptions.AutoRegisterExcludePaths, "spec.forProvider.tags", "spec.initProvider.tags", "status.atProvider.tags")
 	})
 	p.AddResourceConfigurator("aws_autoscaling_attachment", func(r *config.Resource) {
 		r.References["autoscaling_group_name"] = config.Reference{

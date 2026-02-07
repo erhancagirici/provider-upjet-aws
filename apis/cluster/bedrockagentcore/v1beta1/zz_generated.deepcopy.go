@@ -401,17 +401,13 @@ func (in *AgentRuntimeArtifactInitParameters) DeepCopyInto(out *AgentRuntimeArti
 	*out = *in
 	if in.CodeConfiguration != nil {
 		in, out := &in.CodeConfiguration, &out.CodeConfiguration
-		*out = make([]CodeConfigurationInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CodeConfigurationInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ContainerConfiguration != nil {
 		in, out := &in.ContainerConfiguration, &out.ContainerConfiguration
-		*out = make([]ContainerConfigurationInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ContainerConfigurationInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -430,17 +426,13 @@ func (in *AgentRuntimeArtifactObservation) DeepCopyInto(out *AgentRuntimeArtifac
 	*out = *in
 	if in.CodeConfiguration != nil {
 		in, out := &in.CodeConfiguration, &out.CodeConfiguration
-		*out = make([]CodeConfigurationObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CodeConfigurationObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ContainerConfiguration != nil {
 		in, out := &in.ContainerConfiguration, &out.ContainerConfiguration
-		*out = make([]ContainerConfigurationObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ContainerConfigurationObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -459,17 +451,13 @@ func (in *AgentRuntimeArtifactParameters) DeepCopyInto(out *AgentRuntimeArtifact
 	*out = *in
 	if in.CodeConfiguration != nil {
 		in, out := &in.CodeConfiguration, &out.CodeConfiguration
-		*out = make([]CodeConfigurationParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CodeConfigurationParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ContainerConfiguration != nil {
 		in, out := &in.ContainerConfiguration, &out.ContainerConfiguration
-		*out = make([]ContainerConfigurationParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ContainerConfigurationParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -781,10 +769,8 @@ func (in *AgentRuntimeInitParameters) DeepCopyInto(out *AgentRuntimeInitParamete
 	*out = *in
 	if in.AgentRuntimeArtifact != nil {
 		in, out := &in.AgentRuntimeArtifact, &out.AgentRuntimeArtifact
-		*out = make([]AgentRuntimeArtifactInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AgentRuntimeArtifactInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AgentRuntimeName != nil {
 		in, out := &in.AgentRuntimeName, &out.AgentRuntimeName
@@ -793,10 +779,8 @@ func (in *AgentRuntimeInitParameters) DeepCopyInto(out *AgentRuntimeInitParamete
 	}
 	if in.AuthorizerConfiguration != nil {
 		in, out := &in.AuthorizerConfiguration, &out.AuthorizerConfiguration
-		*out = make([]AuthorizerConfigurationInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AuthorizerConfigurationInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -828,24 +812,18 @@ func (in *AgentRuntimeInitParameters) DeepCopyInto(out *AgentRuntimeInitParamete
 	}
 	if in.NetworkConfiguration != nil {
 		in, out := &in.NetworkConfiguration, &out.NetworkConfiguration
-		*out = make([]NetworkConfigurationInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NetworkConfigurationInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProtocolConfiguration != nil {
 		in, out := &in.ProtocolConfiguration, &out.ProtocolConfiguration
-		*out = make([]ProtocolConfigurationInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProtocolConfigurationInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RequestHeaderConfiguration != nil {
 		in, out := &in.RequestHeaderConfiguration, &out.RequestHeaderConfiguration
-		*out = make([]RequestHeaderConfigurationInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RequestHeaderConfigurationInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RoleArn != nil {
 		in, out := &in.RoleArn, &out.RoleArn
@@ -932,10 +910,8 @@ func (in *AgentRuntimeObservation) DeepCopyInto(out *AgentRuntimeObservation) {
 	}
 	if in.AgentRuntimeArtifact != nil {
 		in, out := &in.AgentRuntimeArtifact, &out.AgentRuntimeArtifact
-		*out = make([]AgentRuntimeArtifactObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AgentRuntimeArtifactObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AgentRuntimeID != nil {
 		in, out := &in.AgentRuntimeID, &out.AgentRuntimeID
@@ -954,10 +930,8 @@ func (in *AgentRuntimeObservation) DeepCopyInto(out *AgentRuntimeObservation) {
 	}
 	if in.AuthorizerConfiguration != nil {
 		in, out := &in.AuthorizerConfiguration, &out.AuthorizerConfiguration
-		*out = make([]AuthorizerConfigurationObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AuthorizerConfigurationObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -994,17 +968,13 @@ func (in *AgentRuntimeObservation) DeepCopyInto(out *AgentRuntimeObservation) {
 	}
 	if in.NetworkConfiguration != nil {
 		in, out := &in.NetworkConfiguration, &out.NetworkConfiguration
-		*out = make([]NetworkConfigurationObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NetworkConfigurationObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProtocolConfiguration != nil {
 		in, out := &in.ProtocolConfiguration, &out.ProtocolConfiguration
-		*out = make([]ProtocolConfigurationObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProtocolConfigurationObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -1013,10 +983,8 @@ func (in *AgentRuntimeObservation) DeepCopyInto(out *AgentRuntimeObservation) {
 	}
 	if in.RequestHeaderConfiguration != nil {
 		in, out := &in.RequestHeaderConfiguration, &out.RequestHeaderConfiguration
-		*out = make([]RequestHeaderConfigurationObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RequestHeaderConfigurationObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RoleArn != nil {
 		in, out := &in.RoleArn, &out.RoleArn
@@ -1079,10 +1047,8 @@ func (in *AgentRuntimeParameters) DeepCopyInto(out *AgentRuntimeParameters) {
 	*out = *in
 	if in.AgentRuntimeArtifact != nil {
 		in, out := &in.AgentRuntimeArtifact, &out.AgentRuntimeArtifact
-		*out = make([]AgentRuntimeArtifactParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AgentRuntimeArtifactParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.AgentRuntimeName != nil {
 		in, out := &in.AgentRuntimeName, &out.AgentRuntimeName
@@ -1091,10 +1057,8 @@ func (in *AgentRuntimeParameters) DeepCopyInto(out *AgentRuntimeParameters) {
 	}
 	if in.AuthorizerConfiguration != nil {
 		in, out := &in.AuthorizerConfiguration, &out.AuthorizerConfiguration
-		*out = make([]AuthorizerConfigurationParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(AuthorizerConfigurationParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
@@ -1126,17 +1090,13 @@ func (in *AgentRuntimeParameters) DeepCopyInto(out *AgentRuntimeParameters) {
 	}
 	if in.NetworkConfiguration != nil {
 		in, out := &in.NetworkConfiguration, &out.NetworkConfiguration
-		*out = make([]NetworkConfigurationParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NetworkConfigurationParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.ProtocolConfiguration != nil {
 		in, out := &in.ProtocolConfiguration, &out.ProtocolConfiguration
-		*out = make([]ProtocolConfigurationParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(ProtocolConfigurationParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Region != nil {
 		in, out := &in.Region, &out.Region
@@ -1145,10 +1105,8 @@ func (in *AgentRuntimeParameters) DeepCopyInto(out *AgentRuntimeParameters) {
 	}
 	if in.RequestHeaderConfiguration != nil {
 		in, out := &in.RequestHeaderConfiguration, &out.RequestHeaderConfiguration
-		*out = make([]RequestHeaderConfigurationParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(RequestHeaderConfigurationParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.RoleArn != nil {
 		in, out := &in.RoleArn, &out.RoleArn
@@ -1359,10 +1317,8 @@ func (in *AuthorizerConfigurationInitParameters) DeepCopyInto(out *AuthorizerCon
 	*out = *in
 	if in.CustomJwtAuthorizer != nil {
 		in, out := &in.CustomJwtAuthorizer, &out.CustomJwtAuthorizer
-		*out = make([]CustomJwtAuthorizerInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CustomJwtAuthorizerInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1381,10 +1337,8 @@ func (in *AuthorizerConfigurationObservation) DeepCopyInto(out *AuthorizerConfig
 	*out = *in
 	if in.CustomJwtAuthorizer != nil {
 		in, out := &in.CustomJwtAuthorizer, &out.CustomJwtAuthorizer
-		*out = make([]CustomJwtAuthorizerObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CustomJwtAuthorizerObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1403,10 +1357,8 @@ func (in *AuthorizerConfigurationParameters) DeepCopyInto(out *AuthorizerConfigu
 	*out = *in
 	if in.CustomJwtAuthorizer != nil {
 		in, out := &in.CustomJwtAuthorizer, &out.CustomJwtAuthorizer
-		*out = make([]CustomJwtAuthorizerParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CustomJwtAuthorizerParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -1841,10 +1793,8 @@ func (in *CodeConfigurationInitParameters) DeepCopyInto(out *CodeConfigurationIn
 	*out = *in
 	if in.Code != nil {
 		in, out := &in.Code, &out.Code
-		*out = make([]CodeInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CodeInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EntryPoint != nil {
 		in, out := &in.EntryPoint, &out.EntryPoint
@@ -1879,10 +1829,8 @@ func (in *CodeConfigurationObservation) DeepCopyInto(out *CodeConfigurationObser
 	*out = *in
 	if in.Code != nil {
 		in, out := &in.Code, &out.Code
-		*out = make([]CodeObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CodeObservation)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EntryPoint != nil {
 		in, out := &in.EntryPoint, &out.EntryPoint
@@ -1917,10 +1865,8 @@ func (in *CodeConfigurationParameters) DeepCopyInto(out *CodeConfigurationParame
 	*out = *in
 	if in.Code != nil {
 		in, out := &in.Code, &out.Code
-		*out = make([]CodeParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(CodeParameters)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.EntryPoint != nil {
 		in, out := &in.EntryPoint, &out.EntryPoint
@@ -1955,10 +1901,8 @@ func (in *CodeInitParameters) DeepCopyInto(out *CodeInitParameters) {
 	*out = *in
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = make([]S3InitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(S3InitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2372,10 +2316,8 @@ func (in *CodeObservation) DeepCopyInto(out *CodeObservation) {
 	*out = *in
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = make([]S3Observation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(S3Observation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -2394,10 +2336,8 @@ func (in *CodeParameters) DeepCopyInto(out *CodeParameters) {
 	*out = *in
 	if in.S3 != nil {
 		in, out := &in.S3, &out.S3
-		*out = make([]S3Parameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(S3Parameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -6071,10 +6011,8 @@ func (in *NetworkConfigurationInitParameters) DeepCopyInto(out *NetworkConfigura
 	}
 	if in.NetworkModeConfig != nil {
 		in, out := &in.NetworkModeConfig, &out.NetworkModeConfig
-		*out = make([]NetworkModeConfigInitParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NetworkModeConfigInitParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -6098,10 +6036,8 @@ func (in *NetworkConfigurationObservation) DeepCopyInto(out *NetworkConfiguratio
 	}
 	if in.NetworkModeConfig != nil {
 		in, out := &in.NetworkModeConfig, &out.NetworkModeConfig
-		*out = make([]NetworkModeConfigObservation, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NetworkModeConfigObservation)
+		(*in).DeepCopyInto(*out)
 	}
 }
 
@@ -6125,10 +6061,8 @@ func (in *NetworkConfigurationParameters) DeepCopyInto(out *NetworkConfiguration
 	}
 	if in.NetworkModeConfig != nil {
 		in, out := &in.NetworkModeConfig, &out.NetworkModeConfig
-		*out = make([]NetworkModeConfigParameters, len(*in))
-		for i := range *in {
-			(*in)[i].DeepCopyInto(&(*out)[i])
-		}
+		*out = new(NetworkModeConfigParameters)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

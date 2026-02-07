@@ -16,42 +16,42 @@ import (
 type AgentRuntimeArtifactInitParameters struct {
 
 	// Code configuration block for the agent runtime artifact, including the source code location and execution settings. Exactly one of code_configuration or container_configuration must be specified. See code_configuration below.
-	CodeConfiguration []CodeConfigurationInitParameters `json:"codeConfiguration,omitempty" tf:"code_configuration,omitempty"`
+	CodeConfiguration *CodeConfigurationInitParameters `json:"codeConfiguration,omitempty" tf:"code_configuration,omitempty"`
 
 	// Container configuration block for the agent artifact. Exactly one of code_configuration or container_configuration must be specified. See container_configuration below.
-	ContainerConfiguration []ContainerConfigurationInitParameters `json:"containerConfiguration,omitempty" tf:"container_configuration,omitempty"`
+	ContainerConfiguration *ContainerConfigurationInitParameters `json:"containerConfiguration,omitempty" tf:"container_configuration,omitempty"`
 }
 
 type AgentRuntimeArtifactObservation struct {
 
 	// Code configuration block for the agent runtime artifact, including the source code location and execution settings. Exactly one of code_configuration or container_configuration must be specified. See code_configuration below.
-	CodeConfiguration []CodeConfigurationObservation `json:"codeConfiguration,omitempty" tf:"code_configuration,omitempty"`
+	CodeConfiguration *CodeConfigurationObservation `json:"codeConfiguration,omitempty" tf:"code_configuration,omitempty"`
 
 	// Container configuration block for the agent artifact. Exactly one of code_configuration or container_configuration must be specified. See container_configuration below.
-	ContainerConfiguration []ContainerConfigurationObservation `json:"containerConfiguration,omitempty" tf:"container_configuration,omitempty"`
+	ContainerConfiguration *ContainerConfigurationObservation `json:"containerConfiguration,omitempty" tf:"container_configuration,omitempty"`
 }
 
 type AgentRuntimeArtifactParameters struct {
 
 	// Code configuration block for the agent runtime artifact, including the source code location and execution settings. Exactly one of code_configuration or container_configuration must be specified. See code_configuration below.
 	// +kubebuilder:validation:Optional
-	CodeConfiguration []CodeConfigurationParameters `json:"codeConfiguration,omitempty" tf:"code_configuration,omitempty"`
+	CodeConfiguration *CodeConfigurationParameters `json:"codeConfiguration,omitempty" tf:"code_configuration,omitempty"`
 
 	// Container configuration block for the agent artifact. Exactly one of code_configuration or container_configuration must be specified. See container_configuration below.
 	// +kubebuilder:validation:Optional
-	ContainerConfiguration []ContainerConfigurationParameters `json:"containerConfiguration,omitempty" tf:"container_configuration,omitempty"`
+	ContainerConfiguration *ContainerConfigurationParameters `json:"containerConfiguration,omitempty" tf:"container_configuration,omitempty"`
 }
 
 type AgentRuntimeInitParameters struct {
 
 	// Container artifact configuration. See agent_runtime_artifact below.
-	AgentRuntimeArtifact []AgentRuntimeArtifactInitParameters `json:"agentRuntimeArtifact,omitempty" tf:"agent_runtime_artifact,omitempty"`
+	AgentRuntimeArtifact *AgentRuntimeArtifactInitParameters `json:"agentRuntimeArtifact,omitempty" tf:"agent_runtime_artifact,omitempty"`
 
 	// Name of the agent runtime.
 	AgentRuntimeName *string `json:"agentRuntimeName,omitempty" tf:"agent_runtime_name,omitempty"`
 
 	// Authorization configuration for authenticating incoming requests. See authorizer_configuration below.
-	AuthorizerConfiguration []AuthorizerConfigurationInitParameters `json:"authorizerConfiguration,omitempty" tf:"authorizer_configuration,omitempty"`
+	AuthorizerConfiguration *AuthorizerConfigurationInitParameters `json:"authorizerConfiguration,omitempty" tf:"authorizer_configuration,omitempty"`
 
 	// Description of the agent runtime.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -64,13 +64,13 @@ type AgentRuntimeInitParameters struct {
 	LifecycleConfiguration []LifecycleConfigurationInitParameters `json:"lifecycleConfiguration,omitempty" tf:"lifecycle_configuration,omitempty"`
 
 	// Network configuration for the agent runtime. See network_configuration below.
-	NetworkConfiguration []NetworkConfigurationInitParameters `json:"networkConfiguration,omitempty" tf:"network_configuration,omitempty"`
+	NetworkConfiguration *NetworkConfigurationInitParameters `json:"networkConfiguration,omitempty" tf:"network_configuration,omitempty"`
 
 	// Protocol configuration for the agent runtime. See protocol_configuration below.
-	ProtocolConfiguration []ProtocolConfigurationInitParameters `json:"protocolConfiguration,omitempty" tf:"protocol_configuration,omitempty"`
+	ProtocolConfiguration *ProtocolConfigurationInitParameters `json:"protocolConfiguration,omitempty" tf:"protocol_configuration,omitempty"`
 
 	// Configuration for HTTP request headers that will be passed through to the runtime. See request_header_configuration below.
-	RequestHeaderConfiguration []RequestHeaderConfigurationInitParameters `json:"requestHeaderConfiguration,omitempty" tf:"request_header_configuration,omitempty"`
+	RequestHeaderConfiguration *RequestHeaderConfigurationInitParameters `json:"requestHeaderConfiguration,omitempty" tf:"request_header_configuration,omitempty"`
 
 	// ARN of the IAM role that the agent runtime assumes to access AWS services.
 	// +crossplane:generate:reference:type=github.com/upbound/provider-aws/v2/apis/cluster/iam/v1beta1.Role
@@ -96,7 +96,7 @@ type AgentRuntimeObservation struct {
 	AgentRuntimeArn *string `json:"agentRuntimeArn,omitempty" tf:"agent_runtime_arn,omitempty"`
 
 	// Container artifact configuration. See agent_runtime_artifact below.
-	AgentRuntimeArtifact []AgentRuntimeArtifactObservation `json:"agentRuntimeArtifact,omitempty" tf:"agent_runtime_artifact,omitempty"`
+	AgentRuntimeArtifact *AgentRuntimeArtifactObservation `json:"agentRuntimeArtifact,omitempty" tf:"agent_runtime_artifact,omitempty"`
 
 	// Unique identifier of the Agent Runtime.
 	AgentRuntimeID *string `json:"agentRuntimeId,omitempty" tf:"agent_runtime_id,omitempty"`
@@ -108,7 +108,7 @@ type AgentRuntimeObservation struct {
 	AgentRuntimeVersion *string `json:"agentRuntimeVersion,omitempty" tf:"agent_runtime_version,omitempty"`
 
 	// Authorization configuration for authenticating incoming requests. See authorizer_configuration below.
-	AuthorizerConfiguration []AuthorizerConfigurationObservation `json:"authorizerConfiguration,omitempty" tf:"authorizer_configuration,omitempty"`
+	AuthorizerConfiguration *AuthorizerConfigurationObservation `json:"authorizerConfiguration,omitempty" tf:"authorizer_configuration,omitempty"`
 
 	// Description of the agent runtime.
 	Description *string `json:"description,omitempty" tf:"description,omitempty"`
@@ -123,17 +123,17 @@ type AgentRuntimeObservation struct {
 	LifecycleConfiguration []LifecycleConfigurationObservation `json:"lifecycleConfiguration,omitempty" tf:"lifecycle_configuration,omitempty"`
 
 	// Network configuration for the agent runtime. See network_configuration below.
-	NetworkConfiguration []NetworkConfigurationObservation `json:"networkConfiguration,omitempty" tf:"network_configuration,omitempty"`
+	NetworkConfiguration *NetworkConfigurationObservation `json:"networkConfiguration,omitempty" tf:"network_configuration,omitempty"`
 
 	// Protocol configuration for the agent runtime. See protocol_configuration below.
-	ProtocolConfiguration []ProtocolConfigurationObservation `json:"protocolConfiguration,omitempty" tf:"protocol_configuration,omitempty"`
+	ProtocolConfiguration *ProtocolConfigurationObservation `json:"protocolConfiguration,omitempty" tf:"protocol_configuration,omitempty"`
 
 	// Region where this resource will be managed. Defaults to the Region set in the provider configuration.
 	// Region is the region you'd like your resource to be created in.
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// Configuration for HTTP request headers that will be passed through to the runtime. See request_header_configuration below.
-	RequestHeaderConfiguration []RequestHeaderConfigurationObservation `json:"requestHeaderConfiguration,omitempty" tf:"request_header_configuration,omitempty"`
+	RequestHeaderConfiguration *RequestHeaderConfigurationObservation `json:"requestHeaderConfiguration,omitempty" tf:"request_header_configuration,omitempty"`
 
 	// ARN of the IAM role that the agent runtime assumes to access AWS services.
 	RoleArn *string `json:"roleArn,omitempty" tf:"role_arn,omitempty"`
@@ -154,7 +154,7 @@ type AgentRuntimeParameters struct {
 
 	// Container artifact configuration. See agent_runtime_artifact below.
 	// +kubebuilder:validation:Optional
-	AgentRuntimeArtifact []AgentRuntimeArtifactParameters `json:"agentRuntimeArtifact,omitempty" tf:"agent_runtime_artifact,omitempty"`
+	AgentRuntimeArtifact *AgentRuntimeArtifactParameters `json:"agentRuntimeArtifact,omitempty" tf:"agent_runtime_artifact,omitempty"`
 
 	// Name of the agent runtime.
 	// +kubebuilder:validation:Optional
@@ -162,7 +162,7 @@ type AgentRuntimeParameters struct {
 
 	// Authorization configuration for authenticating incoming requests. See authorizer_configuration below.
 	// +kubebuilder:validation:Optional
-	AuthorizerConfiguration []AuthorizerConfigurationParameters `json:"authorizerConfiguration,omitempty" tf:"authorizer_configuration,omitempty"`
+	AuthorizerConfiguration *AuthorizerConfigurationParameters `json:"authorizerConfiguration,omitempty" tf:"authorizer_configuration,omitempty"`
 
 	// Description of the agent runtime.
 	// +kubebuilder:validation:Optional
@@ -179,11 +179,11 @@ type AgentRuntimeParameters struct {
 
 	// Network configuration for the agent runtime. See network_configuration below.
 	// +kubebuilder:validation:Optional
-	NetworkConfiguration []NetworkConfigurationParameters `json:"networkConfiguration,omitempty" tf:"network_configuration,omitempty"`
+	NetworkConfiguration *NetworkConfigurationParameters `json:"networkConfiguration,omitempty" tf:"network_configuration,omitempty"`
 
 	// Protocol configuration for the agent runtime. See protocol_configuration below.
 	// +kubebuilder:validation:Optional
-	ProtocolConfiguration []ProtocolConfigurationParameters `json:"protocolConfiguration,omitempty" tf:"protocol_configuration,omitempty"`
+	ProtocolConfiguration *ProtocolConfigurationParameters `json:"protocolConfiguration,omitempty" tf:"protocol_configuration,omitempty"`
 
 	// Region where this resource will be managed. Defaults to the Region set in the provider configuration.
 	// Region is the region you'd like your resource to be created in.
@@ -192,7 +192,7 @@ type AgentRuntimeParameters struct {
 
 	// Configuration for HTTP request headers that will be passed through to the runtime. See request_header_configuration below.
 	// +kubebuilder:validation:Optional
-	RequestHeaderConfiguration []RequestHeaderConfigurationParameters `json:"requestHeaderConfiguration,omitempty" tf:"request_header_configuration,omitempty"`
+	RequestHeaderConfiguration *RequestHeaderConfigurationParameters `json:"requestHeaderConfiguration,omitempty" tf:"request_header_configuration,omitempty"`
 
 	// ARN of the IAM role that the agent runtime assumes to access AWS services.
 	// +crossplane:generate:reference:type=github.com/upbound/provider-aws/v2/apis/cluster/iam/v1beta1.Role
@@ -217,26 +217,26 @@ type AgentRuntimeParameters struct {
 type AuthorizerConfigurationInitParameters struct {
 
 	// JWT-based authorization configuration block. See custom_jwt_authorizer below.
-	CustomJwtAuthorizer []CustomJwtAuthorizerInitParameters `json:"customJwtAuthorizer,omitempty" tf:"custom_jwt_authorizer,omitempty"`
+	CustomJwtAuthorizer *CustomJwtAuthorizerInitParameters `json:"customJwtAuthorizer,omitempty" tf:"custom_jwt_authorizer,omitempty"`
 }
 
 type AuthorizerConfigurationObservation struct {
 
 	// JWT-based authorization configuration block. See custom_jwt_authorizer below.
-	CustomJwtAuthorizer []CustomJwtAuthorizerObservation `json:"customJwtAuthorizer,omitempty" tf:"custom_jwt_authorizer,omitempty"`
+	CustomJwtAuthorizer *CustomJwtAuthorizerObservation `json:"customJwtAuthorizer,omitempty" tf:"custom_jwt_authorizer,omitempty"`
 }
 
 type AuthorizerConfigurationParameters struct {
 
 	// JWT-based authorization configuration block. See custom_jwt_authorizer below.
 	// +kubebuilder:validation:Optional
-	CustomJwtAuthorizer []CustomJwtAuthorizerParameters `json:"customJwtAuthorizer,omitempty" tf:"custom_jwt_authorizer,omitempty"`
+	CustomJwtAuthorizer *CustomJwtAuthorizerParameters `json:"customJwtAuthorizer,omitempty" tf:"custom_jwt_authorizer,omitempty"`
 }
 
 type CodeConfigurationInitParameters struct {
 
 	// Configuration block for the source code location and configuration details. See code below.
-	Code []CodeInitParameters `json:"code,omitempty" tf:"code,omitempty"`
+	Code *CodeInitParameters `json:"code,omitempty" tf:"code,omitempty"`
 
 	// Array specifying the entry point for code execution, indicating the function or method to invoke when the code runs. The array must contain 1 or 2 elements. Examples: ["main.py"], ["opentelemetry-instrument", "main.py"].
 	EntryPoint []*string `json:"entryPoint,omitempty" tf:"entry_point,omitempty"`
@@ -248,7 +248,7 @@ type CodeConfigurationInitParameters struct {
 type CodeConfigurationObservation struct {
 
 	// Configuration block for the source code location and configuration details. See code below.
-	Code []CodeObservation `json:"code,omitempty" tf:"code,omitempty"`
+	Code *CodeObservation `json:"code,omitempty" tf:"code,omitempty"`
 
 	// Array specifying the entry point for code execution, indicating the function or method to invoke when the code runs. The array must contain 1 or 2 elements. Examples: ["main.py"], ["opentelemetry-instrument", "main.py"].
 	EntryPoint []*string `json:"entryPoint,omitempty" tf:"entry_point,omitempty"`
@@ -261,7 +261,7 @@ type CodeConfigurationParameters struct {
 
 	// Configuration block for the source code location and configuration details. See code below.
 	// +kubebuilder:validation:Optional
-	Code []CodeParameters `json:"code,omitempty" tf:"code,omitempty"`
+	Code *CodeParameters `json:"code,omitempty" tf:"code,omitempty"`
 
 	// Array specifying the entry point for code execution, indicating the function or method to invoke when the code runs. The array must contain 1 or 2 elements. Examples: ["main.py"], ["opentelemetry-instrument", "main.py"].
 	// +kubebuilder:validation:Optional
@@ -275,20 +275,20 @@ type CodeConfigurationParameters struct {
 type CodeInitParameters struct {
 
 	// Configuration block for the Amazon S3 object that contains the source code for the agent runtime. See s3 below.
-	S3 []S3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *S3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type CodeObservation struct {
 
 	// Configuration block for the Amazon S3 object that contains the source code for the agent runtime. See s3 below.
-	S3 []S3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *S3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type CodeParameters struct {
 
 	// Configuration block for the Amazon S3 object that contains the source code for the agent runtime. See s3 below.
 	// +kubebuilder:validation:Optional
-	S3 []S3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *S3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type ContainerConfigurationInitParameters struct {
@@ -390,7 +390,7 @@ type NetworkConfigurationInitParameters struct {
 	NetworkMode *string `json:"networkMode,omitempty" tf:"network_mode,omitempty"`
 
 	// Network mode configuration. See network_mode_config below.
-	NetworkModeConfig []NetworkModeConfigInitParameters `json:"networkModeConfig,omitempty" tf:"network_mode_config,omitempty"`
+	NetworkModeConfig *NetworkModeConfigInitParameters `json:"networkModeConfig,omitempty" tf:"network_mode_config,omitempty"`
 }
 
 type NetworkConfigurationObservation struct {
@@ -399,7 +399,7 @@ type NetworkConfigurationObservation struct {
 	NetworkMode *string `json:"networkMode,omitempty" tf:"network_mode,omitempty"`
 
 	// Network mode configuration. See network_mode_config below.
-	NetworkModeConfig []NetworkModeConfigObservation `json:"networkModeConfig,omitempty" tf:"network_mode_config,omitempty"`
+	NetworkModeConfig *NetworkModeConfigObservation `json:"networkModeConfig,omitempty" tf:"network_mode_config,omitempty"`
 }
 
 type NetworkConfigurationParameters struct {
@@ -410,7 +410,7 @@ type NetworkConfigurationParameters struct {
 
 	// Network mode configuration. See network_mode_config below.
 	// +kubebuilder:validation:Optional
-	NetworkModeConfig []NetworkModeConfigParameters `json:"networkModeConfig,omitempty" tf:"network_mode_config,omitempty"`
+	NetworkModeConfig *NetworkModeConfigParameters `json:"networkModeConfig,omitempty" tf:"network_mode_config,omitempty"`
 }
 
 type NetworkModeConfigInitParameters struct {

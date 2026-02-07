@@ -257,12 +257,25 @@ func configureSingletonListAPIConverters(r *config.Resource) error {
 	// the default resource and removes it because we will register another
 	// identity converter below.
 	excludePaths := append(r.CRDListConversionPaths(), r.AutoConversionRegistrationOptions.IdentityConversionExcludePaths...)
+
+	singletonListConversionExclude := sets.New[string]()
+	for _, path := range r.AutoConversionRegistrationOptions.SingletonListConversionExcludePaths {
+		singletonListConversionExclude.Insert(normalizeJSONPath(path))
+	}
+	filteredCRDListConversionPaths := sets.New(r.CRDListConversionPaths()...)
+	filteredCRDListConversionPaths = filteredCRDListConversionPaths.Difference(singletonListConversionExclude)
+
 	r.Conversions = r.Conversions[1:]
-	r.Conversions = append([]conversion.Conversion{
-		conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), excludePaths...),
-		conversion.NewSingletonListConversion(conversion.AllVersions, bumped, conversion.DefaultPathPrefixes(), r.CRDListConversionPaths(), conversion.ToEmbeddedObject, opts...),
-		conversion.NewSingletonListConversion(bumped, conversion.AllVersions, conversion.DefaultPathPrefixes(), r.CRDListConversionPaths(), conversion.ToSingletonList, opts...),
-	}, r.Conversions...)
+
+	orderedConversions := make([]conversion.Conversion, 0, len(r.Conversions)+len(r.AutoConversionRegistrationOptions.PreSingletonListConversions)+3)
+	orderedConversions = append(orderedConversions, conversion.NewIdentityConversionExpandPaths(conversion.AllVersions, conversion.AllVersions, conversion.DefaultPathPrefixes(), excludePaths...))
+	orderedConversions = append(orderedConversions, r.AutoConversionRegistrationOptions.PreSingletonListConversions...)
+	orderedConversions = append(orderedConversions,
+		conversion.NewSingletonListConversion(conversion.AllVersions, bumped, conversion.DefaultPathPrefixes(), filteredCRDListConversionPaths.UnsortedList(), conversion.ToEmbeddedObject, opts...),
+		conversion.NewSingletonListConversion(bumped, conversion.AllVersions, conversion.DefaultPathPrefixes(), filteredCRDListConversionPaths.UnsortedList(), conversion.ToSingletonList, opts...),
+	)
+	orderedConversions = append(orderedConversions, r.Conversions...)
+	r.Conversions = orderedConversions
 
 	return nil
 }

@@ -15,11 +15,11 @@ metadata:
 spec:
   forProvider:
     agentRuntimeArtifact:
-    - containerConfiguration:
-      - containerUri: ${aws_ecr_repository.example.repository_url}:latest
+      containerConfiguration:
+        containerUri: ${aws_ecr_repository.example.repository_url}:latest
     agentRuntimeName: example_agent_runtime
     networkConfiguration:
-    - networkMode: PUBLIC
+      networkMode: PUBLIC
     region: us-west-1
     roleArnSelector:
       matchLabels:

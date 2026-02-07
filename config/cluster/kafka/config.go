@@ -40,6 +40,14 @@ func Configure(p *config.Provider) { //nolint:gocyclo
 		r.UseAsync = true
 
 		r.Version = "v1beta2"
+		r.AutoConversionRegistrationOptions.AutoRegisterExcludePaths = append(r.AutoConversionRegistrationOptions.AutoRegisterExcludePaths,
+			"spec.forProvider.brokerNodeGroupInfo[*].ebsVolumeSize",
+			"spec.initProvider.brokerNodeGroupInfo[*].ebsVolumeSize",
+			"status.atProvider.brokerNodeGroupInfo[*].ebsVolumeSize",
+			"spec.forProvider.brokerNodeGroupInfo[*].storageInfo[*].ebsStorageInfo[*].volumeSize",
+			"spec.initProvider.brokerNodeGroupInfo[*].storageInfo[*].ebsStorageInfo[*].volumeSize",
+			"status.atProvider.brokerNodeGroupInfo[*].storageInfo[*].ebsStorageInfo[*].volumeSize",
+		)
 		r.Conversions = append(r.Conversions,
 			conversion.NewCustomConverter("v1beta1", "v1beta2", func(src, target xpresource.Managed) error {
 				srcTyped := src.(*v1beta1.Cluster)

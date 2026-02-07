@@ -620,8 +620,6 @@ github.com/emirpasic/gods v1.18.1 h1:FXtiHYKDGKCW2KzwZKx0iC0PQmdlorYgdFG9jPXJ1Bc
 github.com/emirpasic/gods v1.18.1/go.mod h1:8tpGGwCnJ5H4r6BWwaV6OrWmMoPhUl5jm/FMNAnJvWQ=
 github.com/erhancagirici/upbound-terraform-provider-aws v0.0.0-20260108113509-16db407c7eb5 h1:NnMMsISeSXC9xjJopbqbekfZD1cp+YCGELSssWCJbN8=
 github.com/erhancagirici/upbound-terraform-provider-aws v0.0.0-20260108113509-16db407c7eb5/go.mod h1:SQg2OUhfAon+G+q2C9uI0WrXksP8mHG9eSjAq+Miymg=
-github.com/erhancagirici/upjet/v2 v2.0.0-20260128080746-aaafdbf51599 h1:Hdzi8Jrtux4SGIsnTqwXBopLnM5vf3ggkgBpWBMk+oQ=
-github.com/erhancagirici/upjet/v2 v2.0.0-20260128080746-aaafdbf51599/go.mod h1:0rDbrxywbriC8CeWV/ff7bNJ7Xb//UeOHgOP+RcWOaA=
 github.com/evanphx/json-patch v5.9.11+incompatible h1:ixHHqfcGvxhWkniF1tWxBHA0yb4Z+d1UQi45df52xW8=
 github.com/evanphx/json-patch v5.9.11+incompatible/go.mod h1:50XU6AFN0ol/bzJsmQLiYLvXMP4fmwYFNcr97nuDLSk=
 github.com/evanphx/json-patch/v5 v5.9.11 h1:/8HVnzMq13/3x9TPvjG08wUGqBTmZBsCWzjTM0wiaDU=

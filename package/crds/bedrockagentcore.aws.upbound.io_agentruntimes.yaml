@@ -76,109 +76,92 @@ spec:
                   agentRuntimeArtifact:
                     description: Container artifact configuration. See agent_runtime_artifact
                       below.
-                    items:
-                      properties:
-                        codeConfiguration:
-                          description: Code configuration block for the agent runtime
-                            artifact, including the source code location and execution
-                            settings. Exactly one of code_configuration or container_configuration
-                            must be specified. See code_configuration below.
-                          items:
+                    properties:
+                      codeConfiguration:
+                        description: Code configuration block for the agent runtime
+                          artifact, including the source code location and execution
+                          settings. Exactly one of code_configuration or container_configuration
+                          must be specified. See code_configuration below.
+                        properties:
+                          code:
+                            description: Configuration block for the source code location
+                              and configuration details. See code below.
                             properties:
-                              code:
-                                description: Configuration block for the source code
-                                  location and configuration details. See code below.
-                                items:
-                                  properties:
-                                    s3:
-                                      description: Configuration block for the Amazon
-                                        S3 object that contains the source code for
-                                        the agent runtime. See s3 below.
-                                      items:
-                                        properties:
-                                          bucket:
-                                            description: Name of the Amazon S3 bucket.
-                                            type: string
-                                          prefix:
-                                            description: Key of the object containing
-                                              the ZIP file of the source code for
-                                              the agent runtime in the Amazon S3 bucket.
-                                            type: string
-                                          versionId:
-                                            description: Version ID of the Amazon
-                                              S3 object. If not specified, the latest
-                                              version of the object is used.
-                                            type: string
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                              entryPoint:
-                                description: 'Array specifying the entry point for
-                                  code execution, indicating the function or method
-                                  to invoke when the code runs. The array must contain
-                                  1 or 2 elements. Examples: ["main.py"], ["opentelemetry-instrument",
-                                  "main.py"].'
-                                items:
-                                  type: string
-                                type: array
-                              runtime:
-                                description: 'Runtime environment used to execute
-                                  the code. Valid values: PYTHON_3_10, PYTHON_3_11,
-                                  PYTHON_3_12, PYTHON_3_13.'
-                                type: string
+                              s3:
+                                description: Configuration block for the Amazon S3
+                                  object that contains the source code for the agent
+                                  runtime. See s3 below.
+                                properties:
+                                  bucket:
+                                    description: Name of the Amazon S3 bucket.
+                                    type: string
+                                  prefix:
+                                    description: Key of the object containing the
+                                      ZIP file of the source code for the agent runtime
+                                      in the Amazon S3 bucket.
+                                    type: string
+                                  versionId:
+                                    description: Version ID of the Amazon S3 object.
+                                      If not specified, the latest version of the
+                                      object is used.
+                                    type: string
+                                type: object
                             type: object
-                          type: array
-                        containerConfiguration:
-                          description: Container configuration block for the agent
-                            artifact. Exactly one of code_configuration or container_configuration
-                            must be specified. See container_configuration below.
-                          items:
-                            properties:
-                              containerUri:
-                                description: URI of the container image in Amazon
-                                  ECR.
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                          entryPoint:
+                            description: 'Array specifying the entry point for code
+                              execution, indicating the function or method to invoke
+                              when the code runs. The array must contain 1 or 2 elements.
+                              Examples: ["main.py"], ["opentelemetry-instrument",
+                              "main.py"].'
+                            items:
+                              type: string
+                            type: array
+                          runtime:
+                            description: 'Runtime environment used to execute the
+                              code. Valid values: PYTHON_3_10, PYTHON_3_11, PYTHON_3_12,
+                              PYTHON_3_13.'
+                            type: string
+                        type: object
+                      containerConfiguration:
+                        description: Container configuration block for the agent artifact.
+                          Exactly one of code_configuration or container_configuration
+                          must be specified. See container_configuration below.
+                        properties:
+                          containerUri:
+                            description: URI of the container image in Amazon ECR.
+                            type: string
+                        type: object
+                    type: object
                   agentRuntimeName:
                     description: Name of the agent runtime.
                     type: string
                   authorizerConfiguration:
                     description: Authorization configuration for authenticating incoming
                       requests. See authorizer_configuration below.
-                    items:
-                      properties:
-                        customJwtAuthorizer:
-                          description: JWT-based authorization configuration block.
-                            See custom_jwt_authorizer below.
-                          items:
-                            properties:
-                              allowedAudience:
-                                description: Set of allowed audience values for JWT
-                                  token validation.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                              allowedClients:
-                                description: Set of allowed client IDs for JWT token
-                                  validation.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                              discoveryUrl:
-                                description: URL used to fetch OpenID Connect configuration
-                                  or authorization server metadata. Must end with
-                                  .well-known/openid-configuration.
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      customJwtAuthorizer:
+                        description: JWT-based authorization configuration block.
+                          See custom_jwt_authorizer below.
+                        properties:
+                          allowedAudience:
+                            description: Set of allowed audience values for JWT token
+                              validation.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                          allowedClients:
+                            description: Set of allowed client IDs for JWT token validation.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                          discoveryUrl:
+                            description: URL used to fetch OpenID Connect configuration
+                              or authorization server metadata. Must end with .well-known/openid-configuration.
+                            type: string
+                        type: object
+                    type: object
                   description:
                     description: Description of the agent runtime.
                     type: string
@@ -204,45 +187,38 @@ spec:
                   networkConfiguration:
                     description: Network configuration for the agent runtime. See
                       network_configuration below.
-                    items:
-                      properties:
-                        networkMode:
-                          description: 'Network mode for the agent runtime. Valid
-                            values: PUBLIC, VPC.'
-                          type: string
-                        networkModeConfig:
-                          description: Network mode configuration. See network_mode_config
-                            below.
-                          items:
-                            properties:
-                              securityGroups:
-                                description: Security groups associated with the VPC
-                                  configuration.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                              subnets:
-                                description: Subnets associated with the VPC configuration.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      networkMode:
+                        description: 'Network mode for the agent runtime. Valid values:
+                          PUBLIC, VPC.'
+                        type: string
+                      networkModeConfig:
+                        description: Network mode configuration. See network_mode_config
+                          below.
+                        properties:
+                          securityGroups:
+                            description: Security groups associated with the VPC configuration.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                          subnets:
+                            description: Subnets associated with the VPC configuration.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                        type: object
+                    type: object
                   protocolConfiguration:
                     description: Protocol configuration for the agent runtime. See
                       protocol_configuration below.
-                    items:
-                      properties:
-                        serverProtocol:
-                          description: 'Server protocol for the agent runtime. Valid
-                            values: HTTP, MCP, A2A.'
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      serverProtocol:
+                        description: 'Server protocol for the agent runtime. Valid
+                          values: HTTP, MCP, A2A.'
+                        type: string
+                    type: object
                   region:
                     description: |-
                       Region where this resource will be managed. Defaults to the Region set in the provider configuration.
@@ -252,17 +228,15 @@ spec:
                     description: Configuration for HTTP request headers that will
                       be passed through to the runtime. See request_header_configuration
                       below.
-                    items:
-                      properties:
-                        requestHeaderAllowlist:
-                          description: A list of HTTP request headers that are allowed
-                            to be passed through to the runtime.
-                          items:
-                            type: string
-                          type: array
-                          x-kubernetes-list-type: set
-                      type: object
-                    type: array
+                    properties:
+                      requestHeaderAllowlist:
+                        description: A list of HTTP request headers that are allowed
+                          to be passed through to the runtime.
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                    type: object
                   roleArn:
                     description: ARN of the IAM role that the agent runtime assumes
                       to access AWS services.
@@ -366,109 +340,92 @@ spec:
                   agentRuntimeArtifact:
                     description: Container artifact configuration. See agent_runtime_artifact
                       below.
-                    items:
-                      properties:
-                        codeConfiguration:
-                          description: Code configuration block for the agent runtime
-                            artifact, including the source code location and execution
-                            settings. Exactly one of code_configuration or container_configuration
-                            must be specified. See code_configuration below.
-                          items:
+                    properties:
+                      codeConfiguration:
+                        description: Code configuration block for the agent runtime
+                          artifact, including the source code location and execution
+                          settings. Exactly one of code_configuration or container_configuration
+                          must be specified. See code_configuration below.
+                        properties:
+                          code:
+                            description: Configuration block for the source code location
+                              and configuration details. See code below.
                             properties:
-                              code:
-                                description: Configuration block for the source code
-                                  location and configuration details. See code below.
-                                items:
-                                  properties:
-                                    s3:
-                                      description: Configuration block for the Amazon
-                                        S3 object that contains the source code for
-                                        the agent runtime. See s3 below.
-                                      items:
-                                        properties:
-                                          bucket:
-                                            description: Name of the Amazon S3 bucket.
-                                            type: string
-                                          prefix:
-                                            description: Key of the object containing
-                                              the ZIP file of the source code for
-                                              the agent runtime in the Amazon S3 bucket.
-                                            type: string
-                                          versionId:
-                                            description: Version ID of the Amazon
-                                              S3 object. If not specified, the latest
-                                              version of the object is used.
-                                            type: string
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                              entryPoint:
-                                description: 'Array specifying the entry point for
-                                  code execution, indicating the function or method
-                                  to invoke when the code runs. The array must contain
-                                  1 or 2 elements. Examples: ["main.py"], ["opentelemetry-instrument",
-                                  "main.py"].'
-                                items:
-                                  type: string
-                                type: array
-                              runtime:
-                                description: 'Runtime environment used to execute
-                                  the code. Valid values: PYTHON_3_10, PYTHON_3_11,
-                                  PYTHON_3_12, PYTHON_3_13.'
-                                type: string
+                              s3:
+                                description: Configuration block for the Amazon S3
+                                  object that contains the source code for the agent
+                                  runtime. See s3 below.
+                                properties:
+                                  bucket:
+                                    description: Name of the Amazon S3 bucket.
+                                    type: string
+                                  prefix:
+                                    description: Key of the object containing the
+                                      ZIP file of the source code for the agent runtime
+                                      in the Amazon S3 bucket.
+                                    type: string
+                                  versionId:
+                                    description: Version ID of the Amazon S3 object.
+                                      If not specified, the latest version of the
+                                      object is used.
+                                    type: string
+                                type: object
                             type: object
-                          type: array
-                        containerConfiguration:
-                          description: Container configuration block for the agent
-                            artifact. Exactly one of code_configuration or container_configuration
-                            must be specified. See container_configuration below.
-                          items:
-                            properties:
-                              containerUri:
-                                description: URI of the container image in Amazon
-                                  ECR.
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                          entryPoint:
+                            description: 'Array specifying the entry point for code
+                              execution, indicating the function or method to invoke
+                              when the code runs. The array must contain 1 or 2 elements.
+                              Examples: ["main.py"], ["opentelemetry-instrument",
+                              "main.py"].'
+                            items:
+                              type: string
+                            type: array
+                          runtime:
+                            description: 'Runtime environment used to execute the
+                              code. Valid values: PYTHON_3_10, PYTHON_3_11, PYTHON_3_12,
+                              PYTHON_3_13.'
+                            type: string
+                        type: object
+                      containerConfiguration:
+                        description: Container configuration block for the agent artifact.
+                          Exactly one of code_configuration or container_configuration
+                          must be specified. See container_configuration below.
+                        properties:
+                          containerUri:
+                            description: URI of the container image in Amazon ECR.
+                            type: string
+                        type: object
+                    type: object
                   agentRuntimeName:
                     description: Name of the agent runtime.
                     type: string
                   authorizerConfiguration:
                     description: Authorization configuration for authenticating incoming
                       requests. See authorizer_configuration below.
-                    items:
-                      properties:
-                        customJwtAuthorizer:
-                          description: JWT-based authorization configuration block.
-                            See custom_jwt_authorizer below.
-                          items:
-                            properties:
-                              allowedAudience:
-                                description: Set of allowed audience values for JWT
-                                  token validation.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                              allowedClients:
-                                description: Set of allowed client IDs for JWT token
-                                  validation.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                              discoveryUrl:
-                                description: URL used to fetch OpenID Connect configuration
-                                  or authorization server metadata. Must end with
-                                  .well-known/openid-configuration.
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      customJwtAuthorizer:
+                        description: JWT-based authorization configuration block.
+                          See custom_jwt_authorizer below.
+                        properties:
+                          allowedAudience:
+                            description: Set of allowed audience values for JWT token
+                              validation.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                          allowedClients:
+                            description: Set of allowed client IDs for JWT token validation.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                          discoveryUrl:
+                            description: URL used to fetch OpenID Connect configuration
+                              or authorization server metadata. Must end with .well-known/openid-configuration.
+                            type: string
+                        type: object
+                    type: object
                   description:
                     description: Description of the agent runtime.
                     type: string
@@ -494,60 +451,51 @@ spec:
                   networkConfiguration:
                     description: Network configuration for the agent runtime. See
                       network_configuration below.
-                    items:
-                      properties:
-                        networkMode:
-                          description: 'Network mode for the agent runtime. Valid
-                            values: PUBLIC, VPC.'
-                          type: string
-                        networkModeConfig:
-                          description: Network mode configuration. See network_mode_config
-                            below.
-                          items:
-                            properties:
-                              securityGroups:
-                                description: Security groups associated with the VPC
-                                  configuration.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                              subnets:
-                                description: Subnets associated with the VPC configuration.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      networkMode:
+                        description: 'Network mode for the agent runtime. Valid values:
+                          PUBLIC, VPC.'
+                        type: string
+                      networkModeConfig:
+                        description: Network mode configuration. See network_mode_config
+                          below.
+                        properties:
+                          securityGroups:
+                            description: Security groups associated with the VPC configuration.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                          subnets:
+                            description: Subnets associated with the VPC configuration.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                        type: object
+                    type: object
                   protocolConfiguration:
                     description: Protocol configuration for the agent runtime. See
                       protocol_configuration below.
-                    items:
-                      properties:
-                        serverProtocol:
-                          description: 'Server protocol for the agent runtime. Valid
-                            values: HTTP, MCP, A2A.'
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      serverProtocol:
+                        description: 'Server protocol for the agent runtime. Valid
+                          values: HTTP, MCP, A2A.'
+                        type: string
+                    type: object
                   requestHeaderConfiguration:
                     description: Configuration for HTTP request headers that will
                       be passed through to the runtime. See request_header_configuration
                       below.
-                    items:
-                      properties:
-                        requestHeaderAllowlist:
-                          description: A list of HTTP request headers that are allowed
-                            to be passed through to the runtime.
-                          items:
-                            type: string
-                          type: array
-                          x-kubernetes-list-type: set
-                      type: object
-                    type: array
+                    properties:
+                      requestHeaderAllowlist:
+                        description: A list of HTTP request headers that are allowed
+                          to be passed through to the runtime.
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                    type: object
                   roleArn:
                     description: ARN of the IAM role that the agent runtime assumes
                       to access AWS services.
@@ -735,73 +683,62 @@ spec:
                   agentRuntimeArtifact:
                     description: Container artifact configuration. See agent_runtime_artifact
                       below.
-                    items:
-                      properties:
-                        codeConfiguration:
-                          description: Code configuration block for the agent runtime
-                            artifact, including the source code location and execution
-                            settings. Exactly one of code_configuration or container_configuration
-                            must be specified. See code_configuration below.
-                          items:
+                    properties:
+                      codeConfiguration:
+                        description: Code configuration block for the agent runtime
+                          artifact, including the source code location and execution
+                          settings. Exactly one of code_configuration or container_configuration
+                          must be specified. See code_configuration below.
+                        properties:
+                          code:
+                            description: Configuration block for the source code location
+                              and configuration details. See code below.
                             properties:
-                              code:
-                                description: Configuration block for the source code
-                                  location and configuration details. See code below.
-                                items:
-                                  properties:
-                                    s3:
-                                      description: Configuration block for the Amazon
-                                        S3 object that contains the source code for
-                                        the agent runtime. See s3 below.
-                                      items:
-                                        properties:
-                                          bucket:
-                                            description: Name of the Amazon S3 bucket.
-                                            type: string
-                                          prefix:
-                                            description: Key of the object containing
-                                              the ZIP file of the source code for
-                                              the agent runtime in the Amazon S3 bucket.
-                                            type: string
-                                          versionId:
-                                            description: Version ID of the Amazon
-                                              S3 object. If not specified, the latest
-                                              version of the object is used.
-                                            type: string
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
-                              entryPoint:
-                                description: 'Array specifying the entry point for
-                                  code execution, indicating the function or method
-                                  to invoke when the code runs. The array must contain
-                                  1 or 2 elements. Examples: ["main.py"], ["opentelemetry-instrument",
-                                  "main.py"].'
-                                items:
-                                  type: string
-                                type: array
-                              runtime:
-                                description: 'Runtime environment used to execute
-                                  the code. Valid values: PYTHON_3_10, PYTHON_3_11,
-                                  PYTHON_3_12, PYTHON_3_13.'
-                                type: string
+                              s3:
+                                description: Configuration block for the Amazon S3
+                                  object that contains the source code for the agent
+                                  runtime. See s3 below.
+                                properties:
+                                  bucket:
+                                    description: Name of the Amazon S3 bucket.
+                                    type: string
+                                  prefix:
+                                    description: Key of the object containing the
+                                      ZIP file of the source code for the agent runtime
+                                      in the Amazon S3 bucket.
+                                    type: string
+                                  versionId:
+                                    description: Version ID of the Amazon S3 object.
+                                      If not specified, the latest version of the
+                                      object is used.
+                                    type: string
+                                type: object
                             type: object
-                          type: array
-                        containerConfiguration:
-                          description: Container configuration block for the agent
-                            artifact. Exactly one of code_configuration or container_configuration
-                            must be specified. See container_configuration below.
-                          items:
-                            properties:
-                              containerUri:
-                                description: URI of the container image in Amazon
-                                  ECR.
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                          entryPoint:
+                            description: 'Array specifying the entry point for code
+                              execution, indicating the function or method to invoke
+                              when the code runs. The array must contain 1 or 2 elements.
+                              Examples: ["main.py"], ["opentelemetry-instrument",
+                              "main.py"].'
+                            items:
+                              type: string
+                            type: array
+                          runtime:
+                            description: 'Runtime environment used to execute the
+                              code. Valid values: PYTHON_3_10, PYTHON_3_11, PYTHON_3_12,
+                              PYTHON_3_13.'
+                            type: string
+                        type: object
+                      containerConfiguration:
+                        description: Container configuration block for the agent artifact.
+                          Exactly one of code_configuration or container_configuration
+                          must be specified. See container_configuration below.
+                        properties:
+                          containerUri:
+                            description: URI of the container image in Amazon ECR.
+                            type: string
+                        type: object
+                    type: object
                   agentRuntimeId:
                     description: Unique identifier of the Agent Runtime.
                     type: string
@@ -814,36 +751,30 @@ spec:
                   authorizerConfiguration:
                     description: Authorization configuration for authenticating incoming
                       requests. See authorizer_configuration below.
-                    items:
-                      properties:
-                        customJwtAuthorizer:
-                          description: JWT-based authorization configuration block.
-                            See custom_jwt_authorizer below.
-                          items:
-                            properties:
-                              allowedAudience:
-                                description: Set of allowed audience values for JWT
-                                  token validation.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                              allowedClients:
-                                description: Set of allowed client IDs for JWT token
-                                  validation.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                              discoveryUrl:
-                                description: URL used to fetch OpenID Connect configuration
-                                  or authorization server metadata. Must end with
-                                  .well-known/openid-configuration.
-                                type: string
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      customJwtAuthorizer:
+                        description: JWT-based authorization configuration block.
+                          See custom_jwt_authorizer below.
+                        properties:
+                          allowedAudience:
+                            description: Set of allowed audience values for JWT token
+                              validation.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                          allowedClients:
+                            description: Set of allowed client IDs for JWT token validation.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                          discoveryUrl:
+                            description: URL used to fetch OpenID Connect configuration
+                              or authorization server metadata. Must end with .well-known/openid-configuration.
+                            type: string
+                        type: object
+                    type: object
                   description:
                     description: Description of the agent runtime.
                     type: string
@@ -871,45 +802,38 @@ spec:
                   networkConfiguration:
                     description: Network configuration for the agent runtime. See
                       network_configuration below.
-                    items:
-                      properties:
-                        networkMode:
-                          description: 'Network mode for the agent runtime. Valid
-                            values: PUBLIC, VPC.'
-                          type: string
-                        networkModeConfig:
-                          description: Network mode configuration. See network_mode_config
-                            below.
-                          items:
-                            properties:
-                              securityGroups:
-                                description: Security groups associated with the VPC
-                                  configuration.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                              subnets:
-                                description: Subnets associated with the VPC configuration.
-                                items:
-                                  type: string
-                                type: array
-                                x-kubernetes-list-type: set
-                            type: object
-                          type: array
-                      type: object
-                    type: array
+                    properties:
+                      networkMode:
+                        description: 'Network mode for the agent runtime. Valid values:
+                          PUBLIC, VPC.'
+                        type: string
+                      networkModeConfig:
+                        description: Network mode configuration. See network_mode_config
+                          below.
+                        properties:
+                          securityGroups:
+                            description: Security groups associated with the VPC configuration.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                          subnets:
+                            description: Subnets associated with the VPC configuration.
+                            items:
+                              type: string
+                            type: array
+                            x-kubernetes-list-type: set
+                        type: object
+                    type: object
                   protocolConfiguration:
                     description: Protocol configuration for the agent runtime. See
                       protocol_configuration below.
-                    items:
-                      properties:
-                        serverProtocol:
-                          description: 'Server protocol for the agent runtime. Valid
-                            values: HTTP, MCP, A2A.'
-                          type: string
-                      type: object
-                    type: array
+                    properties:
+                      serverProtocol:
+                        description: 'Server protocol for the agent runtime. Valid
+                          values: HTTP, MCP, A2A.'
+                        type: string
+                    type: object
                   region:
                     description: |-
                       Region where this resource will be managed. Defaults to the Region set in the provider configuration.
@@ -919,17 +843,15 @@ spec:
                     description: Configuration for HTTP request headers that will
                       be passed through to the runtime. See request_header_configuration
                       below.
-                    items:
-                      properties:
-                        requestHeaderAllowlist:
-                          description: A list of HTTP request headers that are allowed
-                            to be passed through to the runtime.
-                          items:
-                            type: string
-                          type: array
-                          x-kubernetes-list-type: set
-                      type: object
-                    type: array
+                    properties:
+                      requestHeaderAllowlist:
+                        description: A list of HTTP request headers that are allowed
+                          to be passed through to the runtime.
+                        items:
+                          type: string
+                        type: array
+                        x-kubernetes-list-type: set
+                    type: object
                   roleArn:
                     description: ARN of the IAM role that the agent runtime assumes
                       to access AWS services.

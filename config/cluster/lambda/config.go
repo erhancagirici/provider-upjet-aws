@@ -6,7 +6,7 @@ package lambda
 
 import (
 	"github.com/crossplane/upjet/v2/pkg/config"
-
+	"github.com/crossplane/upjet/v2/pkg/config/conversion"
 	"github.com/upbound/provider-aws/v2/config/cluster/common"
 )
 
@@ -34,6 +34,18 @@ func Configure(p *config.Provider) { //nolint:gocyclo
 		// It can be fulfilled by multiple types.
 		delete(r.References, "source_access_configuration.uri")
 		r.UseAsync = true
+		//
+		r.AutoConversionRegistrationOptions.PreSingletonListConversions = append(r.AutoConversionRegistrationOptions.PreSingletonListConversions,
+			conversion.NewNewlyIntroducedFieldConversion("v1beta2", "v1beta1", "spec.forProvider.amazonManagedKafkaEventSourceConfig.schemaRegistryConfig", conversion.ToAnnotation),
+			conversion.NewNewlyIntroducedFieldConversion("v1beta2", "v1beta1", "spec.initProvider.amazonManagedKafkaEventSourceConfig.schemaRegistryConfig", conversion.ToAnnotation),
+			conversion.NewNewlyIntroducedFieldConversion("v1beta2", "v1beta1", "status.atProvider.amazonManagedKafkaEventSourceConfig.schemaRegistryConfig", conversion.ToAnnotation),
+		)
+		// post singleton-list conversions
+		r.Conversions = append(r.Conversions,
+			conversion.NewNewlyIntroducedFieldConversion("v1beta1", "v1beta2", "spec.forProvider.amazonManagedKafkaEventSourceConfig.schemaRegistryConfig", conversion.FromAnnotation),
+			conversion.NewNewlyIntroducedFieldConversion("v1beta1", "v1beta2", "spec.initProvider.amazonManagedKafkaEventSourceConfig.schemaRegistryConfig", conversion.FromAnnotation),
+			conversion.NewNewlyIntroducedFieldConversion("v1beta1", "v1beta2", "status.atProvider.amazonManagedKafkaEventSourceConfig.schemaRegistryConfig", conversion.FromAnnotation),
+		)
 	})
 
 	// TODO: Automated test pipeline cannot be run for the lambda group resources.

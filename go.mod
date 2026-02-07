@@ -10,7 +10,8 @@ toolchain go1.25.6
 
 tool golang.org/x/tools/cmd/goimports
 
-replace github.com/crossplane/upjet/v2 => github.com/erhancagirici/upjet/v2 v2.0.0-20260128080746-aaafdbf51599 // breaking-change-detection-imprv
+// replace github.com/crossplane/upjet/v2 => github.com/erhancagirici/upjet/v2 v2.0.0-20260128080746-aaafdbf51599 // breaking-change-detection-imprv
+replace github.com/crossplane/upjet/v2 => ../../crossplane/upjet
 
 require (
 	dario.cat/mergo v1.0.2
@@ -27,6 +28,7 @@ require (
 	github.com/crossplane/upjet/v2 v2.2.1-0.20260109091757-32190ad6e1bb
 	github.com/go-ini/ini v1.46.0
 	github.com/google/go-cmp v0.7.0
+	github.com/google/gofuzz v1.2.0
 	github.com/hashicorp/aws-sdk-go-base/v2 v2.0.0-beta.69
 	github.com/hashicorp/awspolicyequivalence v1.7.0
 	github.com/hashicorp/terraform-json v0.27.2
@@ -45,6 +47,7 @@ require (
 	k8s.io/utils v0.0.0-20250604170112-4c0f3b243397
 	sigs.k8s.io/controller-runtime v0.22.4
 	sigs.k8s.io/controller-tools v0.18.0
+	sigs.k8s.io/randfill v1.0.0
 )
 
 require (
@@ -478,7 +481,6 @@ require (
 	k8s.io/klog/v2 v2.130.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20250710124328-f3f2b991d03b // indirect
 	sigs.k8s.io/json v0.0.0-20241014173422-cfa47c3a1cc8 // indirect
-	sigs.k8s.io/randfill v1.0.0 // indirect
 	sigs.k8s.io/structured-merge-diff/v6 v6.3.0 // indirect
 	sigs.k8s.io/yaml v1.6.0 // indirect
 )
