@@ -1,6 +1,6 @@
-# SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 #
-# SPDX-License-Identifier: CC0-1.0
+# SPDX-License-Identifier: Apache-2.0
 
 apiVersion: quicksight.aws.m.upbound.io/v1beta1
 kind: User
@@ -10,14 +10,14 @@ metadata:
     upjet.upbound.io/manual-intervention: "This resource requires a valid email address, manually tested"
   labels:
     testing.upbound.io/example-name: example
-  name: example
+  name: example-user
   namespace: upbound-system
 spec:
   forProvider:
     awsAccountId: "${data.aws_account_id}"
-    email: "test@example.com"
+    email: "uptest-example-user@crossplane.io"
     identityType: QUICKSIGHT
     namespace: default
     region: us-east-1
-    userName: "authorUserName"
-    userRole: "AUTHOR"
+    userName: "uptestExampleUserName"
+    userRole: "READER"

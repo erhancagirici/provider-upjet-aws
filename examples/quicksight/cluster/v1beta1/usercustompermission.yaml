@@ -1,0 +1,58 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: quicksight.aws.upbound.io/v1beta1
+kind: UserCustomPermission
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/usercustompermission
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-user
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    userNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    customPermissionsNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    namespace: default
+    region: us-east-1
+---
+apiVersion: quicksight.aws.upbound.io/v1beta1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/groupmembership
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-user
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    email: "uptest-example-user@crossplane.io"
+    identityType: QUICKSIGHT
+    namespace: default
+    region: us-east-1
+    userName: uptestExampleReaderUserName
+    userRole: READER
+
+---
+apiVersion: quicksight.aws.upbound.io/v1beta1
+kind: CustomPermissions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/usercustompermission
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-permissions
+spec:
+  forProvider:
+    customPermissionsName: example-permissions
+    capabilities:
+      printReports: DENY
+      shareDashboards: DENY
+    region: us-east-1

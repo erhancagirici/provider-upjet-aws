@@ -1,6 +1,6 @@
-# SPDX-FileCopyrightText: 2024 The Crossplane Authors <https://crossplane.io>
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
 #
-# SPDX-License-Identifier: CC0-1.0
+# SPDX-License-Identifier: Apache-2.0
 
 apiVersion: quicksight.aws.m.upbound.io/v1beta1
 kind: VPCConnection
@@ -14,6 +14,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
+    awsAccountId: "${data.aws_account_id}"
     name: example
     region: us-east-1
     roleArnSelector:
@@ -59,6 +60,24 @@ spec:
         testing.upbound.io/example-name: quicksight-vpc-connection
 ---
 apiVersion: ec2.aws.m.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/vpcconnection
+  labels:
+    testing.upbound.io/example-name: quicksight-vpc-connection
+  name: quicksight-subnet-2
+  namespace: upbound-system
+spec:
+  forProvider:
+    availabilityZone: us-east-1b
+    cidrBlock: 10.0.2.0/24
+    region: us-east-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: quicksight-vpc-connection
+---
+apiVersion: ec2.aws.m.upbound.io/v1beta1
 kind: SecurityGroup
 metadata:
   annotations:
@@ -86,7 +105,7 @@ metadata:
   namespace: upbound-system
 spec:
   forProvider:
-    assumeRolePolicyDocument: |
+    assumeRolePolicy: |
       {
         "Version": "2012-10-17",
         "Statement": [

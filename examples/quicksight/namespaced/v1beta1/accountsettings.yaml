@@ -3,17 +3,17 @@
 # SPDX-License-Identifier: Apache-2.0
 
 apiVersion: quicksight.aws.m.upbound.io/v1beta1
-kind: Group
+kind: AccountSettings
 metadata:
   annotations:
-    meta.upbound.io/example-id: quicksight/v1beta1/group
+    crossplane.io/external-name: "${data.aws_account_id}"
+    meta.upbound.io/example-id: quicksight/v1beta1/accountsettings
   labels:
     testing.upbound.io/example-name: example
-  name: example
+  name: "${data.aws_account_id}"
   namespace: upbound-system
 spec:
   forProvider:
-    awsAccountId: "${data.aws_account_id}"
-    groupName: xp-example-group
+    defaultNamespace: default
+    terminationProtectionEnabled: false
     region: us-east-1
-    namespace: default

@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: quicksight.aws.m.upbound.io/v1beta1
+kind: RoleCustomPermission
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/rolecustompermission
+    crossplane.io/external-name: READER
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-reader
+  namespace: upbound-system
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    role: READER
+    customPermissionsNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    namespace: default
+    region: us-east-1
+---
+apiVersion: quicksight.aws.m.upbound.io/v1beta1
+kind: CustomPermissions
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/rolecustompermission
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-permissions
+  namespace: upbound-system
+spec:
+  forProvider:
+    customPermissionsName: example-permissions
+    capabilities:
+      printReports: DENY
+      shareDashboards: DENY
+    region: us-east-1

@@ -1,0 +1,186 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: quicksight.aws.upbound.io/v1beta1
+kind: RefreshSchedule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/refreshschedule
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-schedule
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    dataSetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    schedule:
+      refreshType: FULL_REFRESH
+      scheduleFrequency:
+        interval: HOURLY
+    region: us-east-1
+---
+apiVersion: quicksight.aws.upbound.io/v1beta1
+kind: DataSet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/dataset
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    dataSetId: example-id
+    importMode: SPICE
+    name: example-name
+    physicalTableMap:
+      - physicalTableMapId: example-id
+        s3Source:
+          dataSourceArnSelector:
+            matchLabels:
+              testing.upbound.io/example-name: uptest-example-qs-datasource-s3
+          inputColumns:
+            - name: Column1
+              type: STRING
+          uploadSettings:
+            format: CSV
+    region: us-east-1
+---
+apiVersion: quicksight.aws.upbound.io/v1beta1
+kind: DataSource
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/datasource
+  labels:
+    testing.upbound.io/example-name: uptest-example-qs-datasource-s3
+  name: uptest-example-qs-datasource-s3
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    dataSourceId: example-s3-role-id
+    name: manifest in S3
+    parameters:
+      s3:
+        manifestFileLocation:
+          bucketSelector:
+            matchLabels:
+              testing.upbound.io/example-name: uptest-example-qs-datasource-s3
+          key: manifest.json
+        roleArnSelector:
+          matchLabels:
+            testing.upbound.io/example-name: uptest-example-qs-datasource-s3
+    region: us-east-1
+    type: S3
+---
+apiVersion: s3.aws.upbound.io/v1beta2
+kind: Bucket
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/datasource
+  labels:
+    testing.upbound.io/example-name: uptest-example-qs-datasource-s3
+  name: uptest-example-qs-datasource-s3-bucket
+spec:
+  forProvider:
+    region: us-east-1
+---
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: Role
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/datasource
+  labels:
+    testing.upbound.io/example-name: uptest-example-qs-datasource-s3
+  name: uptest-example-qs-datasource-s3-role
+spec:
+  forProvider:
+    assumeRolePolicy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Action": "sts:AssumeRole",
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "quicksight.amazonaws.com"
+            }
+          }
+        ]
+      }
+---
+apiVersion: s3.aws.upbound.io/v1beta2
+kind: Object
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/datasource
+  labels:
+    testing.upbound.io/example-name: uptest-example-qs-datasource-s3
+  name: uptest-example-qs-datasource-s3-manifest
+spec:
+  forProvider:
+    bucketRef:
+      name: uptest-example-qs-datasource-s3-bucket
+    key: manifest.json
+    content: |
+      {
+        "fileLocations": [
+          {
+            "URIPrefixes": [
+              "https://uptest-example-qs-datasource-s3-bucket.s3.us-east-1.amazonaws.com"
+            ]
+          }
+        ],
+        "globalUploadSettings": {
+          "format": "CSV",
+          "delimiter": ",",
+          "textqualifier": "\"",
+          "containsHeader": "TRUE"
+        }
+      }
+    region: us-east-1
+---
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: Policy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/datasource
+  labels:
+    testing.upbound.io/example-name: uptest-example-qs-datasource-s3
+  name: uptest-example-qs-datasource-s3-policy
+spec:
+  forProvider:
+    policy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Action": ["s3:GetObject"],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::uptest-example-qs-datasource-s3-bucket/manifest.json"
+          },
+          {
+            "Action": ["s3:ListBucket"],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::uptest-example-qs-datasource-s3-bucket"
+          }
+        ]
+      }
+---
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: RolePolicyAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/datasource
+  labels:
+    testing.upbound.io/example-name: uptest-example-qs-datasource-s3
+  name: uptest-example-qs-datasource-s3-rp-attachment
+spec:
+  forProvider:
+    policyArnRef:
+      name: uptest-example-qs-datasource-s3-policy
+    roleSelector:
+      matchLabels:
+        testing.upbound.io/example-name: uptest-example-qs-datasource-s3

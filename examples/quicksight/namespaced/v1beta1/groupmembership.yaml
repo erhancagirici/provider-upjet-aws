@@ -1,0 +1,55 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: quicksight.aws.m.upbound.io/v1beta1
+kind: GroupMembership
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/groupmembership
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    groupName: uptest-example
+    memberName: uptestExampleReaderUserName
+    namespace: default
+    region: us-east-1
+---
+apiVersion: quicksight.aws.m.upbound.io/v1beta1
+kind: Group
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/groupmembership
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-group
+  namespace: upbound-system
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    groupName: uptest-example
+    namespace: default
+    region: us-east-1
+---
+apiVersion: quicksight.aws.m.upbound.io/v1beta1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/groupmembership
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-user
+  namespace: upbound-system
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    email: "uptest-example-user@crossplane.io"
+    identityType: QUICKSIGHT
+    namespace: default
+    region: us-east-1
+    userName: uptestExampleReaderUserName
+    userRole: READER

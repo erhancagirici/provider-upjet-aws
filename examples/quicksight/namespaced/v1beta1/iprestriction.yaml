@@ -2,17 +2,19 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
-apiVersion: quicksight.aws.upbound.io/v1beta1
-kind: Group
+apiVersion: quicksight.aws.m.upbound.io/v1beta1
+kind: IPRestriction
 metadata:
   annotations:
-    meta.upbound.io/example-id: quicksight/v1beta1/group
+    meta.upbound.io/example-id: quicksight/v1beta1/iprestriction
   labels:
     testing.upbound.io/example-name: example
-  name: example
+  name: "${data.aws_account_id}"
+  namespace: upbound-system
 spec:
   forProvider:
     awsAccountId: "${data.aws_account_id}"
-    groupName: xp-example-group
+    enabled: false
+    ipRestrictionRuleMap:
+      "127.0.0.1/32": "Example Allow"
     region: us-east-1
-    namespace: default

@@ -3,16 +3,16 @@
 # SPDX-License-Identifier: Apache-2.0
 
 apiVersion: quicksight.aws.upbound.io/v1beta1
-kind: Group
+kind: Folder
 metadata:
   annotations:
-    meta.upbound.io/example-id: quicksight/v1beta1/group
+    meta.upbound.io/example-id: quicksight/v1beta1/folder
   labels:
     testing.upbound.io/example-name: example
   name: example
 spec:
   forProvider:
     awsAccountId: "${data.aws_account_id}"
-    groupName: xp-example-group
+    folderId: example-id
+    name: example-name
     region: us-east-1
-    namespace: default

@@ -1,0 +1,23 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: quicksight.aws.m.upbound.io/v1beta1
+kind: AccountSubscription
+metadata:
+  annotations:
+    crossplane.io/external-name: "${data.aws_account_id}"
+    meta.upbound.io/example-id: quicksight/v1beta1/accountsubscription
+  labels:
+    testing.upbound.io/example-name: example
+  name: "${data.aws_account_id}"
+  namespace: upbound-system
+spec:
+  managementPolicies:
+    - Observe
+  forProvider:
+    accountName: crossplane-qs-test
+    authenticationMethod: IAM_AND_QUICKSIGHT
+    edition: STANDARD
+    notificationEmail: uptest@crossplane.io
+    region: us-east-1

@@ -1,0 +1,65 @@
+# SPDX-FileCopyrightText: 2026 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: Apache-2.0
+
+apiVersion: quicksight.aws.upbound.io/v1beta1
+kind: IAMPolicyAssignment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/iampolicyassignment
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    assignmentStatus: ENABLED
+    namespace: default
+    policyArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    identities:
+    - userSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example
+    region: us-east-1
+---
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: Policy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/iampolicyassignment
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-qs-policy
+spec:
+  forProvider:
+    policy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": "quicksight:*",
+            "Resource": "*"
+          }
+        ]
+      }
+---
+apiVersion: quicksight.aws.upbound.io/v1beta1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/groupmembership
+  labels:
+    testing.upbound.io/example-name: example
+  name: example-user
+spec:
+  forProvider:
+    awsAccountId: "${data.aws_account_id}"
+    email: "uptest-example-user@crossplane.io"
+    identityType: QUICKSIGHT
+    namespace: default
+    region: us-east-1
+    userName: uptestExampleReaderUserName
+    userRole: READER
