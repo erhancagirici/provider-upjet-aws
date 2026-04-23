@@ -11,6 +11,7 @@ import (
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/errors"
 	"github.com/crossplane/upjet/v2/pkg/config"
+	"github.com/hashicorp/terraform-plugin-go/tfprotov6"
 
 	"github.com/upbound/provider-aws/v2/config/cluster/common"
 )
@@ -182,7 +183,33 @@ var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 
 	// quicksight
 	//
-	// QuickSight VPC Connection can be imported using the aws account id and the vpc connection id separated by a comma
+	// QuickSight Account Settings can be imported using the aws_account_id, e.g "123456789012"
+	"aws_quicksight_account_settings": frameworkParameterAsIdentifier("aws_account_id"),
+	// QuickSight IP Restriction can be imported using the aws_account_id, e.g "123456789012"
+	"aws_quicksight_ip_restriction": frameworkParameterAsIdentifier("aws_account_id"),
+	// QuickSight Key Registration can be imported using the aws_account_id, e.g "123456789012"
+	"aws_quicksight_key_registration": frameworkParameterAsIdentifier("aws_account_id"),
+	// QuickSight Custom Permissions can be imported using the custom_permissions_name
+	"aws_quicksight_custom_permissions": frameworkParameterAsIdentifier("custom_permissions_name"),
+	// QuickSight Folder Membership can be imported using aws_account_id,folder_id,member_type,member_id separated by commas
+	"aws_quicksight_folder_membership": FormattedIdentifierFromProvider(",", "aws_account_id", "folder_id", "member_type", "member_id"),
+	// QuickSight IAM Policy Assignment can be imported using the assignment_name
+	"aws_quicksight_iam_policy_assignment": FormattedIdentifierUserDefinedNameLast("assignment_name", ",", "aws_account_id", "namespace"),
+	// QuickSight Ingestion can be imported using the ingestion_id
+	"aws_quicksight_ingestion": quicksightIngestion(),
+	// QuickSight Namespace can be imported using the namespace
+	"aws_quicksight_namespace": FormattedIdentifierUserDefinedNameLast("namespace", ",", "aws_account_id"),
+	// QuickSight Refresh Schedule can be imported using the schedule_id
+	"aws_quicksight_refresh_schedule": FormattedIdentifierUserDefinedNameLast("schedule_id", ",", "aws_account_id", "data_set_id"),
+	// QuickSight Role Custom Permission can be imported using the aws account id, namespace, and role separated by commas
+	"aws_quicksight_role_custom_permission": frameworkParameterAsIdentifier("role"),
+	// QuickSight Role Membership can be imported using the aws account id, namespace, role, and member name separated by commas
+	"aws_quicksight_role_membership": frameworkFormattedIdentifier(",", "aws_account_id", "namespace", "role"),
+	// QuickSight Template Alias can be imported using the alias_name
+	"aws_quicksight_template_alias": FormattedIdentifierUserDefinedNameLast("alias_name", ",", "aws_account_id", "template_id"),
+	// QuickSight User Custom Permission can be imported using the aws account id, namespace, and user name separated by commas
+	"aws_quicksight_user_custom_permission": frameworkFormattedIdentifier(",", "aws_account_id", "namespace", "user_name"),
+	// QuickSight VPC Connection can be imported using the vpc_connection_id
 	"aws_quicksight_vpc_connection": FormattedIdentifierUserDefinedNameLast("vpc_connection_id", ",", "aws_account_id"),
 
 	// rds
@@ -3894,6 +3921,68 @@ func ecsTaskDefinition() config.ExternalName {
 		}
 		if arn, _ := base["arn"].(string); arn == "" && externalName != "" {
 			base["arn"] = externalName
+		}
+	}
+	return e
+}
+
+func frameworkParameterAsIdentifier(param string) config.ExternalName {
+	e := config.IdentifierFromProvider
+	e.SetIdentifierArgumentFn = func(base map[string]any, externalName string) {
+		if externalName == "" {
+			return
+		}
+		base[param] = externalName
+	}
+	e.GetExternalNameFn = func(tfstate map[string]any) (string, error) {
+		extName, ok := tfstate[param].(string)
+		if !ok || extName == "" {
+			return "", errors.Errorf("TF state does not contain attribute %q", param)
+		}
+		return extName, nil
+	}
+	e.IdentifierFields = []string{param}
+	return e
+}
+
+func quicksightIngestion() config.ExternalName {
+	const noRecord = "No record with datasetId"
+	e := FormattedIdentifierUserDefinedNameLast("ingestion_id", ",", "aws_account_id", "data_set_id")
+	e.IsNotFoundDiagnosticFn = func(diags []*tfprotov6.Diagnostic) bool {
+		for _, diag := range diags {
+			if diag.Severity == tfprotov6.DiagnosticSeverityError && strings.Contains(diag.Detail, noRecord) {
+				return true
+			}
+		}
+		return false
+	}
+	return e
+}
+
+func frameworkFormattedIdentifier(separator string, keys ...string) config.ExternalName {
+	e := config.IdentifierFromProvider
+	e.GetIDFn = func(_ context.Context, externalName string, parameters map[string]interface{}, _ map[string]interface{}) (string, error) {
+		return "", nil
+	}
+	e.GetExternalNameFn = func(tfstate map[string]interface{}) (string, error) {
+		extNameParts := make([]string, 0, len(keys))
+		for _, paramKey := range keys {
+			paramVal, ok := tfstate[paramKey].(string)
+			if !ok || paramVal == "" {
+				return "", errors.Errorf("attribute `%s` is missing from TF state", paramKey)
+			}
+			extNameParts = append(extNameParts, paramVal)
+		}
+		return strings.Join(extNameParts, separator), nil
+	}
+	e.IdentifierFields = append(e.IdentifierFields, keys...)
+	e.SetIdentifierArgumentFn = func(base map[string]any, externalName string) {
+		extNameParts := strings.Split(externalName, separator)
+		if len(extNameParts) != len(keys) {
+			return
+		}
+		for i, paramKey := range keys {
+			base[paramKey] = extNameParts[i]
 		}
 	}
 	return e
