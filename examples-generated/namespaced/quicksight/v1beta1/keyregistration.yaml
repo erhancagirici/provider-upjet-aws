@@ -1,0 +1,25 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+
+apiVersion: quicksight.aws.m.upbound.io/v1beta1
+kind: KeyRegistration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/keyregistration
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    keyRegistration:
+    - keyArnSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example1
+    - defaultKey: true
+      keyArnSelector:
+        matchLabels:
+          testing.upbound.io/example-name: example2
+    region: us-west-1

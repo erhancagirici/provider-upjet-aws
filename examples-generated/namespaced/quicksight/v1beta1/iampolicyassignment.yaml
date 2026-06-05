@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+
+apiVersion: quicksight.aws.m.upbound.io/v1beta1
+kind: IAMPolicyAssignment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/iampolicyassignment
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    assignmentStatus: ENABLED
+    identities:
+    - userRefs:
+      - name: example
+    policyArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    region: us-west-1

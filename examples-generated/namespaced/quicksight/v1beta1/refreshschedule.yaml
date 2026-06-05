@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+
+apiVersion: quicksight.aws.m.upbound.io/v1beta1
+kind: RefreshSchedule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/refreshschedule
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: upbound-system
+spec:
+  forProvider:
+    dataSetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    region: us-west-1
+    schedule:
+      refreshType: FULL_REFRESH
+      scheduleFrequency:
+        interval: HOURLY

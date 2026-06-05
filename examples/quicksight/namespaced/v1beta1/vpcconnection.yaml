@@ -19,10 +19,10 @@ spec:
     roleArnSelector:
       matchLabels:
         testing.upbound.io/example-name: quicksight-vpc-connection
-    securityGroupIdSelector:
+    securityGroupIdsSelector:
       matchLabels:
         testing.upbound.io/example-name: quicksight-vpc-connection
-    subnetIdSelector:
+    subnetIdsSelector:
       matchLabels:
         testing.upbound.io/example-name: quicksight-vpc-connection
 ---

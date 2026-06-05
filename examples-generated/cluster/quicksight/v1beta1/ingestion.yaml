@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: 2025 The Crossplane Authors <https://crossplane.io>
+#
+# SPDX-License-Identifier: CC0-1.0
+
+
+apiVersion: quicksight.aws.upbound.io/v1beta1
+kind: Ingestion
+metadata:
+  annotations:
+    meta.upbound.io/example-id: quicksight/v1beta1/ingestion
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    dataSetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    ingestionType: FULL_REFRESH
+    region: us-west-1

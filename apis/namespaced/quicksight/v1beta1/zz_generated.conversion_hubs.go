@@ -7,7 +7,76 @@
 package v1beta1
 
 // Hub marks this type as a conversion hub.
+func (tr *AccountSettings) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *AccountSubscription) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Analysis) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *CustomPermissions) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Dashboard) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *DataSet) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *DataSource) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Folder) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *FolderMembership) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Group) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *GroupMembership) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *IAMPolicyAssignment) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Ingestion) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *IPRestriction) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *KeyRegistration) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *QuicksightNamespace) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RefreshSchedule) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RoleCustomPermission) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *RoleMembership) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Template) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TemplateAlias) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *Theme) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *User) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *UserCustomPermission) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *VPCConnection) Hub() {}

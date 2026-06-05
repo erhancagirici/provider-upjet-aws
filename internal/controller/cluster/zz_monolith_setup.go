@@ -736,8 +736,31 @@ import (
 	providerconfig "github.com/upbound/provider-aws/v2/internal/controller/cluster/providerconfig"
 	ledger "github.com/upbound/provider-aws/v2/internal/controller/cluster/qldb/ledger"
 	streamqldb "github.com/upbound/provider-aws/v2/internal/controller/cluster/qldb/stream"
+	accountsettings "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/accountsettings"
+	accountsubscription "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/accountsubscription"
+	analysis "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/analysis"
+	custompermissions "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/custompermissions"
+	dashboardquicksight "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/dashboard"
+	datasetquicksight "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/dataset"
+	datasourcequicksight "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/datasource"
+	folder "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/folder"
+	foldermembership "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/foldermembership"
 	groupquicksight "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/group"
+	groupmembershipquicksight "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/groupmembership"
+	iampolicyassignment "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/iampolicyassignment"
+	ingestion "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/ingestion"
+	iprestriction "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/iprestriction"
+	keyregistration "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/keyregistration"
+	quicksightnamespace "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/quicksightnamespace"
+	refreshschedule "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/refreshschedule"
+	rolecustompermission "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/rolecustompermission"
+	rolemembership "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/rolemembership"
+	template "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/template"
+	templatealias "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/templatealias"
+	theme "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/theme"
 	userquicksight "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/user"
+	usercustompermission "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/usercustompermission"
+	vpcconnectionquicksight "github.com/upbound/provider-aws/v2/internal/controller/cluster/quicksight/vpcconnection"
 	principalassociation "github.com/upbound/provider-aws/v2/internal/controller/cluster/ram/principalassociation"
 	resourceassociation "github.com/upbound/provider-aws/v2/internal/controller/cluster/ram/resourceassociation"
 	resourceshare "github.com/upbound/provider-aws/v2/internal/controller/cluster/ram/resourceshare"
@@ -920,7 +943,7 @@ import (
 	receiptfilter "github.com/upbound/provider-aws/v2/internal/controller/cluster/ses/receiptfilter"
 	receiptrule "github.com/upbound/provider-aws/v2/internal/controller/cluster/ses/receiptrule"
 	receiptruleset "github.com/upbound/provider-aws/v2/internal/controller/cluster/ses/receiptruleset"
-	template "github.com/upbound/provider-aws/v2/internal/controller/cluster/ses/template"
+	templateses "github.com/upbound/provider-aws/v2/internal/controller/cluster/ses/template"
 	configurationsetsesv2 "github.com/upbound/provider-aws/v2/internal/controller/cluster/sesv2/configurationset"
 	configurationseteventdestination "github.com/upbound/provider-aws/v2/internal/controller/cluster/sesv2/configurationseteventdestination"
 	dedicatedippool "github.com/upbound/provider-aws/v2/internal/controller/cluster/sesv2/dedicatedippool"
@@ -1762,8 +1785,31 @@ func Setup_monolith(mgr ctrl.Manager, o controller.Options) error {
 		providerconfig.Setup,
 		ledger.Setup,
 		streamqldb.Setup,
+		accountsettings.Setup,
+		accountsubscription.Setup,
+		analysis.Setup,
+		custompermissions.Setup,
+		dashboardquicksight.Setup,
+		datasetquicksight.Setup,
+		datasourcequicksight.Setup,
+		folder.Setup,
+		foldermembership.Setup,
 		groupquicksight.Setup,
+		groupmembershipquicksight.Setup,
+		iampolicyassignment.Setup,
+		ingestion.Setup,
+		iprestriction.Setup,
+		keyregistration.Setup,
+		quicksightnamespace.Setup,
+		refreshschedule.Setup,
+		rolecustompermission.Setup,
+		rolemembership.Setup,
+		template.Setup,
+		templatealias.Setup,
+		theme.Setup,
 		userquicksight.Setup,
+		usercustompermission.Setup,
+		vpcconnectionquicksight.Setup,
 		principalassociation.Setup,
 		resourceassociation.Setup,
 		resourceshare.Setup,
@@ -1946,7 +1992,7 @@ func Setup_monolith(mgr ctrl.Manager, o controller.Options) error {
 		receiptfilter.Setup,
 		receiptrule.Setup,
 		receiptruleset.Setup,
-		template.Setup,
+		templateses.Setup,
 		configurationsetsesv2.Setup,
 		configurationseteventdestination.Setup,
 		dedicatedippool.Setup,
@@ -2794,8 +2840,31 @@ func SetupGated_monolith(mgr ctrl.Manager, o controller.Options) error {
 		providerconfig.SetupGated,
 		ledger.SetupGated,
 		streamqldb.SetupGated,
+		accountsettings.SetupGated,
+		accountsubscription.SetupGated,
+		analysis.SetupGated,
+		custompermissions.SetupGated,
+		dashboardquicksight.SetupGated,
+		datasetquicksight.SetupGated,
+		datasourcequicksight.SetupGated,
+		folder.SetupGated,
+		foldermembership.SetupGated,
 		groupquicksight.SetupGated,
+		groupmembershipquicksight.SetupGated,
+		iampolicyassignment.SetupGated,
+		ingestion.SetupGated,
+		iprestriction.SetupGated,
+		keyregistration.SetupGated,
+		quicksightnamespace.SetupGated,
+		refreshschedule.SetupGated,
+		rolecustompermission.SetupGated,
+		rolemembership.SetupGated,
+		template.SetupGated,
+		templatealias.SetupGated,
+		theme.SetupGated,
 		userquicksight.SetupGated,
+		usercustompermission.SetupGated,
+		vpcconnectionquicksight.SetupGated,
 		principalassociation.SetupGated,
 		resourceassociation.SetupGated,
 		resourceshare.SetupGated,
@@ -2978,7 +3047,7 @@ func SetupGated_monolith(mgr ctrl.Manager, o controller.Options) error {
 		receiptfilter.SetupGated,
 		receiptrule.SetupGated,
 		receiptruleset.SetupGated,
-		template.SetupGated,
+		templateses.SetupGated,
 		configurationsetsesv2.SetupGated,
 		configurationseteventdestination.SetupGated,
 		dedicatedippool.SetupGated,
