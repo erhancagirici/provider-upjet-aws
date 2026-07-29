@@ -111,9 +111,9 @@ var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	// EC2 Capacity Block Reservations can be imported using the id: cr-06f69c6d91ca1d710
 	"aws_ec2_capacity_block_reservation": identifierFromProviderWithDefaultStub("cr-06f69c6d91ca1d710"),
 	// Imported by using the id: sgr-02108b27edd666983
-	"aws_vpc_security_group_egress_rule": vpcSecurityGroupRule(),
+	"aws_vpc_security_group_egress_rule": identifierFromProviderWithDefaultStub("sgr-stub"),
 	// Imported by using the id: sgr-02108b27edd666983
-	"aws_vpc_security_group_ingress_rule": vpcSecurityGroupRule(),
+	"aws_vpc_security_group_ingress_rule": identifierFromProviderWithDefaultStub("sgr-stub"),
 
 	// elasticache
 	//
@@ -168,16 +168,16 @@ var TerraformPluginFrameworkExternalNameConfigs = map[string]config.ExternalName
 	//
 	// AccessPolicy can be imported using the policy name
 	"aws_opensearchserverless_access_policy": config.NameAsIdentifier,
-	// Collection can be imported using the AWS-assigned collection ID. i.e. ch9rq91uv4yd8rff1f39
-	"aws_opensearchserverless_collection": opensearchserverlessCollection(),
+	// Collection can be imported using the AWS-assigned collection ID. i.e. ch9rq91uv4yd8rff1f39 , must conform regex [a-z0-9]{3,40}
+	"aws_opensearchserverless_collection": identifierFromProviderWithDefaultStub("stubcollection9999"),
 	// LifecyclePolicy can be imported using the policy name
 	"aws_opensearchserverless_lifecycle_policy": config.NameAsIdentifier,
 	//  SecurityConfig can be imported using the AWS-assigned security config ID
 	"aws_opensearchserverless_security_config": config.TemplatedStringAsIdentifier("name", "{{ .parameters.type }}/{{ .setup.client_metadata.account_id }}/{{ .external_name }}"),
 	// SecurityPolicy can be imported using the policy name
 	"aws_opensearchserverless_security_policy": config.NameAsIdentifier,
-	// VPCEndpoint can be imported using the AWS-assigned VPC Endpoint ID, i.e. vpce-0a957ae9ed5aee308
-	"aws_opensearchserverless_vpc_endpoint": opensearchserverlessVpcEndpoint(),
+	// VPCEndpoint can be imported using the AWS-assigned VPC Endpoint ID, i.e. vpce-0a957ae9ed5aee308, must match regex vpce-[0-9a-z]
+	"aws_opensearchserverless_vpc_endpoint": identifierFromProviderWithDefaultStub("vpce-stubvpcendpoint999999"),
 
 	// osis
 	//
@@ -3123,6 +3123,17 @@ func s3vectorsPolicyIdentifier() config.ExternalName {
 	)
 }
 
+// identifierFromProviderWithDefaultStub is the external name configuration for
+// TF Plugin Framework resources with:
+// - `id` attribute in their schema
+// - `id` is provider-assigned
+// - `id` is the only attribute used to read the resource from external API
+// It is similar to `IdentifierFromProvider`
+// For the initial Observe operations (no external-name), empty `id`
+// can cause TF read errors. A default stub value is used to pass the validation
+// and trigger a "resource not-found" result.
+// The provided default stub value must conform the validation requirements
+// of the external API and result in a "Not Found" response without read errors.
 func identifierFromProviderWithDefaultStub(defaultstub string) config.ExternalName {
 	// Terraform does not always allow id to be empty.
 	// Using a stub value to pass validation.
@@ -3133,18 +3144,14 @@ func identifierFromProviderWithDefaultStub(defaultstub string) config.ExternalNa
 		}
 		return externalName, nil
 	}
-	return e
-}
-
-func vpcSecurityGroupRule() config.ExternalName {
-	// Terraform does not allow security group rule id to be empty.
-	// Using a stub value to pass validation.
-	e := config.IdentifierFromProvider
-	e.GetIDFn = func(_ context.Context, externalName string, _ map[string]any, _ map[string]any) (string, error) {
-		if len(externalName) == 0 {
-			return "sgr-stub", nil
+	e.GetExternalNameFn = func(tfstate map[string]any) (string, error) {
+		if id, ok := tfstate["id"].(string); ok && id != "" {
+			return id, nil
+		} else if id == defaultstub {
+			// treat the stub value as an invalid external name
+			return "", errors.New("found unexpected stub value at id in tfstate")
 		}
-		return externalName, nil
+		return "", errors.New("cannot find id in tfstate")
 	}
 	return e
 }
@@ -3189,30 +3196,6 @@ func route() config.ExternalName {
 			return fmt.Sprintf("%s_%s", rtb.(string), parameters["destination_prefix_list_id"].(string)), nil
 		}
 		return "", errors.New("destination_cidr_block or destination_ipv6_cidr_block or destination_prefix_list_id has to be given")
-	}
-	return e
-}
-
-func opensearchserverlessVpcEndpoint() config.ExternalName {
-	e := config.IdentifierFromProvider
-	e.GetIDFn = func(ctx context.Context, externalName string, _ map[string]any, _ map[string]any) (string, error) {
-		// must match regex vpce-[0-9a-z]
-		if len(externalName) == 0 {
-			return "vpce-stubvpcendpoint999999", nil
-		}
-		return externalName, nil
-	}
-	return e
-}
-
-func opensearchserverlessCollection() config.ExternalName {
-	e := config.IdentifierFromProvider
-	e.GetIDFn = func(ctx context.Context, externalName string, _ map[string]any, _ map[string]any) (string, error) {
-		// [a-z0-9]{3,40}
-		if len(externalName) == 0 {
-			return "stubcollection9999", nil
-		}
-		return externalName, nil
 	}
 	return e
 }
