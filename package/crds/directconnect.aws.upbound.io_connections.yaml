@@ -351,6 +351,10 @@ spec:
                     type: boolean
                   skipDestroy:
                     type: boolean
+                  state:
+                    description: State of the connection. See CreateConnection for
+                      list of possible state values.
+                    type: string
                   tags:
                     additionalProperties:
                       type: string

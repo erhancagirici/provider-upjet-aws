@@ -93,6 +93,9 @@ type ConnectionObservation struct {
 
 	SkipDestroy *bool `json:"skipDestroy,omitempty" tf:"skip_destroy,omitempty"`
 
+	// State of the connection. See CreateConnection for list of possible state values.
+	State *string `json:"state,omitempty" tf:"state,omitempty"`
+
 	// Key-value map of resource tags.
 	// +mapType=granular
 	Tags map[string]*string `json:"tags,omitempty" tf:"tags,omitempty"`

@@ -1072,6 +1072,12 @@ type McpServerInitParameters struct {
 
 	// Listing mode for the MCP server target. Valid values are DEFAULT and DYNAMIC. MCP resources for DEFAULT targets are cached at the control plane for faster access, while resources for DYNAMIC targets are retrieved dynamically when listing tools.
 	ListingMode *string `json:"listingMode,omitempty" tf:"listing_mode,omitempty"`
+
+	// Tool schema configuration for the MCP server target. Supported only when the credential provider is configured with an authorization code grant type. When set, dynamic tool discovery and synchronization are disabled. See mcp_tool_schema below.
+	McpToolSchema []McpToolSchemaInitParameters `json:"mcpToolSchema,omitempty" tf:"mcp_tool_schema,omitempty"`
+
+	// Priority for resolving MCP server targets with shared resource URIs. Lower values take precedence. Defaults to 1000 when not set.
+	ResourcePriority *float64 `json:"resourcePriority,omitempty" tf:"resource_priority,omitempty"`
 }
 
 type McpServerObservation struct {
@@ -1081,6 +1087,12 @@ type McpServerObservation struct {
 
 	// Listing mode for the MCP server target. Valid values are DEFAULT and DYNAMIC. MCP resources for DEFAULT targets are cached at the control plane for faster access, while resources for DYNAMIC targets are retrieved dynamically when listing tools.
 	ListingMode *string `json:"listingMode,omitempty" tf:"listing_mode,omitempty"`
+
+	// Tool schema configuration for the MCP server target. Supported only when the credential provider is configured with an authorization code grant type. When set, dynamic tool discovery and synchronization are disabled. See mcp_tool_schema below.
+	McpToolSchema []McpToolSchemaObservation `json:"mcpToolSchema,omitempty" tf:"mcp_tool_schema,omitempty"`
+
+	// Priority for resolving MCP server targets with shared resource URIs. Lower values take precedence. Defaults to 1000 when not set.
+	ResourcePriority *float64 `json:"resourcePriority,omitempty" tf:"resource_priority,omitempty"`
 }
 
 type McpServerParameters struct {
@@ -1092,6 +1104,91 @@ type McpServerParameters struct {
 	// Listing mode for the MCP server target. Valid values are DEFAULT and DYNAMIC. MCP resources for DEFAULT targets are cached at the control plane for faster access, while resources for DYNAMIC targets are retrieved dynamically when listing tools.
 	// +kubebuilder:validation:Optional
 	ListingMode *string `json:"listingMode,omitempty" tf:"listing_mode,omitempty"`
+
+	// Tool schema configuration for the MCP server target. Supported only when the credential provider is configured with an authorization code grant type. When set, dynamic tool discovery and synchronization are disabled. See mcp_tool_schema below.
+	// +kubebuilder:validation:Optional
+	McpToolSchema []McpToolSchemaParameters `json:"mcpToolSchema,omitempty" tf:"mcp_tool_schema,omitempty"`
+
+	// Priority for resolving MCP server targets with shared resource URIs. Lower values take precedence. Defaults to 1000 when not set.
+	// +kubebuilder:validation:Optional
+	ResourcePriority *float64 `json:"resourcePriority,omitempty" tf:"resource_priority,omitempty"`
+}
+
+type McpToolSchemaInitParameters struct {
+
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
+	InlinePayload []McpToolSchemaInlinePayloadInitParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
+
+	// S3 location of the tool schema. See s3 below.
+	S3 []McpToolSchemaS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+}
+
+type McpToolSchemaInlinePayloadInitParameters struct {
+
+	// The inline schema payload content.
+	Payload *string `json:"payload,omitempty" tf:"payload,omitempty"`
+}
+
+type McpToolSchemaInlinePayloadObservation struct {
+
+	// The inline schema payload content.
+	Payload *string `json:"payload,omitempty" tf:"payload,omitempty"`
+}
+
+type McpToolSchemaInlinePayloadParameters struct {
+
+	// The inline schema payload content.
+	// +kubebuilder:validation:Optional
+	Payload *string `json:"payload" tf:"payload,omitempty"`
+}
+
+type McpToolSchemaObservation struct {
+
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
+	InlinePayload []McpToolSchemaInlinePayloadObservation `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
+
+	// S3 location of the tool schema. See s3 below.
+	S3 []McpToolSchemaS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+}
+
+type McpToolSchemaParameters struct {
+
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
+	// +kubebuilder:validation:Optional
+	InlinePayload []McpToolSchemaInlinePayloadParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
+
+	// S3 location of the tool schema. See s3 below.
+	// +kubebuilder:validation:Optional
+	S3 []McpToolSchemaS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+}
+
+type McpToolSchemaS3InitParameters struct {
+
+	// Account ID of the S3 bucket owner.
+	BucketOwnerAccountID *string `json:"bucketOwnerAccountId,omitempty" tf:"bucket_owner_account_id,omitempty"`
+
+	// S3 URI where the tool schema is stored.
+	URI *string `json:"uri,omitempty" tf:"uri,omitempty"`
+}
+
+type McpToolSchemaS3Observation struct {
+
+	// Account ID of the S3 bucket owner.
+	BucketOwnerAccountID *string `json:"bucketOwnerAccountId,omitempty" tf:"bucket_owner_account_id,omitempty"`
+
+	// S3 URI where the tool schema is stored.
+	URI *string `json:"uri,omitempty" tf:"uri,omitempty"`
+}
+
+type McpToolSchemaS3Parameters struct {
+
+	// Account ID of the S3 bucket owner.
+	// +kubebuilder:validation:Optional
+	BucketOwnerAccountID *string `json:"bucketOwnerAccountId,omitempty" tf:"bucket_owner_account_id,omitempty"`
+
+	// S3 URI where the tool schema is stored.
+	// +kubebuilder:validation:Optional
+	URI *string `json:"uri" tf:"uri,omitempty"`
 }
 
 type MetadataConfigurationInitParameters struct {
@@ -1244,10 +1341,10 @@ type OauthParameters struct {
 
 type OpenAPISchemaInitParameters struct {
 
-	// Inline tool definition. See inline_payload below.
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
 	InlinePayload *OpenAPISchemaInlinePayloadInitParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
-	// S3-based tool definition. See s3 below.
+	// S3 location of the tool schema. See s3 below.
 	S3 *OpenAPISchemaS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
@@ -1272,20 +1369,20 @@ type OpenAPISchemaInlinePayloadParameters struct {
 
 type OpenAPISchemaObservation struct {
 
-	// Inline tool definition. See inline_payload below.
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
 	InlinePayload *OpenAPISchemaInlinePayloadObservation `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
-	// S3-based tool definition. See s3 below.
+	// S3 location of the tool schema. See s3 below.
 	S3 *OpenAPISchemaS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type OpenAPISchemaParameters struct {
 
-	// Inline tool definition. See inline_payload below.
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
 	// +kubebuilder:validation:Optional
 	InlinePayload *OpenAPISchemaInlinePayloadParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
-	// S3-based tool definition. See s3 below.
+	// S3 location of the tool schema. See s3 below.
 	// +kubebuilder:validation:Optional
 	S3 *OpenAPISchemaS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
@@ -2078,10 +2175,10 @@ type PropertyPropertyParameters struct {
 
 type SmithyModelInitParameters struct {
 
-	// Inline tool definition. See inline_payload below.
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
 	InlinePayload *SmithyModelInlinePayloadInitParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
-	// S3-based tool definition. See s3 below.
+	// S3 location of the tool schema. See s3 below.
 	S3 *SmithyModelS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
@@ -2106,20 +2203,20 @@ type SmithyModelInlinePayloadParameters struct {
 
 type SmithyModelObservation struct {
 
-	// Inline tool definition. See inline_payload below.
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
 	InlinePayload *SmithyModelInlinePayloadObservation `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
-	// S3-based tool definition. See s3 below.
+	// S3 location of the tool schema. See s3 below.
 	S3 *SmithyModelS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type SmithyModelParameters struct {
 
-	// Inline tool definition. See inline_payload below.
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
 	// +kubebuilder:validation:Optional
 	InlinePayload *SmithyModelInlinePayloadParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
-	// S3-based tool definition. See s3 below.
+	// S3 location of the tool schema. See s3 below.
 	// +kubebuilder:validation:Optional
 	S3 *SmithyModelS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
@@ -2324,29 +2421,29 @@ type ToolOverrideParameters struct {
 
 type ToolSchemaInitParameters struct {
 
-	// Inline tool definition. See inline_payload below.
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
 	InlinePayload []InlinePayloadInitParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
-	// S3-based tool definition. See s3 below.
+	// S3 location of the tool schema. See s3 below.
 	S3 *ToolSchemaS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type ToolSchemaObservation struct {
 
-	// Inline tool definition. See inline_payload below.
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
 	InlinePayload []InlinePayloadObservation `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
-	// S3-based tool definition. See s3 below.
+	// S3 location of the tool schema. See s3 below.
 	S3 *ToolSchemaS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type ToolSchemaParameters struct {
 
-	// Inline tool definition. See inline_payload below.
+	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
 	// +kubebuilder:validation:Optional
 	InlinePayload []InlinePayloadParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
-	// S3-based tool definition. See s3 below.
+	// S3 location of the tool schema. See s3 below.
 	// +kubebuilder:validation:Optional
 	S3 *ToolSchemaS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }

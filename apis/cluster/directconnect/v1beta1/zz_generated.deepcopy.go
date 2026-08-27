@@ -729,6 +729,11 @@ func (in *ConnectionObservation) DeepCopyInto(out *ConnectionObservation) {
 		*out = new(bool)
 		**out = **in
 	}
+	if in.State != nil {
+		in, out := &in.State, &out.State
+		*out = new(string)
+		**out = **in
+	}
 	if in.Tags != nil {
 		in, out := &in.Tags, &out.Tags
 		*out = make(map[string]*string, len(*in))
@@ -4018,6 +4023,11 @@ func (in *PrivateVirtualInterfaceInitParameters) DeepCopyInto(out *PrivateVirtua
 		*out = new(float64)
 		**out = **in
 	}
+	if in.BGPAsnLong != nil {
+		in, out := &in.BGPAsnLong, &out.BGPAsnLong
+		*out = new(string)
+		**out = **in
+	}
 	if in.BGPAuthKey != nil {
 		in, out := &in.BGPAuthKey, &out.BGPAuthKey
 		*out = new(string)
@@ -4176,6 +4186,11 @@ func (in *PrivateVirtualInterfaceObservation) DeepCopyInto(out *PrivateVirtualIn
 		*out = new(float64)
 		**out = **in
 	}
+	if in.BGPAsnLong != nil {
+		in, out := &in.BGPAsnLong, &out.BGPAsnLong
+		*out = new(string)
+		**out = **in
+	}
 	if in.BGPAuthKey != nil {
 		in, out := &in.BGPAuthKey, &out.BGPAuthKey
 		*out = new(string)
@@ -4296,6 +4311,11 @@ func (in *PrivateVirtualInterfaceParameters) DeepCopyInto(out *PrivateVirtualInt
 	if in.BGPAsn != nil {
 		in, out := &in.BGPAsn, &out.BGPAsn
 		*out = new(float64)
+		**out = **in
+	}
+	if in.BGPAsnLong != nil {
+		in, out := &in.BGPAsnLong, &out.BGPAsnLong
+		*out = new(string)
 		**out = **in
 	}
 	if in.BGPAuthKey != nil {
@@ -4882,6 +4902,11 @@ func (in *TransitVirtualInterfaceInitParameters) DeepCopyInto(out *TransitVirtua
 		*out = new(float64)
 		**out = **in
 	}
+	if in.BGPAsnLong != nil {
+		in, out := &in.BGPAsnLong, &out.BGPAsnLong
+		*out = new(string)
+		**out = **in
+	}
 	if in.BGPAuthKey != nil {
 		in, out := &in.BGPAuthKey, &out.BGPAuthKey
 		*out = new(string)
@@ -5035,6 +5060,11 @@ func (in *TransitVirtualInterfaceObservation) DeepCopyInto(out *TransitVirtualIn
 		*out = new(float64)
 		**out = **in
 	}
+	if in.BGPAsnLong != nil {
+		in, out := &in.BGPAsnLong, &out.BGPAsnLong
+		*out = new(string)
+		**out = **in
+	}
 	if in.BGPAuthKey != nil {
 		in, out := &in.BGPAuthKey, &out.BGPAuthKey
 		*out = new(string)
@@ -5150,6 +5180,11 @@ func (in *TransitVirtualInterfaceParameters) DeepCopyInto(out *TransitVirtualInt
 	if in.BGPAsn != nil {
 		in, out := &in.BGPAsn, &out.BGPAsn
 		*out = new(float64)
+		**out = **in
+	}
+	if in.BGPAsnLong != nil {
+		in, out := &in.BGPAsnLong, &out.BGPAsnLong
+		*out = new(string)
 		**out = **in
 	}
 	if in.BGPAuthKey != nil {
