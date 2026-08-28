@@ -1801,37 +1801,29 @@ spec:
                                   grant type. When set, dynamic tool discovery and
                                   synchronization are disabled. See mcp_tool_schema
                                   below.
-                                items:
-                                  properties:
-                                    inlinePayload:
-                                      description: Inline tool schema payload. The
-                                        inline_payload block requires a payload (string)
-                                        containing the MCP tool schema definition.
-                                      items:
-                                        properties:
-                                          payload:
-                                            description: The inline schema payload
-                                              content.
-                                            type: string
-                                        type: object
-                                      type: array
-                                    s3:
-                                      description: S3 location of the tool schema.
-                                        See s3 below.
-                                      items:
-                                        properties:
-                                          bucketOwnerAccountId:
-                                            description: Account ID of the S3 bucket
-                                              owner.
-                                            type: string
-                                          uri:
-                                            description: S3 URI where the tool schema
-                                              is stored.
-                                            type: string
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
+                                properties:
+                                  inlinePayload:
+                                    description: Inline tool schema payload. The inline_payload
+                                      block requires a payload (string) containing
+                                      the MCP tool schema definition.
+                                    properties:
+                                      payload:
+                                        description: The inline schema payload content.
+                                        type: string
+                                    type: object
+                                  s3:
+                                    description: S3 location of the tool schema. See
+                                      s3 below.
+                                    properties:
+                                      bucketOwnerAccountId:
+                                        description: Account ID of the S3 bucket owner.
+                                        type: string
+                                      uri:
+                                        description: S3 URI where the tool schema
+                                          is stored.
+                                        type: string
+                                    type: object
+                                type: object
                               resourcePriority:
                                 description: Priority for resolving MCP server targets
                                   with shared resource URIs. Lower values take precedence.
@@ -3620,37 +3612,29 @@ spec:
                                   grant type. When set, dynamic tool discovery and
                                   synchronization are disabled. See mcp_tool_schema
                                   below.
-                                items:
-                                  properties:
-                                    inlinePayload:
-                                      description: Inline tool schema payload. The
-                                        inline_payload block requires a payload (string)
-                                        containing the MCP tool schema definition.
-                                      items:
-                                        properties:
-                                          payload:
-                                            description: The inline schema payload
-                                              content.
-                                            type: string
-                                        type: object
-                                      type: array
-                                    s3:
-                                      description: S3 location of the tool schema.
-                                        See s3 below.
-                                      items:
-                                        properties:
-                                          bucketOwnerAccountId:
-                                            description: Account ID of the S3 bucket
-                                              owner.
-                                            type: string
-                                          uri:
-                                            description: S3 URI where the tool schema
-                                              is stored.
-                                            type: string
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
+                                properties:
+                                  inlinePayload:
+                                    description: Inline tool schema payload. The inline_payload
+                                      block requires a payload (string) containing
+                                      the MCP tool schema definition.
+                                    properties:
+                                      payload:
+                                        description: The inline schema payload content.
+                                        type: string
+                                    type: object
+                                  s3:
+                                    description: S3 location of the tool schema. See
+                                      s3 below.
+                                    properties:
+                                      bucketOwnerAccountId:
+                                        description: Account ID of the S3 bucket owner.
+                                        type: string
+                                      uri:
+                                        description: S3 URI where the tool schema
+                                          is stored.
+                                        type: string
+                                    type: object
+                                type: object
                               resourcePriority:
                                 description: Priority for resolving MCP server targets
                                   with shared resource URIs. Lower values take precedence.
@@ -4777,37 +4761,29 @@ spec:
                                   grant type. When set, dynamic tool discovery and
                                   synchronization are disabled. See mcp_tool_schema
                                   below.
-                                items:
-                                  properties:
-                                    inlinePayload:
-                                      description: Inline tool schema payload. The
-                                        inline_payload block requires a payload (string)
-                                        containing the MCP tool schema definition.
-                                      items:
-                                        properties:
-                                          payload:
-                                            description: The inline schema payload
-                                              content.
-                                            type: string
-                                        type: object
-                                      type: array
-                                    s3:
-                                      description: S3 location of the tool schema.
-                                        See s3 below.
-                                      items:
-                                        properties:
-                                          bucketOwnerAccountId:
-                                            description: Account ID of the S3 bucket
-                                              owner.
-                                            type: string
-                                          uri:
-                                            description: S3 URI where the tool schema
-                                              is stored.
-                                            type: string
-                                        type: object
-                                      type: array
-                                  type: object
-                                type: array
+                                properties:
+                                  inlinePayload:
+                                    description: Inline tool schema payload. The inline_payload
+                                      block requires a payload (string) containing
+                                      the MCP tool schema definition.
+                                    properties:
+                                      payload:
+                                        description: The inline schema payload content.
+                                        type: string
+                                    type: object
+                                  s3:
+                                    description: S3 location of the tool schema. See
+                                      s3 below.
+                                    properties:
+                                      bucketOwnerAccountId:
+                                        description: Account ID of the S3 bucket owner.
+                                        type: string
+                                      uri:
+                                        description: S3 URI where the tool schema
+                                          is stored.
+                                        type: string
+                                    type: object
+                                type: object
                               resourcePriority:
                                 description: Priority for resolving MCP server targets
                                   with shared resource URIs. Lower values take precedence.

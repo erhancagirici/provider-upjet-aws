@@ -1074,7 +1074,7 @@ type McpServerInitParameters struct {
 	ListingMode *string `json:"listingMode,omitempty" tf:"listing_mode,omitempty"`
 
 	// Tool schema configuration for the MCP server target. Supported only when the credential provider is configured with an authorization code grant type. When set, dynamic tool discovery and synchronization are disabled. See mcp_tool_schema below.
-	McpToolSchema []McpToolSchemaInitParameters `json:"mcpToolSchema,omitempty" tf:"mcp_tool_schema,omitempty"`
+	McpToolSchema *McpToolSchemaInitParameters `json:"mcpToolSchema,omitempty" tf:"mcp_tool_schema,omitempty"`
 
 	// Priority for resolving MCP server targets with shared resource URIs. Lower values take precedence. Defaults to 1000 when not set.
 	ResourcePriority *float64 `json:"resourcePriority,omitempty" tf:"resource_priority,omitempty"`
@@ -1089,7 +1089,7 @@ type McpServerObservation struct {
 	ListingMode *string `json:"listingMode,omitempty" tf:"listing_mode,omitempty"`
 
 	// Tool schema configuration for the MCP server target. Supported only when the credential provider is configured with an authorization code grant type. When set, dynamic tool discovery and synchronization are disabled. See mcp_tool_schema below.
-	McpToolSchema []McpToolSchemaObservation `json:"mcpToolSchema,omitempty" tf:"mcp_tool_schema,omitempty"`
+	McpToolSchema *McpToolSchemaObservation `json:"mcpToolSchema,omitempty" tf:"mcp_tool_schema,omitempty"`
 
 	// Priority for resolving MCP server targets with shared resource URIs. Lower values take precedence. Defaults to 1000 when not set.
 	ResourcePriority *float64 `json:"resourcePriority,omitempty" tf:"resource_priority,omitempty"`
@@ -1107,7 +1107,7 @@ type McpServerParameters struct {
 
 	// Tool schema configuration for the MCP server target. Supported only when the credential provider is configured with an authorization code grant type. When set, dynamic tool discovery and synchronization are disabled. See mcp_tool_schema below.
 	// +kubebuilder:validation:Optional
-	McpToolSchema []McpToolSchemaParameters `json:"mcpToolSchema,omitempty" tf:"mcp_tool_schema,omitempty"`
+	McpToolSchema *McpToolSchemaParameters `json:"mcpToolSchema,omitempty" tf:"mcp_tool_schema,omitempty"`
 
 	// Priority for resolving MCP server targets with shared resource URIs. Lower values take precedence. Defaults to 1000 when not set.
 	// +kubebuilder:validation:Optional
@@ -1117,10 +1117,10 @@ type McpServerParameters struct {
 type McpToolSchemaInitParameters struct {
 
 	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
-	InlinePayload []McpToolSchemaInlinePayloadInitParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
+	InlinePayload *McpToolSchemaInlinePayloadInitParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
 	// S3 location of the tool schema. See s3 below.
-	S3 []McpToolSchemaS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *McpToolSchemaS3InitParameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type McpToolSchemaInlinePayloadInitParameters struct {
@@ -1145,21 +1145,21 @@ type McpToolSchemaInlinePayloadParameters struct {
 type McpToolSchemaObservation struct {
 
 	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
-	InlinePayload []McpToolSchemaInlinePayloadObservation `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
+	InlinePayload *McpToolSchemaInlinePayloadObservation `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
 	// S3 location of the tool schema. See s3 below.
-	S3 []McpToolSchemaS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *McpToolSchemaS3Observation `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type McpToolSchemaParameters struct {
 
 	// Inline tool schema payload. The inline_payload block requires a payload (string) containing the MCP tool schema definition.
 	// +kubebuilder:validation:Optional
-	InlinePayload []McpToolSchemaInlinePayloadParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
+	InlinePayload *McpToolSchemaInlinePayloadParameters `json:"inlinePayload,omitempty" tf:"inline_payload,omitempty"`
 
 	// S3 location of the tool schema. See s3 below.
 	// +kubebuilder:validation:Optional
-	S3 []McpToolSchemaS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
+	S3 *McpToolSchemaS3Parameters `json:"s3,omitempty" tf:"s3,omitempty"`
 }
 
 type McpToolSchemaS3InitParameters struct {
